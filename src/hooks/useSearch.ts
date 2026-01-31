@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import servicesData from '@/data/services.json';
 
 interface Service {

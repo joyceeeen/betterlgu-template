@@ -1,5 +1,3 @@
-'use client';
-
 import { createContext, useContext, ReactNode, useMemo } from 'react';
 import {
   LGUType,

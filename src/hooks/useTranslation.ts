@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect, useCallback } from 'react';
 import { Language } from '@/types';
 import { translations } from '@/data/translations';

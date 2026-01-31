@@ -1,6 +1,4 @@
-'use client';
-
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 
 interface ServiceCard {
@@ -37,7 +35,7 @@ export default function PopularServices() {
           {services.map((service) => (
             <Link
               key={service.href + service.titleKey}
-              href={service.href}
+              to={service.href}
               className={`group flex items-center gap-4 p-6 bg-white border rounded-xl no-underline transition-all duration-200 ${
                 service.isViewAll
                   ? 'bg-primary-600 border-transparent text-white hover:shadow-lg'

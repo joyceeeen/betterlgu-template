@@ -1,26 +1,8 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 
-// Dynamically import Leaflet to avoid SSR issues
-const MapContainer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.MapContainer),
-  { ssr: false }
-);
-const TileLayer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.TileLayer),
-  { ssr: false }
-);
-const Marker = dynamic(
-  () => import('react-leaflet').then((mod) => mod.Marker),
-  { ssr: false }
-);
-const Popup = dynamic(
-  () => import('react-leaflet').then((mod) => mod.Popup),
-  { ssr: false }
-);
+// Lazy load the map components to reduce initial bundle size
+const LeafletMap = lazy(() => import('./LeafletMap'));
 
 export default function WeatherMap() {
   const [mounted, setMounted] = useState(false);
@@ -73,20 +55,9 @@ export default function WeatherMap() {
                 className="h-[300px] w-full"
               >
                 {mounted && (
-                  <MapContainer
-                    center={coords}
-                    zoom={13}
-                    style={{ height: '100%', width: '100%' }}
-                    scrollWheelZoom={false}
-                  >
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <Marker position={coords}>
-                      <Popup>{hallName}</Popup>
-                    </Marker>
-                  </MapContainer>
+                  <Suspense fallback={<div className="h-full w-full bg-gray-100 animate-pulse" />}>
+                    <LeafletMap coords={coords} popupText={hallName} />
+                  </Suspense>
                 )}
               </div>
               <p className="text-sm text-gray-500 p-4 m-0 flex items-center gap-1.5">

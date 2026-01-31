@@ -1,5 +1,3 @@
-'use client';
-
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 
 export default function History() {

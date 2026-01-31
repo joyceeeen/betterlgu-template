@@ -1,7 +1,5 @@
-'use client';
-
 import { useRef, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import { useSearch, highlightMatch } from '@/hooks/useSearch';
 
 interface SearchAutocompleteProps {
@@ -15,7 +13,7 @@ export default function SearchAutocomplete({
   className = "",
   onResultClick
 }: SearchAutocompleteProps) {
-  const router = useRouter();
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +52,7 @@ export default function SearchAutocomplete({
     addRecentSearch(query);
     setIsOpen(false);
     onResultClick?.();
-    router.push(url.startsWith('/') ? url : `/${url}`);
+    navigate(url.startsWith('/') ? url : `/${url}`);
   };
 
   const handleSuggestion = (suggestion: string) => {

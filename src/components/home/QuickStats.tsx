@@ -1,6 +1,4 @@
-'use client';
-
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 
 export default function QuickStats() {
@@ -43,7 +41,7 @@ export default function QuickStats() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <h2 className="text-xl font-bold text-gray-900 m-0">{lguName} at a Glance</h2>
-          <Link href="/statistics" className="text-primary-600 font-medium flex items-center gap-1 hover:underline">
+          <Link to="/statistics" className="text-primary-600 font-medium flex items-center gap-1 hover:underline">
             View Statistics <i className="bi bi-arrow-right" />
           </Link>
         </div>
@@ -53,7 +51,7 @@ export default function QuickStats() {
           {stats.map((stat) => (
             <Link
               key={stat.label}
-              href={stat.href}
+              to={stat.href}
               className="group relative flex items-center gap-4 p-6 bg-white border border-gray-200 rounded-xl no-underline text-gray-800 transition-all duration-300 overflow-hidden hover:border-primary-500 hover:shadow-lg hover:-translate-y-0.5"
             >
               {/* Left accent bar (hidden by default, shows on hover) */}

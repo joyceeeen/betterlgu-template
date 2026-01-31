@@ -1,5 +1,3 @@
-'use client';
-
 import {
   SiDiscord,
   SiFacebook,
@@ -9,7 +7,7 @@ import {
 } from '@icons-pack/react-simple-icons';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { footerNavigation } from '@/data/navigation';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 
@@ -70,7 +68,7 @@ const Footer: FC = () => {
             </p>
             <div className='flex space-x-4'>
               {socialLinks.map(link => (
-                <Link
+                <a
                   key={link.label}
                   href={link.href!}
                   className='text-gray-400 hover:text-white transition-colors'
@@ -78,7 +76,7 @@ const Footer: FC = () => {
                   rel='noopener noreferrer'
                 >
                   {getSocialIcon(link.label)}
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -89,14 +87,23 @@ const Footer: FC = () => {
               <ul className='space-y-2'>
                 {section.links.map(link => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className='text-gray-400 hover:text-white text-sm transition-colors'
-                      target={link.href.startsWith('http') || link.href.startsWith('mailto') ? '_blank' : undefined}
-                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    >
-                      {link.label}
-                    </Link>
+                    {link.href.startsWith('http') || link.href.startsWith('mailto') ? (
+                      <a
+                        href={link.href}
+                        className='text-gray-400 hover:text-white text-sm transition-colors'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        to={link.href}
+                        className='text-gray-400 hover:text-white text-sm transition-colors'
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -120,17 +127,17 @@ const Footer: FC = () => {
             </p>
             <div className='flex space-x-6'>
               {site.social.github && (
-                <Link
+                <a
                   href={site.social.github}
                   className='text-gray-400 hover:text-white text-sm transition-colors'
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Contribute at GitHub
-                </Link>
+                </a>
               )}
               <Link
-                href='/sitemap-page'
+                to='/sitemap'
                 className='text-gray-400 hover:text-white text-sm transition-colors'
               >
                 Sitemap

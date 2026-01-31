@@ -1,5 +1,3 @@
-'use client';
-
 import {
   ChevronDownIcon,
   GlobeIcon,
@@ -8,8 +6,7 @@ import {
   XIcon,
 } from 'lucide-react';
 import { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 import { mainNavigation } from '@/data/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
@@ -28,7 +25,7 @@ export default function Header() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
 
-  const pathname = usePathname();
+  const { pathname } = useLocation();
   const { language, setLanguage, t } = useLanguage();
   const { site, lguName } = useSiteConfig();
 
@@ -85,13 +82,13 @@ export default function Header() {
         <div className='container mx-auto px-4 flex justify-end items-center h-10'>
           <div className='flex items-center space-x-4'>
             <Link
-              href='/join-us'
+              to='/join-us'
               className='text-xs leading-12 text-primary-600 hover:text-primary-700 font-semibold transition-colors'
             >
               🚀 Join Us
             </Link>
             <Link
-              href='/about'
+              to='/about'
               className='text-xs leading-12 text-gray-800 hover:text-primary-600 transition-colors'
             >
               About <span className='hidden md:inline'>BetterGov.ph</span>
@@ -106,7 +103,7 @@ export default function Header() {
             </a>
 
             <Link
-              href='/philippines/hotlines'
+              to='/philippines/hotlines'
               className='text-xs leading-12 text-gray-800 hover:text-primary-600 transition-colors'
             >
               Hotlines
@@ -132,7 +129,7 @@ export default function Header() {
       <div className='container mx-auto px-4'>
         <div className='flex justify-between items-center py-4'>
           <div className='flex items-center'>
-            <Link href='/' className='flex items-center'>
+            <Link to='/' className='flex items-center'>
               <img
                 src={site.logo?.main || '/logos/svg/BetterGov_Icon-Primary.svg'}
                 alt={`${lguName} Logo`}
@@ -159,7 +156,7 @@ export default function Header() {
                   onMouseLeave={handleDropdownMouseLeave}
                 >
                   <Link
-                    href={item.href}
+                    to={item.href}
                     className={`flex items-center font-medium transition-colors pb-1 border-b-2 whitespace-nowrap ${
                       isActive
                         ? 'text-primary-600 border-primary-600'
@@ -193,7 +190,7 @@ export default function Header() {
                         {item.children.map(child => (
                           <Link
                             key={child.label}
-                            href={child.href}
+                            to={child.href}
                             className={`text-left block px-4 py-2 text-sm ${
                               isActiveChildRoute(child.href)
                                 ? 'bg-primary-500 text-primary-50 hover:bg-primary-500 hover:text-primary-50'
@@ -214,7 +211,7 @@ export default function Header() {
           </div>
           <div className='hidden lg:flex items-center space-x-6'>
             <Link
-              href='/search'
+              to='/search'
               className='flex items-center text-gray-700 hover:text-primary-600 font-medium transition-colors'
             >
               <SearchIcon className='h-4 w-4 mr-1' />
@@ -268,7 +265,7 @@ export default function Header() {
                     {item.children.map(child => (
                       <Link
                         key={child.label}
-                        href={child.href}
+                        to={child.href}
                         onClick={closeMenu}
                         className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-500'
                       >
@@ -281,28 +278,28 @@ export default function Header() {
             );
           })}
           <Link
-            href='/join-us'
+            to='/join-us'
             onClick={closeMenu}
             className='block px-4 py-2 text-base font-semibold text-primary-600 hover:bg-primary-50 hover:text-primary-700'
           >
             🚀 Join Us
           </Link>
           <Link
-            href='/about'
+            to='/about'
             onClick={closeMenu}
             className='block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500'
           >
             About
           </Link>
           <Link
-            href='/search'
+            to='/search'
             onClick={closeMenu}
             className='block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500'
           >
             Search
           </Link>
           <Link
-            href='/sitemap'
+            to='/sitemap'
             onClick={closeMenu}
             className='block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500'
           >

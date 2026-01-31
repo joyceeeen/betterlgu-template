@@ -1,19 +1,16 @@
-'use client';
-
 import { useState, FormEvent } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Hero() {
   const { t } = useLanguage();
-  const router = useRouter();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/services?q=${encodeURIComponent(searchQuery.trim())}`);
+      navigate(`/services?q=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
 
@@ -31,13 +28,13 @@ export default function Hero() {
             </p>
             <div className="flex gap-4 flex-wrap lg:justify-start justify-center">
               <Link
-                href="/services"
+                to="/services"
                 className="inline-flex items-center gap-2 bg-white text-primary-600 px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:bg-gray-100"
               >
                 Browse Services <i className="bi bi-arrow-right" />
               </Link>
               <Link
-                href="/contact"
+                to="/contact"
                 className="inline-flex items-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:bg-white/15"
               >
                 Contact Us
@@ -74,19 +71,19 @@ export default function Hero() {
             <div className="mt-4 flex items-center gap-2 flex-wrap text-[0.8125rem]">
               <span className="text-gray-500 font-medium">Popular:</span>
               <Link
-                href="/service-details/birth-certificate"
+                to="/service-details/birth-certificate"
                 className="text-primary-600 bg-primary-500/5 px-3 py-1.5 rounded-full no-underline transition-all duration-200 font-medium border border-transparent hover:bg-primary-500/10 hover:border-primary-500/15"
               >
                 Birth Certificate
               </Link>
               <Link
-                href="/service-details/business-permits-licensing"
+                to="/service-details/business-permits-licensing"
                 className="text-primary-600 bg-primary-500/5 px-3 py-1.5 rounded-full no-underline transition-all duration-200 font-medium border border-transparent hover:bg-primary-500/10 hover:border-primary-500/15"
               >
                 Business Permit
               </Link>
               <Link
-                href="/service-details/municipal-treasurer"
+                to="/service-details/municipal-treasurer"
                 className="text-primary-600 bg-primary-500/5 px-3 py-1.5 rounded-full no-underline transition-all duration-200 font-medium border border-transparent hover:bg-primary-500/10 hover:border-primary-500/15"
               >
                 Real Property Tax
