@@ -215,3 +215,60 @@ export interface LGUTypeLabels {
 
 // Helper type for getting LGU name based on type
 export type LGUName<T extends LGUType> = T extends 'municipality' ? string : string;
+
+// Navigation Configuration
+export interface NavigationConfig {
+  mainNav: NavItem[];
+  footerNav: FooterNav;
+}
+
+export interface NavItem {
+  id: string;
+  label: string;
+  href: string;
+  i18nKey?: string;
+  children?: NavItem[];
+}
+
+export interface FooterNav {
+  quickLinks: FooterLink[];
+  resources: FooterLink[];
+  getInvolved: FooterLink[];
+}
+
+export interface FooterLink {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+// Categories Configuration
+export interface CategoriesConfig {
+  categories: Category[];
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  icon: string;
+  badgeText: string;
+  description: string;
+}
+
+// Services Configuration
+export interface ServicesConfig {
+  services: Service[];
+}
+
+export interface Service {
+  id: string;
+  title: string;
+  category: string;
+  categoryId: string;
+  description: string;
+  keywords: string[];
+  fee: string;
+  processingTime: string;
+  office: string;
+  url: string;
+}

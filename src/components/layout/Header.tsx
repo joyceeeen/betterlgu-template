@@ -7,9 +7,13 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { mainNavigation } from '@/data/navigation';
+import { getNavigationConfig } from '@/lib/config';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
+
+// Get navigation from JSON config
+const navigationConfig = getNavigationConfig();
+const mainNavigation = navigationConfig.mainNav;
 
 // Define language types locally since we don't have the external file
 const LANGUAGES = {

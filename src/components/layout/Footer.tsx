@@ -8,8 +8,21 @@ import {
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { footerNavigation } from '@/data/navigation';
+import { getNavigationConfig } from '@/lib/config';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
+
+// Get footer navigation from JSON config
+const navigationConfig = getNavigationConfig();
+const footerNav = navigationConfig.footerNav;
+
+// Convert to the mainSections format for rendering
+const footerNavigation = {
+  mainSections: [
+    { title: 'Quick Links', links: footerNav.quickLinks },
+    { title: 'Resources', links: footerNav.resources },
+    { title: 'Get Involved', links: footerNav.getInvolved },
+  ],
+};
 
 const Footer: FC = () => {
   const { t } = useTranslation('common');

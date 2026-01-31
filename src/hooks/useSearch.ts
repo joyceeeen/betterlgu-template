@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import servicesData from '@/data/services.json';
+import { getServicesConfig } from '@/lib/config';
 
 interface Service {
   id: string;
@@ -185,7 +185,7 @@ export function useSearch() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  const services = useMemo(() => servicesData.services as Service[], []);
+  const services = useMemo(() => getServicesConfig().services as Service[], []);
 
   // Search function
   const search = useCallback((searchQuery: string, category?: string) => {

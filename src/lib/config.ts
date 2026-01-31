@@ -9,6 +9,9 @@ import {
   TranslationOverrides,
   LGUConfig,
   LGUTypeLabels,
+  NavigationConfig,
+  CategoriesConfig,
+  ServicesConfig,
 } from '@/types/config';
 
 // Import JSON config files
@@ -19,6 +22,9 @@ import hotlinesConfig from '../../config/hotlines.json';
 import historyConfig from '../../config/history.json';
 import statisticsConfig from '../../config/statistics.json';
 import translationsConfig from '../../config/translations.json';
+import navigationConfig from '../../config/navigation.json';
+import categoriesConfig from '../../config/categories.json';
+import servicesConfig from '../../config/services.json';
 
 // LGU Type Labels mapping
 const MUNICIPALITY_LABELS: LGUTypeLabels = {
@@ -124,6 +130,27 @@ export function getStatisticsConfig(): StatisticsConfig {
  */
 export function getTranslationOverrides(): TranslationOverrides {
   return translationsConfig as TranslationOverrides;
+}
+
+/**
+ * Get the navigation config with proper typing
+ */
+export function getNavigationConfig(): NavigationConfig {
+  return navigationConfig as NavigationConfig;
+}
+
+/**
+ * Get the categories config with proper typing
+ */
+export function getCategoriesConfig(): CategoriesConfig {
+  return categoriesConfig as CategoriesConfig;
+}
+
+/**
+ * Get the services config with proper typing
+ */
+export function getServicesConfig(): ServicesConfig {
+  return servicesConfig as ServicesConfig;
 }
 
 /**
