@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getServicesConfig } from '@/lib/config';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 interface Service {
   id: string;
@@ -190,8 +190,9 @@ function clearRecentSearches(): void {
   }
 }
 
-export function useSearch() {
-  const [query, setQuery] = useState('');
+export function useSearch(initialQuery = '') {
+  const [query, setQuery] = useState(initialQuery);
+  const [category, setCategory] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [suggestions, setSuggestions] = useState<SearchSuggestions>({
     popular: [],
@@ -200,6 +201,9 @@ export function useSearch() {
   });
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [pendingNavigation, setPendingNavigation] = useState<string | null>(
+    null,
+  );
 
   const services = useMemo(() => getServicesConfig().services as Service[], []);
 
@@ -288,6 +292,16 @@ export function useSearch() {
     setSuggestions(newSuggestions);
   }, [query, getSuggestions]);
 
+  // Trigger initial search if mounted with a query
+  useEffect(() => {
+    if (initialQuery && initialQuery.length >= 2) {
+      search(initialQuery, category);
+      setIsOpen(true);
+    }
+    // Only run on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Handle query change
   const handleQueryChange = useCallback(
     (newQuery: string) => {
@@ -295,12 +309,25 @@ export function useSearch() {
       setSelectedIndex(-1);
 
       if (newQuery.length >= 2) {
-        search(newQuery);
+        search(newQuery, category);
       } else {
         setResults([]);
       }
     },
-    [search],
+    [search, category],
+  );
+
+  // Handle category change
+  const handleCategoryChange = useCallback(
+    (newCategory: string) => {
+      setCategory(newCategory);
+      setSelectedIndex(-1);
+
+      if (query.length >= 2) {
+        search(query, newCategory);
+      }
+    },
+    [search, query],
   );
 
   // Handle search submit
@@ -325,9 +352,9 @@ export function useSearch() {
     [search],
   );
 
-  // Handle keyboard navigation
+  // Handle keyboard navigation - returns URL to navigate to (if any)
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
+    (e: React.KeyboardEvent): string | null => {
       const totalItems =
         results.length +
         suggestions.suggestions.length +
@@ -346,24 +373,36 @@ export function useSearch() {
           // Handle selection based on index
           if (results.length > 0 && selectedIndex < results.length) {
             addRecentSearch(query);
-            window.location.href = results[selectedIndex].url;
+            const url = results[selectedIndex].url;
+            setPendingNavigation(url);
+            return url;
           }
         } else if (results.length > 0) {
           e.preventDefault();
           addRecentSearch(query);
-          window.location.href = results[0].url;
+          const url = results[0].url;
+          setPendingNavigation(url);
+          return url;
         }
       } else if (e.key === 'Escape') {
         setIsOpen(false);
         setSelectedIndex(-1);
       }
+      return null;
     },
     [results, suggestions, selectedIndex, query],
   );
 
+  // Clear pending navigation after it's been handled
+  const clearPendingNavigation = useCallback(() => {
+    setPendingNavigation(null);
+  }, []);
+
   return {
     query,
     setQuery: handleQueryChange,
+    category,
+    setCategory: handleCategoryChange,
     results,
     suggestions,
     isOpen,
@@ -376,6 +415,8 @@ export function useSearch() {
     handleKeyDown,
     clearRecentSearches,
     addRecentSearch,
+    pendingNavigation,
+    clearPendingNavigation,
   };
 }
 

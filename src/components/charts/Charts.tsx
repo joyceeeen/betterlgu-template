@@ -1,18 +1,18 @@
 import {
-  Chart as ChartJS,
+  ArcElement,
+  BarElement,
   CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
+  LineElement,
   LinearScale,
   PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
   Title,
   Tooltip,
-  Legend,
-  Filler,
   type TooltipItem,
 } from 'chart.js';
-import { Line, Doughnut, Bar } from 'react-chartjs-2';
+import { Bar, Doughnut, Line } from 'react-chartjs-2';
 
 // Register Chart.js components
 ChartJS.register(
@@ -75,7 +75,8 @@ export function PopulationTrendsChart() {
         beginAtZero: false,
         min: 30000,
         ticks: {
-          callback: (value: string | number) => `${(Number(value) / 1000).toFixed(0)}K`,
+          callback: (value: string | number) =>
+            `${(Number(value) / 1000).toFixed(0)}K`,
           font: { size: 11 },
           color: '#666',
         },
@@ -568,7 +569,8 @@ export function BarangayPopulationChart() {
           color: 'rgba(0, 0, 0, 0.04)',
         },
         ticks: {
-          callback: (value: string | number) => `${(Number(value) / 1000).toFixed(0)}K`,
+          callback: (value: string | number) =>
+            `${(Number(value) / 1000).toFixed(0)}K`,
           font: { size: 10 },
           color: '#666',
         },

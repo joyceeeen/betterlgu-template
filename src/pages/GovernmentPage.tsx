@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
+import { Link } from 'react-router-dom';
 
 export default function GovernmentPage() {
   const { lguName, labels, officials, subdivisions, formatPhoneLink } =
@@ -34,7 +34,7 @@ export default function GovernmentPage() {
       <Breadcrumbs items={[{ label: 'Government' }]} />
 
       {/* Page Header */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
+      <section className="bg-linear-to-br from-primary-600 to-primary-700 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -287,7 +287,8 @@ export default function GovernmentPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 bg-primary-600 text-white px-5 py-2 rounded-full text-sm font-medium mb-3">
-              <i className="bi bi-geo-alt-fill" /> {labels.subdivisionTypePlural}
+              <i className="bi bi-geo-alt-fill" />{' '}
+              {labels.subdivisionTypePlural}
             </span>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
               {labels.subdivisionTypePlural} of {lguName}

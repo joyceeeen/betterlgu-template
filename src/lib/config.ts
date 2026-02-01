@@ -1,42 +1,42 @@
 import type {
-  LGUType,
-  SiteConfig,
-  OfficialsConfig,
-  SubdivisionsConfig,
-  HotlinesConfig,
-  HistoryConfig,
-  StatisticsConfig,
-  TranslationOverrides,
-  LGUConfig,
-  LGUTypeLabels,
-  NavigationConfig,
-  CategoriesConfig,
-  ServicesConfig,
-  StatisticsDetailedConfig,
-  NewsConfig,
-  FAQConfig,
   BudgetConfig,
+  CategoriesConfig,
+  FAQConfig,
+  HistoryConfig,
+  HotlinesConfig,
+  LGUConfig,
+  LGUType,
+  LGUTypeLabels,
   LegislativeConfig,
+  NavigationConfig,
+  NewsConfig,
+  OfficialsConfig,
+  ServicesConfig,
+  SiteConfig,
+  StatisticsConfig,
+  StatisticsDetailedConfig,
+  SubdivisionsConfig,
   TourismConfig,
+  TranslationOverrides,
 } from '@/types/config';
 
+import budgetConfig from '../../config/budget.json';
+import categoriesConfig from '../../config/categories.json';
+import faqConfig from '../../config/faq.json';
+import historyConfig from '../../config/history.json';
+import hotlinesConfig from '../../config/hotlines.json';
+import legislativeConfig from '../../config/legislative.json';
+import navigationConfig from '../../config/navigation.json';
+import newsConfig from '../../config/news.json';
+import officialsConfig from '../../config/officials.json';
+import servicesConfig from '../../config/services.json';
 // Import JSON config files
 import siteConfig from '../../config/site.json';
-import officialsConfig from '../../config/officials.json';
-import subdivisionsConfig from '../../config/subdivisions.json';
-import hotlinesConfig from '../../config/hotlines.json';
-import historyConfig from '../../config/history.json';
-import statisticsConfig from '../../config/statistics.json';
-import translationsConfig from '../../config/translations.json';
-import navigationConfig from '../../config/navigation.json';
-import categoriesConfig from '../../config/categories.json';
-import servicesConfig from '../../config/services.json';
 import statisticsDetailedConfig from '../../config/statistics-detailed.json';
-import newsConfig from '../../config/news.json';
-import faqConfig from '../../config/faq.json';
-import budgetConfig from '../../config/budget.json';
-import legislativeConfig from '../../config/legislative.json';
+import statisticsConfig from '../../config/statistics.json';
+import subdivisionsConfig from '../../config/subdivisions.json';
 import tourismConfig from '../../config/tourism.json';
+import translationsConfig from '../../config/translations.json';
 
 // LGU Type Labels mapping
 const MUNICIPALITY_LABELS: LGUTypeLabels = {

@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
+import { Link } from 'react-router-dom';
 
 export default function SitemapPage() {
   const { lguName, site, labels } = useSiteConfig();
@@ -142,7 +142,7 @@ export default function SitemapPage() {
       </div>
 
       {/* Page Header */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
+      <section className="bg-linear-to-br from-primary-600 to-primary-700 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">

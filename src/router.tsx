@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
 
 // Lazy load all pages for code splitting

@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
 import SearchAutocomplete from '@/components/SearchAutocomplete';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
+import { Link, useSearchParams } from 'react-router-dom';
 
 export default function ServicesPage() {
   const { t } = useLanguage();
+  const [searchParams] = useSearchParams();
+  const initialQuery = searchParams.get('q') || '';
   usePageMeta({ title: 'Services' });
 
   const categories = [
@@ -129,7 +131,7 @@ export default function ServicesPage() {
       </div>
 
       {/* Page Header */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
+      <section className="bg-linear-to-br from-primary-600 to-primary-700 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -143,18 +145,13 @@ export default function ServicesPage() {
             </p>
             {/* Search Box */}
             <div className="max-w-xl mx-auto">
-              <form
-                className="relative"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <div className="relative flex items-center">
-                  <i className="bi bi-search absolute left-4 text-gray-400" />
-                  <SearchAutocomplete
-                    placeholder="Search services (e.g., birth certificate, business permit)"
-                    className="w-full pl-12 pr-4 py-4 rounded-xl text-base border-0 shadow-lg focus:ring-2 focus:ring-primary-300"
-                  />
-                </div>
-              </form>
+              <div className="relative flex items-center">
+                <i className="bi bi-search absolute left-4 text-gray-400 z-10 pointer-events-none" />
+                <SearchAutocomplete
+                  placeholder="Search other services..."
+                  className="w-full [&_input]:pl-12 [&_input]:pr-4 [&_input]:py-4 [&_input]:rounded-xl [&_input]:text-base [&_input]:border-0 [&_input]:shadow-lg"
+                />
+              </div>
             </div>
           </div>
         </div>

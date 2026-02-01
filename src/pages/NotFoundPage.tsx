@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { usePageMeta } from '@/hooks/usePageMeta';
+import { Link } from 'react-router-dom';
 
 export default function NotFoundPage() {
   usePageMeta({ title: 'Page Not Found' });

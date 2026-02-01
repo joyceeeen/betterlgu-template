@@ -1,3 +1,6 @@
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { getNavigationConfig } from '@/lib/config';
 import {
   ChevronDownIcon,
   GlobeIcon,
@@ -7,9 +10,6 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { getNavigationConfig } from '@/lib/config';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useSiteConfig } from '@/contexts/SiteConfigContext';
 
 const mainNavigation = getNavigationConfig().mainNav;
 
@@ -194,7 +194,7 @@ export default function Header(): JSX.Element {
           </div>
           <div className="hidden lg:flex items-center space-x-6">
             <Link
-              to="/search"
+              to="/services"
               className="flex items-center text-gray-700 hover:text-primary-600 font-medium transition-colors"
             >
               <SearchIcon className="h-4 w-4 mr-1" />
@@ -279,11 +279,11 @@ export default function Header(): JSX.Element {
             About
           </Link>
           <Link
-            to="/search"
+            to="/services"
             onClick={closeMenu}
             className="block px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-500"
           >
-            Search
+            Search Services
           </Link>
           <Link
             to="/sitemap"

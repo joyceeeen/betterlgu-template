@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { Link } from 'react-router-dom';
 
 export default function QuickStats() {
   const { lguName, statistics, labels } = useSiteConfig();

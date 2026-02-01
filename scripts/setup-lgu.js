@@ -101,7 +101,8 @@ async function main() {
   const lat =
     Number.parseFloat(await question('Latitude (e.g., 14.6629): ')) || 14.6629;
   const lng =
-    Number.parseFloat(await question('Longitude (e.g., 121.6047): ')) || 121.6047;
+    Number.parseFloat(await question('Longitude (e.g., 121.6047): ')) ||
+    121.6047;
   console.log('');
 
   // Theme

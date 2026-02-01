@@ -1,3 +1,6 @@
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { getNavigationConfig } from '@/lib/config';
 import {
   SiDiscord,
   SiFacebook,
@@ -7,9 +10,6 @@ import {
 } from '@icons-pack/react-simple-icons';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { getNavigationConfig } from '@/lib/config';
-import { useSiteConfig } from '@/contexts/SiteConfigContext';
-import { useLanguage } from '@/contexts/LanguageContext';
 
 // Get footer navigation from JSON config
 const navigationConfig = getNavigationConfig();

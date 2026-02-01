@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router-dom';
-import HotlineBar from '@/components/layout/HotlineBar';
-import Header from '@/components/layout/Header';
-import InfoBar from '@/components/layout/InfoBar';
 import Footer from '@/components/layout/Footer';
+import Header from '@/components/layout/Header';
+import HotlineBar from '@/components/layout/HotlineBar';
+import InfoBar from '@/components/layout/InfoBar';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { SiteConfigProvider } from '@/contexts/SiteConfigContext';
+import { Outlet } from 'react-router-dom';
 
 export default function App() {
   return (

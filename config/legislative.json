@@ -1,11 +1,19 @@
 {
   "ordinances": {
     "categories": [
-      { "id": "revenue", "icon": "bi-cash-coin", "label": "Revenue & Taxation" },
+      {
+        "id": "revenue",
+        "icon": "bi-cash-coin",
+        "label": "Revenue & Taxation"
+      },
       { "id": "business", "icon": "bi-shop", "label": "Business & Trade" },
       { "id": "safety", "icon": "bi-shield-check", "label": "Public Safety" },
       { "id": "environment", "icon": "bi-tree", "label": "Environment" },
-      { "id": "traffic", "icon": "bi-signpost-2", "label": "Traffic & Transportation" },
+      {
+        "id": "traffic",
+        "icon": "bi-signpost-2",
+        "label": "Traffic & Transportation"
+      },
       { "id": "zoning", "icon": "bi-building", "label": "Zoning & Land Use" }
     ],
     "items": [
@@ -54,10 +62,26 @@
   "resolutions": {
     "types": [
       { "id": "commendation", "icon": "bi-award", "label": "Commendation" },
-      { "id": "request", "icon": "bi-envelope-paper", "label": "Request/Appeal" },
-      { "id": "support", "icon": "bi-hand-thumbs-up", "label": "Support/Endorsement" },
-      { "id": "condolence", "icon": "bi-exclamation-circle", "label": "Condolence" },
-      { "id": "authorization", "icon": "bi-clipboard-check", "label": "Authorization" }
+      {
+        "id": "request",
+        "icon": "bi-envelope-paper",
+        "label": "Request/Appeal"
+      },
+      {
+        "id": "support",
+        "icon": "bi-hand-thumbs-up",
+        "label": "Support/Endorsement"
+      },
+      {
+        "id": "condolence",
+        "icon": "bi-exclamation-circle",
+        "label": "Condolence"
+      },
+      {
+        "id": "authorization",
+        "icon": "bi-clipboard-check",
+        "label": "Authorization"
+      }
     ],
     "items": [
       {

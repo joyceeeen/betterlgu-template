@@ -18,7 +18,7 @@
       "fee": "₱150",
       "processingTime": "15-30 minutes",
       "office": "Local Civil Registrar",
-      "url": "../service-details/birth-certificate.html"
+      "url": "/service-details/birth-certificate"
     },
     {
       "id": "marriage-certificate",
@@ -39,7 +39,7 @@
       "fee": "Free (Registration)",
       "processingTime": "5 minutes",
       "office": "Local Civil Registrar",
-      "url": "../service-details/marriage-certificate.html"
+      "url": "/service-details/marriage-certificate"
     },
     {
       "id": "death-certificate",
@@ -59,7 +59,7 @@
       "fee": "₱50-150",
       "processingTime": "1 hour 35 minutes",
       "office": "Local Civil Registrar",
-      "url": "../service-details/death-certificate.html"
+      "url": "/service-details/death-certificate"
     },
     {
       "id": "barangay-clearance",
@@ -71,7 +71,7 @@
       "fee": "₱50-100",
       "processingTime": "Same day",
       "office": "Barangay Hall",
-      "url": "certificates.html"
+      "url": "/services/certificates"
     },
     {
       "id": "barangay-id",
@@ -83,7 +83,7 @@
       "fee": "Free",
       "processingTime": "1-2 days",
       "office": "Barangay Hall",
-      "url": "certificates.html"
+      "url": "/services/certificates"
     },
     {
       "id": "police-clearance",
@@ -95,7 +95,7 @@
       "fee": "Varies",
       "processingTime": "3-5 days",
       "office": "PNP Station",
-      "url": "certificates.html"
+      "url": "/services/certificates"
     },
     {
       "id": "business-permit-new",
@@ -116,7 +116,7 @@
       "fee": "Varies",
       "processingTime": "3-5 days",
       "office": "Business Permits & Licensing Office",
-      "url": "business.html"
+      "url": "/services/business"
     },
     {
       "id": "business-permit-renewal",
@@ -135,7 +135,7 @@
       "fee": "Varies",
       "processingTime": "Same day",
       "office": "Business Permits & Licensing Office",
-      "url": "business.html"
+      "url": "/services/business"
     },
     {
       "id": "business-closure",
@@ -147,7 +147,7 @@
       "fee": "Free",
       "processingTime": "1-2 days",
       "office": "Business Permits & Licensing Office",
-      "url": "business.html"
+      "url": "/services/business"
     },
     {
       "id": "sanitary-permit",
@@ -166,7 +166,7 @@
       "fee": "Varies",
       "processingTime": "1-3 days",
       "office": "Municipal Health Office",
-      "url": "business.html"
+      "url": "/services/business"
     },
     {
       "id": "cedula",
@@ -178,7 +178,7 @@
       "fee": "₱5+",
       "processingTime": "Same day",
       "office": "Municipal Treasurer's Office",
-      "url": "business.html"
+      "url": "/services/business"
     },
     {
       "id": "senior-citizen-id",
@@ -198,7 +198,7 @@
       "fee": "Free",
       "processingTime": "1-2 weeks",
       "office": "MSWDO / OSCA",
-      "url": "social-services.html"
+      "url": "/services/social-services"
     },
     {
       "id": "pwd-id",
@@ -217,7 +217,7 @@
       "fee": "Free",
       "processingTime": "1-2 weeks",
       "office": "MSWDO",
-      "url": "social-services.html"
+      "url": "/services/social-services"
     },
     {
       "id": "financial-assistance",
@@ -237,7 +237,7 @@
       "fee": "Free",
       "processingTime": "Varies",
       "office": "MSWDO",
-      "url": "social-services.html"
+      "url": "/services/social-services"
     },
     {
       "id": "burial-assistance",
@@ -249,7 +249,7 @@
       "fee": "Free",
       "processingTime": "1-3 days",
       "office": "MSWDO",
-      "url": "social-services.html"
+      "url": "/services/social-services"
     },
     {
       "id": "solo-parent-id",
@@ -261,7 +261,7 @@
       "fee": "Free",
       "processingTime": "1-2 weeks",
       "office": "MSWDO",
-      "url": "social-services.html"
+      "url": "/services/social-services"
     },
     {
       "id": "vaccination",
@@ -280,7 +280,7 @@
       "fee": "Free",
       "processingTime": "Same day",
       "office": "Municipal Health Office",
-      "url": "health.html"
+      "url": "/services/health"
     },
     {
       "id": "health-certificate",
@@ -292,7 +292,7 @@
       "fee": "₱100-200",
       "processingTime": "Same day",
       "office": "Municipal Health Office",
-      "url": "health.html"
+      "url": "/services/health"
     },
     {
       "id": "medical-assistance",
@@ -311,7 +311,7 @@
       "fee": "Free",
       "processingTime": "1-3 days",
       "office": "Municipal Health Office / MSWDO",
-      "url": "health.html"
+      "url": "/services/health"
     },
     {
       "id": "prenatal-checkup",
@@ -330,7 +330,7 @@
       "fee": "Free",
       "processingTime": "Same day",
       "office": "Municipal Health Office",
-      "url": "health.html"
+      "url": "/services/health"
     },
     {
       "id": "real-property-tax",
@@ -350,7 +350,7 @@
       "fee": "Varies",
       "processingTime": "Same day",
       "office": "Municipal Treasurer's Office",
-      "url": "tax-payments.html"
+      "url": "/services/tax-payments"
     },
     {
       "id": "business-tax",
@@ -362,7 +362,7 @@
       "fee": "Varies",
       "processingTime": "Same day",
       "office": "Municipal Treasurer's Office",
-      "url": "tax-payments.html"
+      "url": "/services/tax-payments"
     },
     {
       "id": "tax-clearance",
@@ -374,7 +374,7 @@
       "fee": "₱50-100",
       "processingTime": "Same day",
       "office": "Municipal Treasurer's Office",
-      "url": "tax-payments.html"
+      "url": "/services/tax-payments"
     },
     {
       "id": "agricultural-loan",
@@ -393,7 +393,7 @@
       "fee": "Varies",
       "processingTime": "1-2 weeks",
       "office": "Municipal Agriculture Office",
-      "url": "agriculture.html"
+      "url": "/services/agriculture"
     },
     {
       "id": "crop-insurance",
@@ -405,7 +405,7 @@
       "fee": "Subsidized",
       "processingTime": "Varies",
       "office": "Municipal Agriculture Office",
-      "url": "agriculture.html"
+      "url": "/services/agriculture"
     },
     {
       "id": "fertilizer-assistance",
@@ -417,7 +417,7 @@
       "fee": "Free/Subsidized",
       "processingTime": "Varies",
       "office": "Municipal Agriculture Office",
-      "url": "agriculture.html"
+      "url": "/services/agriculture"
     },
     {
       "id": "building-permit",
@@ -436,7 +436,7 @@
       "fee": "Varies",
       "processingTime": "5-10 days",
       "office": "Municipal Engineering Office",
-      "url": "infrastructure.html"
+      "url": "/services/infrastructure"
     },
     {
       "id": "occupancy-permit",
@@ -454,7 +454,7 @@
       "fee": "Varies",
       "processingTime": "3-5 days",
       "office": "Municipal Engineering Office",
-      "url": "infrastructure.html"
+      "url": "/services/infrastructure"
     },
     {
       "id": "road-maintenance",
@@ -473,7 +473,7 @@
       "fee": "Free",
       "processingTime": "Varies",
       "office": "Municipal Engineering Office",
-      "url": "infrastructure.html"
+      "url": "/services/infrastructure"
     },
     {
       "id": "scholarship",
@@ -492,7 +492,7 @@
       "fee": "Free",
       "processingTime": "Varies",
       "office": "Municipal Mayor's Office",
-      "url": "education.html"
+      "url": "/services/education"
     },
     {
       "id": "student-assistance",
@@ -504,7 +504,7 @@
       "fee": "Free",
       "processingTime": "Varies",
       "office": "MSWDO",
-      "url": "education.html"
+      "url": "/services/education"
     },
     {
       "id": "emergency-response",
@@ -523,7 +523,7 @@
       "fee": "Free",
       "processingTime": "Immediate",
       "office": "MDRRMO",
-      "url": "public-safety.html"
+      "url": "/services/public-safety"
     },
     {
       "id": "disaster-preparedness",
@@ -541,7 +541,7 @@
       "fee": "Free",
       "processingTime": "Varies",
       "office": "MDRRMO",
-      "url": "public-safety.html"
+      "url": "/services/public-safety"
     },
     {
       "id": "environmental-clearance",
@@ -553,7 +553,7 @@
       "fee": "Varies",
       "processingTime": "5-10 days",
       "office": "Municipal Environment Office",
-      "url": "environment.html"
+      "url": "/services/environment"
     },
     {
       "id": "tree-cutting-permit",
@@ -565,7 +565,7 @@
       "fee": "Varies",
       "processingTime": "3-5 days",
       "office": "Municipal Environment Office",
-      "url": "environment.html"
+      "url": "/services/environment"
     },
     {
       "id": "seedo-slaughterhouse",
@@ -588,7 +588,7 @@
       "fee": "₱40-350",
       "processingTime": "37 min - 1.5 hrs",
       "office": "SEEDO Slaughterhouse",
-      "url": "../service-details/seedo-slaughterhouse.html"
+      "url": "/service-details/seedo-slaughterhouse"
     },
     {
       "id": "mswdo-services",
@@ -611,7 +611,7 @@
       "fee": "Free",
       "processingTime": "28 min - 1.5 hrs",
       "office": "MSWDO",
-      "url": "../service-details/mswdo-services.html"
+      "url": "/service-details/mswdo-services"
     },
     {
       "id": "waste-management",
@@ -630,7 +630,7 @@
       "fee": "Included in tax",
       "processingTime": "Scheduled",
       "office": "Municipal Environment Office",
-      "url": "environment.html"
+      "url": "/services/environment"
     },
     {
       "id": "seedo-public-market",
@@ -651,7 +651,7 @@
       "fee": "₱5-50",
       "processingTime": "Same day",
       "office": "SEEDO Public Market",
-      "url": "../service-details/seedo-public-market.html"
+      "url": "/service-details/seedo-public-market"
     },
     {
       "id": "business-permits-licensing",
@@ -670,7 +670,7 @@
       "fee": "Varies",
       "processingTime": "1-5 days",
       "office": "Mayor's Office - BPLS",
-      "url": "../service-details/business-permits-licensing.html"
+      "url": "/service-details/business-permits-licensing"
     },
     {
       "id": "tricycle-franchising",
@@ -690,7 +690,7 @@
       "fee": "Varies",
       "processingTime": "3-5 days",
       "office": "BPLS / SBO",
-      "url": "../service-details/tricycle-franchising.html"
+      "url": "/service-details/tricycle-franchising"
     },
     {
       "id": "municipal-treasurer",
@@ -710,7 +710,7 @@
       "fee": "Varies",
       "processingTime": "Same day",
       "office": "Municipal Treasurer's Office",
-      "url": "../service-details/municipal-treasurer.html"
+      "url": "/service-details/municipal-treasurer"
     },
     {
       "id": "municipal-budget",
@@ -729,7 +729,7 @@
       "fee": "Free",
       "processingTime": "15 min - 1 day",
       "office": "Municipal Budget Office",
-      "url": "../service-details/municipal-budget.html"
+      "url": "/service-details/municipal-budget"
     },
     {
       "id": "municipal-accounting",
@@ -749,7 +749,7 @@
       "fee": "Free",
       "processingTime": "Varies",
       "office": "Municipal Accounting Office",
-      "url": "../service-details/municipal-accounting.html"
+      "url": "/service-details/municipal-accounting"
     },
     {
       "id": "property-declaration",
@@ -769,7 +769,7 @@
       "fee": "Varies",
       "processingTime": "3-5 days",
       "office": "Municipal Assessor's Office",
-      "url": "../service-details/property-declaration.html"
+      "url": "/service-details/property-declaration"
     },
     {
       "id": "municipal-assessor",
@@ -788,7 +788,7 @@
       "fee": "Varies",
       "processingTime": "3-5 days",
       "office": "Municipal Assessor's Office",
-      "url": "../service-details/municipal-assessor.html"
+      "url": "/service-details/municipal-assessor"
     },
     {
       "id": "civil-registrar",
@@ -809,7 +809,7 @@
       "fee": "₱150+",
       "processingTime": "15-30 minutes",
       "office": "Local Civil Registrar",
-      "url": "../service-details/civil-registrar.html"
+      "url": "/service-details/civil-registrar"
     },
     {
       "id": "municipal-engineering",
@@ -828,7 +828,7 @@
       "fee": "Varies",
       "processingTime": "5-10 days",
       "office": "Municipal Engineering Office",
-      "url": "../service-details/municipal-engineering.html"
+      "url": "/service-details/municipal-engineering"
     },
     {
       "id": "municipal-planning",
@@ -847,7 +847,7 @@
       "fee": "Varies",
       "processingTime": "3-7 days",
       "office": "Municipal Planning Office",
-      "url": "../service-details/municipal-planning.html"
+      "url": "/service-details/municipal-planning"
     },
     {
       "id": "municipal-agriculture",
@@ -868,7 +868,7 @@
       "fee": "Free/Varies",
       "processingTime": "Varies",
       "office": "Municipal Agriculture Office",
-      "url": "../service-details/municipal-agriculture.html"
+      "url": "/service-details/municipal-agriculture"
     },
     {
       "id": "general-services",
@@ -887,7 +887,7 @@
       "fee": "Free",
       "processingTime": "Varies",
       "office": "General Services Office",
-      "url": "../service-details/general-services.html"
+      "url": "/service-details/general-services"
     },
     {
       "id": "human-resource",
@@ -907,7 +907,7 @@
       "fee": "Free",
       "processingTime": "Varies",
       "office": "Human Resource Management Office",
-      "url": "../service-details/human-resource-management.html"
+      "url": "/service-details/human-resource-management"
     },
     {
       "id": "online-business-billing",

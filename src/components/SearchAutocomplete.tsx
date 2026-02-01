@@ -1,17 +1,28 @@
-import { useRef, useEffect } from 'react';
+import { highlightMatch, useSearch } from '@/hooks/useSearch';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSearch, highlightMatch } from '@/hooks/useSearch';
 
 interface SearchAutocompleteProps {
   placeholder?: string;
   className?: string;
   onResultClick?: () => void;
+  initialQuery?: string;
 }
+
+const CATEGORIES = [
+  { id: '', label: 'All' },
+  { id: 'certificates', label: 'Certificates' },
+  { id: 'business', label: 'Business' },
+  { id: 'social-services', label: 'Social' },
+  { id: 'health', label: 'Health' },
+  { id: 'tax-payments', label: 'Taxation' },
+] as const;
 
 export default function SearchAutocomplete({
   placeholder = 'Search services (e.g., birth certificate, business permit)',
   className = '',
   onResultClick,
+  initialQuery = '',
 }: SearchAutocompleteProps) {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -20,6 +31,8 @@ export default function SearchAutocomplete({
   const {
     query,
     setQuery,
+    category,
+    setCategory,
     results,
     suggestions,
     isOpen,
@@ -29,7 +42,29 @@ export default function SearchAutocomplete({
     handleSuggestionClick,
     clearRecentSearches,
     addRecentSearch,
-  } = useSearch();
+    pendingNavigation,
+    clearPendingNavigation,
+  } = useSearch(initialQuery);
+
+  // Handle pending navigation from keyboard events
+  useEffect(() => {
+    if (pendingNavigation) {
+      setIsOpen(false);
+      onResultClick?.();
+      navigate(
+        pendingNavigation.startsWith('/')
+          ? pendingNavigation
+          : `/${pendingNavigation}`,
+      );
+      clearPendingNavigation();
+    }
+  }, [
+    pendingNavigation,
+    navigate,
+    setIsOpen,
+    onResultClick,
+    clearPendingNavigation,
+  ]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -88,49 +123,21 @@ export default function SearchAutocomplete({
           aria-label="Search suggestions"
         >
           {/* Category Filter Tabs */}
-          <div className="flex gap-1.5 px-3 py-3 pb-2.5 border-b border-blue-50 flex-nowrap justify-start bg-gradient-to-b from-gray-50 to-white rounded-t-2xl overflow-x-auto">
-            <button
-              type="button"
-              className="px-3 py-1.5 border-2 border-blue-700 rounded-full bg-blue-700 text-xs font-medium text-white cursor-pointer whitespace-nowrap flex-shrink-0 shadow-md"
-              data-category=""
-            >
-              All
-            </button>
-            <button
-              type="button"
-              className="px-3 py-1.5 border-2 border-blue-200 rounded-full bg-white text-xs font-medium text-gray-600 cursor-pointer whitespace-nowrap flex-shrink-0 hover:border-blue-700 hover:text-blue-700 hover:bg-blue-50 transition-all"
-              data-category="certificates"
-            >
-              Certificates
-            </button>
-            <button
-              type="button"
-              className="px-3 py-1.5 border-2 border-blue-200 rounded-full bg-white text-xs font-medium text-gray-600 cursor-pointer whitespace-nowrap flex-shrink-0 hover:border-blue-700 hover:text-blue-700 hover:bg-blue-50 transition-all"
-              data-category="business"
-            >
-              Business
-            </button>
-            <button
-              type="button"
-              className="px-3 py-1.5 border-2 border-blue-200 rounded-full bg-white text-xs font-medium text-gray-600 cursor-pointer whitespace-nowrap flex-shrink-0 hover:border-blue-700 hover:text-blue-700 hover:bg-blue-50 transition-all"
-              data-category="social"
-            >
-              Social
-            </button>
-            <button
-              type="button"
-              className="px-3 py-1.5 border-2 border-blue-200 rounded-full bg-white text-xs font-medium text-gray-600 cursor-pointer whitespace-nowrap flex-shrink-0 hover:border-blue-700 hover:text-blue-700 hover:bg-blue-50 transition-all"
-              data-category="health"
-            >
-              Health
-            </button>
-            <button
-              type="button"
-              className="px-3 py-1.5 border-2 border-blue-200 rounded-full bg-white text-xs font-medium text-gray-600 cursor-pointer whitespace-nowrap flex-shrink-0 hover:border-blue-700 hover:text-blue-700 hover:bg-blue-50 transition-all"
-              data-category="taxation"
-            >
-              Taxation
-            </button>
+          <div className="flex gap-1.5 px-3 py-3 pb-2.5 border-b border-blue-50 flex-nowrap justify-start bg-linear-to-b from-gray-50 to-white rounded-t-2xl overflow-x-auto">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setCategory(cat.id)}
+                className={`px-3 py-1.5 border-2 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap flex-shrink-0 transition-all ${
+                  category === cat.id
+                    ? 'border-blue-700 bg-blue-700 text-white shadow-md'
+                    : 'border-blue-200 bg-white text-gray-600 hover:border-blue-700 hover:text-blue-700 hover:bg-blue-50'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
 
           {/* Recent Searches */}
@@ -155,7 +162,7 @@ export default function SearchAutocomplete({
               {suggestions.recent.map((term, idx) => (
                 <button
                   key={`recent-${term}`}
-                  className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === idx ? 'bg-gradient-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
+                  className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-linear-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === idx ? 'bg-linear-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
                   onClick={() => handleSuggestion(term)}
                   type="button"
                 >
@@ -178,7 +185,7 @@ export default function SearchAutocomplete({
               {suggestions.popular.map((term, idx) => (
                 <button
                   key={`popular-${term}`}
-                  className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === suggestions.recent.length + idx ? 'bg-gradient-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
+                  className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-linear-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === suggestions.recent.length + idx ? 'bg-linear-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
                   onClick={() => handleSuggestion(term)}
                   type="button"
                 >
@@ -203,7 +210,7 @@ export default function SearchAutocomplete({
                 {suggestions.suggestions.slice(0, 5).map((term, idx) => (
                   <button
                     key={`suggestion-${term}`}
-                    className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === idx ? 'bg-gradient-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
+                    className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-linear-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === idx ? 'bg-linear-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
                     onClick={() => handleSuggestion(term)}
                     type="button"
                   >
@@ -233,7 +240,7 @@ export default function SearchAutocomplete({
           {results.map((result, index) => (
             <button
               key={result.id}
-              className={`block w-full py-3.5 px-4 text-gray-900 border-b border-blue-50 last:border-b-0 text-left border-l-[3px] border-l-transparent bg-transparent cursor-pointer transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 ${selectedIndex === index ? 'bg-gradient-to-r from-blue-50 to-transparent border-l-blue-700' : ''}`}
+              className={`block w-full py-3.5 px-4 text-gray-900 border-b border-blue-50 last:border-b-0 text-left border-l-[3px] border-l-transparent bg-transparent cursor-pointer transition-all hover:bg-linear-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 ${selectedIndex === index ? 'bg-linear-to-r from-blue-50 to-transparent border-l-blue-700' : ''}`}
               onClick={() => handleResultClick(result.url)}
               type="button"
             >

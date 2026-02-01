@@ -1,18 +1,18 @@
 import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  type ReactNode,
-  useMemo,
-} from 'react';
-import {
   getFullLocation,
-  getSiteConfig,
-  getLGUTypeLabels,
   getLGUName,
+  getLGUTypeLabels,
+  getSiteConfig,
   getTranslationOverrides,
 } from '@/lib/config';
+import {
+  type ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 // Base translations with template variables
 // Use {{variable}} syntax for dynamic values

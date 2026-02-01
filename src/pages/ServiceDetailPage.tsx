@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Link, useParams, Navigate } from 'react-router-dom';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SearchAutocomplete from '@/components/SearchAutocomplete';
 import { getServiceDetail } from '@/data/serviceDetailsContent';
 import { usePageMeta } from '@/hooks/usePageMeta';
+import { useState } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
 
 export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -29,7 +30,7 @@ export default function ServiceDetailPage() {
       />
 
       {/* Page Header */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
+      <section className="bg-linear-to-br from-primary-600 to-primary-700 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -38,7 +39,17 @@ export default function ServiceDetailPage() {
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
               {service.fullTitle}
             </h1>
-            <p className="text-lg text-white/90">{service.description}</p>
+            <p className="text-lg text-white/90 mb-8">{service.description}</p>
+            {/* Search Box */}
+            <div className="max-w-xl mx-auto">
+              <div className="relative flex items-center">
+                <i className="bi bi-search absolute left-4 text-gray-400 z-10 pointer-events-none" />
+                <SearchAutocomplete
+                  placeholder="Search other services..."
+                  className="w-full [&_input]:pl-12 [&_input]:pr-4 [&_input]:py-4 [&_input]:rounded-xl [&_input]:text-base [&_input]:border-0 [&_input]:shadow-lg"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>

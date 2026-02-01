@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useSiteConfig } from '@/contexts/SiteConfigContext';
-import { usePageMeta } from '@/hooks/usePageMeta';
 import {
   Hero,
+  History,
   PopularServices,
   QuickStats,
   WeatherMap,
-  History,
 } from '@/components/home';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { usePageMeta } from '@/hooks/usePageMeta';
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
   const { t } = useLanguage();

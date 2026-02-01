@@ -1,5 +1,5 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { Suspense, lazy, useEffect, useState } from 'react';
 
 // Lazy load the map components to reduce initial bundle size
 const LeafletMap = lazy(() => import('./LeafletMap'));
@@ -70,9 +70,7 @@ export default function WeatherMap() {
                 )}
               </div>
               <p className="text-sm text-gray-500 p-4 m-0 flex items-center gap-1.5">
-                <i
-                  className="bi bi-geo-alt text-primary-600"
-                />{' '}
+                <i className="bi bi-geo-alt text-primary-600" />{' '}
                 {labels.hallName}, {fullLocation}
               </p>
             </div>

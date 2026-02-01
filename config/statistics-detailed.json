@@ -19,9 +19,24 @@
     { "rank": 17, "name": "Bangaan", "population": 1284, "percentage": 14 },
     { "rank": 18, "name": "Tucal", "population": 1244, "percentage": 14 },
     { "rank": 19, "name": "Bangar", "population": 1146, "percentage": 13 },
-    { "rank": 20, "name": "Pilar D. Galima", "population": 1146, "percentage": 13 },
-    { "rank": 21, "name": "Poblacion North", "population": 970, "percentage": 11 },
-    { "rank": 22, "name": "Poblacion South", "population": 817, "percentage": 9 }
+    {
+      "rank": 20,
+      "name": "Pilar D. Galima",
+      "population": 1146,
+      "percentage": 13
+    },
+    {
+      "rank": 21,
+      "name": "Poblacion North",
+      "population": 970,
+      "percentage": 11
+    },
+    {
+      "rank": 22,
+      "name": "Poblacion South",
+      "population": 817,
+      "percentage": 9
+    }
   ],
   "cmciPillars": [
     {

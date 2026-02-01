@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { useEffect } from 'react';
 
 interface PageMetaOptions {
   title?: string;

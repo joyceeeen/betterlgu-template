@@ -1,9 +1,9 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
 import {
-  PopulationTrendsChart,
-  PopulationDistributionChart,
   BarangayPopulationChart,
   KeyIndicatorsTrendChart,
+  PopulationDistributionChart,
+  PopulationTrendsChart,
 } from '@/components/charts/Charts';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
@@ -48,7 +48,7 @@ export default function StatisticsPage() {
       <Breadcrumbs items={[{ label: 'Statistics' }]} />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
+      <section className="bg-linear-to-br from-primary-600 to-primary-700 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
@@ -146,7 +146,7 @@ export default function StatisticsPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl p-6 text-white">
+            <div className="bg-linear-to-br from-primary-600 to-primary-700 rounded-xl p-6 text-white">
               <div className="flex items-center gap-2 mb-4 opacity-80">
                 <i className="bi bi-graph-up-arrow" />
                 <span>Annual Income</span>
@@ -189,14 +189,17 @@ export default function StatisticsPage() {
             <div className="h-6 bg-gray-100 rounded-full overflow-hidden flex">
               <div
                 className="bg-primary-600 h-full flex items-center justify-center text-white text-xs font-medium"
-                style={{ width: statisticsDetailed.financialData.iraDependency }}
+                style={{
+                  width: statisticsDetailed.financialData.iraDependency,
+                }}
               >
                 IRA {statisticsDetailed.financialData.iraDependency}
               </div>
               <div
                 className="bg-green-500 h-full flex items-center justify-center text-white text-xs font-medium"
                 style={{
-                  width: statisticsDetailed.financialData.localSourcesPercentage,
+                  width:
+                    statisticsDetailed.financialData.localSourcesPercentage,
                 }}
               >
                 Local {statisticsDetailed.financialData.localSourcesPercentage}

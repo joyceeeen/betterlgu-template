@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function TourismPage() {
   const { lguName, tourism, labels } = useSiteConfig();
@@ -160,7 +160,9 @@ export default function TourismPage() {
                 <p className="text-primary-600 font-medium text-sm mb-3">
                   <i className="bi bi-calendar3 mr-1" /> {event.date}
                 </p>
-                <p className="text-gray-600 text-sm mb-3">{event.description}</p>
+                <p className="text-gray-600 text-sm mb-3">
+                  {event.description}
+                </p>
                 <p className="text-xs text-gray-500 flex items-center gap-1">
                   <i className="bi bi-geo-alt" /> {event.location}
                 </p>
@@ -237,8 +239,8 @@ export default function TourismPage() {
             Ready to explore {lguName}?
           </h3>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Contact our local tourism office for more information and
-            assistance in planning your visit.
+            Contact our local tourism office for more information and assistance
+            in planning your visit.
           </p>
           <Link
             to="/contact"
