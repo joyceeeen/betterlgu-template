@@ -1,28 +1,38 @@
-'use client';
-
-import { createContext, useContext, ReactNode, useMemo } from 'react';
 import {
-  LGUType,
-  SiteConfig,
-  OfficialsConfig,
-  SubdivisionsConfig,
-  HotlinesConfig,
-  HistoryConfig,
-  StatisticsConfig,
-  LGUTypeLabels,
-} from '@/types/config';
-import {
-  getSiteConfig,
-  getOfficialsConfig,
-  getSubdivisionsConfig,
-  getHotlinesConfig,
-  getHistoryConfig,
-  getStatisticsConfig,
-  getLGUTypeLabels,
-  getLGUName,
-  getFullLocation,
   configHelpers,
+  getBudgetConfig,
+  getFAQConfig,
+  getFullLocation,
+  getHistoryConfig,
+  getHotlinesConfig,
+  getLGUName,
+  getLGUTypeLabels,
+  getLegislativeConfig,
+  getNewsConfig,
+  getOfficialsConfig,
+  getSiteConfig,
+  getStatisticsConfig,
+  getStatisticsDetailedConfig,
+  getSubdivisionsConfig,
+  getTourismConfig,
 } from '@/lib/config';
+import type {
+  BudgetConfig,
+  FAQConfig,
+  HistoryConfig,
+  HotlinesConfig,
+  LGUType,
+  LGUTypeLabels,
+  LegislativeConfig,
+  NewsConfig,
+  OfficialsConfig,
+  SiteConfig,
+  StatisticsConfig,
+  StatisticsDetailedConfig,
+  SubdivisionsConfig,
+  TourismConfig,
+} from '@/types/config';
+import { type ReactNode, createContext, useContext, useMemo } from 'react';
 
 interface SiteConfigContextType {
   // Raw configs
@@ -32,25 +42,18 @@ interface SiteConfigContextType {
   hotlines: HotlinesConfig;
   history: HistoryConfig;
   statistics: StatisticsConfig;
+  statisticsDetailed: StatisticsDetailedConfig;
+  news: NewsConfig;
+  faq: FAQConfig;
+  budget: BudgetConfig;
+  legislative: LegislativeConfig;
+  tourism: TourismConfig;
 
   // Derived values
   lguType: LGUType;
   lguName: string;
   fullLocation: string;
   labels: LGUTypeLabels;
-
-  // Helper functions
-  getLeaderTitle: () => string;
-  getViceLeaderTitle: () => string;
-  getLegislativeBody: () => string;
-  getLegislativeBodyAbbr: () => string;
-  getLegislativeMembers: () => string;
-  getSubdivisionType: () => string;
-  getSubdivisionTypePlural: () => string;
-  getSubdivisionLeader: () => string;
-  getDeptPrefix: () => string;
-  getHallName: () => string;
-  getLGUTypeLabel: () => string;
 
   // Utility functions
   getSiteTitle: () => string;
@@ -62,7 +65,9 @@ interface SiteConfigContextType {
   formatPhoneLink: (_phone: string) => string;
 }
 
-const SiteConfigContext = createContext<SiteConfigContextType | undefined>(undefined);
+const SiteConfigContext = createContext<SiteConfigContextType | undefined>(
+  undefined,
+);
 
 export function SiteConfigProvider({ children }: { children: ReactNode }) {
   const contextValue = useMemo(() => {
@@ -72,6 +77,12 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
     const hotlines = getHotlinesConfig();
     const history = getHistoryConfig();
     const statistics = getStatisticsConfig();
+    const statisticsDetailed = getStatisticsDetailedConfig();
+    const news = getNewsConfig();
+    const faq = getFAQConfig();
+    const budget = getBudgetConfig();
+    const legislative = getLegislativeConfig();
+    const tourism = getTourismConfig();
     const labels = getLGUTypeLabels(site.lguType);
     const lguName = getLGUName(site);
     const fullLocation = getFullLocation(site);
@@ -84,6 +95,12 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
       hotlines,
       history,
       statistics,
+      statisticsDetailed,
+      news,
+      faq,
+      budget,
+      legislative,
+      tourism,
 
       // Derived values
       lguType: site.lguType,
@@ -91,22 +108,10 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
       fullLocation,
       labels,
 
-      // LGU Type label helper functions
-      getLeaderTitle: () => labels.leaderTitle,
-      getViceLeaderTitle: () => labels.viceLeaderTitle,
-      getLegislativeBody: () => labels.legislativeBody,
-      getLegislativeBodyAbbr: () => labels.legislativeBodyAbbr,
-      getLegislativeMembers: () => labels.legislativeMembers,
-      getSubdivisionType: () => labels.subdivisionType,
-      getSubdivisionTypePlural: () => labels.subdivisionTypePlural,
-      getSubdivisionLeader: () => labels.subdivisionLeader,
-      getDeptPrefix: () => labels.deptPrefix,
-      getHallName: () => labels.hallName,
-      getLGUTypeLabel: () => labels.lguTypeLabel,
-
       // Utility functions
       getSiteTitle: () => configHelpers.getSiteTitle(site),
-      getFullSiteTitle: (pageTitle?: string) => configHelpers.getFullSiteTitle(site, pageTitle),
+      getFullSiteTitle: (pageTitle?: string) =>
+        configHelpers.getFullSiteTitle(site, pageTitle),
       getSiteDescription: () => configHelpers.getSiteDescription(site),
       getVolunteerEmail: () => configHelpers.getVolunteerEmail(site),
       getOpenGraphUrl: () => configHelpers.getOpenGraphUrl(site),

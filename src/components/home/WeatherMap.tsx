@@ -1,33 +1,14 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { Suspense, lazy, useEffect, useState } from 'react';
 
-// Dynamically import Leaflet to avoid SSR issues
-const MapContainer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.MapContainer),
-  { ssr: false }
-);
-const TileLayer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.TileLayer),
-  { ssr: false }
-);
-const Marker = dynamic(
-  () => import('react-leaflet').then((mod) => mod.Marker),
-  { ssr: false }
-);
-const Popup = dynamic(
-  () => import('react-leaflet').then((mod) => mod.Popup),
-  { ssr: false }
-);
+// Lazy load the map components to reduce initial bundle size
+const LeafletMap = lazy(() => import('./LeafletMap'));
 
 export default function WeatherMap() {
   const [mounted, setMounted] = useState(false);
-  const { site, lguName, fullLocation, getHallName } = useSiteConfig();
+  const { site, lguName, fullLocation, labels } = useSiteConfig();
 
   const coords: [number, number] = [site.coordinates.lat, site.coordinates.lng];
-  const hallName = getHallName();
 
   useEffect(() => {
     setMounted(true);
@@ -38,7 +19,9 @@ export default function WeatherMap() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-xl font-bold text-gray-900 m-0">Weather and Map of {lguName}</h2>
+          <h2 className="text-xl font-bold text-gray-900 m-0">
+            Weather and Map of {lguName}
+          </h2>
         </div>
 
         {/* Grid: Weather + Map */}
@@ -51,8 +34,12 @@ export default function WeatherMap() {
                 <div className="flex items-start gap-4 pb-4">
                   <i className="bi bi-cloud-sun text-5xl text-primary-600 leading-none opacity-90" />
                   <div className="flex-1">
-                    <span className="text-4xl font-bold text-gray-900 leading-none tracking-tight">28°C</span>
-                    <p className="text-[0.9375rem] text-gray-800 font-medium mt-1.5 mb-1">Partly Cloudy</p>
+                    <span className="text-4xl font-bold text-gray-900 leading-none tracking-tight">
+                      28°C
+                    </span>
+                    <p className="text-[0.9375rem] text-gray-800 font-medium mt-1.5 mb-1">
+                      Partly Cloudy
+                    </p>
                     <p className="text-xs text-gray-500 flex items-center gap-1">
                       <i className="bi bi-geo-alt text-primary-600 text-[0.6875rem]" />
                       {fullLocation}
@@ -73,24 +60,18 @@ export default function WeatherMap() {
                 className="h-[300px] w-full"
               >
                 {mounted && (
-                  <MapContainer
-                    center={coords}
-                    zoom={13}
-                    style={{ height: '100%', width: '100%' }}
-                    scrollWheelZoom={false}
+                  <Suspense
+                    fallback={
+                      <div className="h-full w-full bg-gray-100 animate-pulse" />
+                    }
                   >
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <Marker position={coords}>
-                      <Popup>{hallName}</Popup>
-                    </Marker>
-                  </MapContainer>
+                    <LeafletMap coords={coords} popupText={labels.hallName} />
+                  </Suspense>
                 )}
               </div>
               <p className="text-sm text-gray-500 p-4 m-0 flex items-center gap-1.5">
-                <i className="bi bi-geo-alt text-primary-600" aria-hidden="true" /> {hallName}, {fullLocation}
+                <i className="bi bi-geo-alt text-primary-600" />{' '}
+                {labels.hallName}, {fullLocation}
               </p>
             </div>
           </div>

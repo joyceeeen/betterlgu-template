@@ -1,0 +1,98 @@
+{
+  "barangayPopulation": [
+    { "rank": 1, "name": "Roxas", "population": 9088, "percentage": 100 },
+    { "rank": 2, "name": "Quirino", "population": 6572, "percentage": 72 },
+    { "rank": 3, "name": "Osmeña", "population": 6403, "percentage": 70 },
+    { "rank": 4, "name": "Quezon", "population": 5758, "percentage": 63 },
+    { "rank": 5, "name": "Curifang", "population": 4885, "percentage": 54 },
+    { "rank": 6, "name": "Bagahabag", "population": 4731, "percentage": 52 },
+    { "rank": 7, "name": "Uddiawan", "population": 4217, "percentage": 46 },
+    { "rank": 8, "name": "Bascaran", "population": 3845, "percentage": 42 },
+    { "rank": 9, "name": "Aggub", "population": 3101, "percentage": 34 },
+    { "rank": 10, "name": "San Luis", "population": 2668, "percentage": 29 },
+    { "rank": 11, "name": "Communal", "population": 2586, "percentage": 28 },
+    { "rank": 12, "name": "Lactawan", "population": 2109, "percentage": 23 },
+    { "rank": 13, "name": "San Juan", "population": 1965, "percentage": 22 },
+    { "rank": 14, "name": "Concepcion", "population": 1954, "percentage": 21 },
+    { "rank": 15, "name": "Dadap", "population": 1409, "percentage": 15 },
+    { "rank": 16, "name": "Wacal", "population": 1398, "percentage": 15 },
+    { "rank": 17, "name": "Bangaan", "population": 1284, "percentage": 14 },
+    { "rank": 18, "name": "Tucal", "population": 1244, "percentage": 14 },
+    { "rank": 19, "name": "Bangar", "population": 1146, "percentage": 13 },
+    {
+      "rank": 20,
+      "name": "Pilar D. Galima",
+      "population": 1146,
+      "percentage": 13
+    },
+    {
+      "rank": 21,
+      "name": "Poblacion North",
+      "population": 970,
+      "percentage": 11
+    },
+    {
+      "rank": 22,
+      "name": "Poblacion South",
+      "population": 817,
+      "percentage": 9
+    }
+  ],
+  "cmciPillars": [
+    {
+      "id": "economic-dynamism",
+      "icon": "bi-graph-up-arrow",
+      "title": "Economic Dynamism",
+      "score": "0.23",
+      "trend": "+12%",
+      "trendType": "up"
+    },
+    {
+      "id": "government-efficiency",
+      "icon": "bi-building-check",
+      "title": "Government Efficiency",
+      "score": "1.17",
+      "trend": "-8%",
+      "trendType": "down"
+    },
+    {
+      "id": "infrastructure",
+      "icon": "bi-building-gear",
+      "title": "Infrastructure",
+      "score": "0.40",
+      "trend": "+5%",
+      "trendType": "up"
+    },
+    {
+      "id": "resiliency",
+      "icon": "bi-shield-check",
+      "title": "Resiliency",
+      "score": "1.08",
+      "trend": "Stable",
+      "trendType": "stable"
+    },
+    {
+      "id": "innovation",
+      "icon": "bi-lightbulb",
+      "title": "Innovation",
+      "score": "0.68",
+      "trend": "+25%",
+      "trendType": "up"
+    }
+  ],
+  "financialData": {
+    "annualIncome": "₱371.33M",
+    "annualIncomeDetailed": "₱371,329,918.71",
+    "iraShare": "₱220.77M",
+    "iraDependency": "59.45%",
+    "localSourcesPercentage": "40.55%",
+    "source": "Bureau of Local Government Finance (BLGF)",
+    "sourceUrl": "https://blgf.gov.ph/",
+    "year": 2023
+  },
+  "populationGrowth": {
+    "year1990": 38006,
+    "year2024": 69296,
+    "growthRate": "+82.3%"
+  }
+}

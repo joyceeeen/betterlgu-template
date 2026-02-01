@@ -1,23 +1,41 @@
-import {
-  LGUType,
-  SiteConfig,
-  OfficialsConfig,
-  SubdivisionsConfig,
-  HotlinesConfig,
+import type {
+  BudgetConfig,
+  CategoriesConfig,
+  FAQConfig,
   HistoryConfig,
-  StatisticsConfig,
-  TranslationOverrides,
+  HotlinesConfig,
   LGUConfig,
+  LGUType,
   LGUTypeLabels,
+  LegislativeConfig,
+  NavigationConfig,
+  NewsConfig,
+  OfficialsConfig,
+  ServicesConfig,
+  SiteConfig,
+  StatisticsConfig,
+  StatisticsDetailedConfig,
+  SubdivisionsConfig,
+  TourismConfig,
+  TranslationOverrides,
 } from '@/types/config';
 
+import budgetConfig from '../../config/budget.json';
+import categoriesConfig from '../../config/categories.json';
+import faqConfig from '../../config/faq.json';
+import historyConfig from '../../config/history.json';
+import hotlinesConfig from '../../config/hotlines.json';
+import legislativeConfig from '../../config/legislative.json';
+import navigationConfig from '../../config/navigation.json';
+import newsConfig from '../../config/news.json';
+import officialsConfig from '../../config/officials.json';
+import servicesConfig from '../../config/services.json';
 // Import JSON config files
 import siteConfig from '../../config/site.json';
-import officialsConfig from '../../config/officials.json';
-import subdivisionsConfig from '../../config/subdivisions.json';
-import hotlinesConfig from '../../config/hotlines.json';
-import historyConfig from '../../config/history.json';
+import statisticsDetailedConfig from '../../config/statistics-detailed.json';
 import statisticsConfig from '../../config/statistics.json';
+import subdivisionsConfig from '../../config/subdivisions.json';
+import tourismConfig from '../../config/tourism.json';
 import translationsConfig from '../../config/translations.json';
 
 // LGU Type Labels mapping
@@ -127,6 +145,69 @@ export function getTranslationOverrides(): TranslationOverrides {
 }
 
 /**
+ * Get the navigation config with proper typing
+ */
+export function getNavigationConfig(): NavigationConfig {
+  return navigationConfig as NavigationConfig;
+}
+
+/**
+ * Get the categories config with proper typing
+ */
+export function getCategoriesConfig(): CategoriesConfig {
+  return categoriesConfig as CategoriesConfig;
+}
+
+/**
+ * Get the services config with proper typing
+ */
+export function getServicesConfig(): ServicesConfig {
+  return servicesConfig as ServicesConfig;
+}
+
+/**
+ * Get the detailed statistics config with proper typing
+ */
+export function getStatisticsDetailedConfig(): StatisticsDetailedConfig {
+  return statisticsDetailedConfig as StatisticsDetailedConfig;
+}
+
+/**
+ * Get the news config with proper typing
+ */
+export function getNewsConfig(): NewsConfig {
+  return newsConfig as NewsConfig;
+}
+
+/**
+ * Get the FAQ config with proper typing
+ */
+export function getFAQConfig(): FAQConfig {
+  return faqConfig as FAQConfig;
+}
+
+/**
+ * Get the budget config with proper typing
+ */
+export function getBudgetConfig(): BudgetConfig {
+  return budgetConfig as BudgetConfig;
+}
+
+/**
+ * Get the legislative config with proper typing
+ */
+export function getLegislativeConfig(): LegislativeConfig {
+  return legislativeConfig as LegislativeConfig;
+}
+
+/**
+ * Get the tourism config with proper typing
+ */
+export function getTourismConfig(): TourismConfig {
+  return tourismConfig as TourismConfig;
+}
+
+/**
  * Get the complete LGU configuration bundle
  */
 export function getLGUConfig(): LGUConfig {
@@ -158,7 +239,9 @@ export const configHelpers = {
    */
   getFullSiteTitle: (site: SiteConfig, pageTitle?: string): string => {
     const siteTitle = configHelpers.getSiteTitle(site);
-    return pageTitle ? `${pageTitle} | ${siteTitle}` : `${siteTitle} | Official Portal`;
+    return pageTitle
+      ? `${pageTitle} | ${siteTitle}`
+      : `${siteTitle} | Official Portal`;
   },
 
   /**
@@ -212,3 +295,9 @@ export const statistics = getStatisticsConfig();
 export const translations = getTranslationOverrides();
 export const labels = getLGUTypeLabels(site.lguType);
 export const lguName = getLGUName(site);
+export const statisticsDetailed = getStatisticsDetailedConfig();
+export const news = getNewsConfig();
+export const faq = getFAQConfig();
+export const budget = getBudgetConfig();
+export const legislative = getLegislativeConfig();
+export const tourism = getTourismConfig();
