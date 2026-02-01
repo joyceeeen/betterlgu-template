@@ -55,19 +55,6 @@ interface SiteConfigContextType {
   fullLocation: string;
   labels: LGUTypeLabels;
 
-  // Helper functions
-  getLeaderTitle: () => string;
-  getViceLeaderTitle: () => string;
-  getLegislativeBody: () => string;
-  getLegislativeBodyAbbr: () => string;
-  getLegislativeMembers: () => string;
-  getSubdivisionType: () => string;
-  getSubdivisionTypePlural: () => string;
-  getSubdivisionLeader: () => string;
-  getDeptPrefix: () => string;
-  getHallName: () => string;
-  getLGUTypeLabel: () => string;
-
   // Utility functions
   getSiteTitle: () => string;
   getFullSiteTitle: (_pageTitle?: string) => string;
@@ -120,19 +107,6 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
       lguName,
       fullLocation,
       labels,
-
-      // LGU Type label helper functions
-      getLeaderTitle: () => labels.leaderTitle,
-      getViceLeaderTitle: () => labels.viceLeaderTitle,
-      getLegislativeBody: () => labels.legislativeBody,
-      getLegislativeBodyAbbr: () => labels.legislativeBodyAbbr,
-      getLegislativeMembers: () => labels.legislativeMembers,
-      getSubdivisionType: () => labels.subdivisionType,
-      getSubdivisionTypePlural: () => labels.subdivisionTypePlural,
-      getSubdivisionLeader: () => labels.subdivisionLeader,
-      getDeptPrefix: () => labels.deptPrefix,
-      getHallName: () => labels.hallName,
-      getLGUTypeLabel: () => labels.lguTypeLabel,
 
       // Utility functions
       getSiteTitle: () => configHelpers.getSiteTitle(site),

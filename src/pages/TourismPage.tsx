@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
@@ -16,21 +17,10 @@ export default function TourismPage() {
 
   return (
     <>
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4">
-        <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">
-            Home
-          </Link>
-          <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">
-            Tourism
-          </span>
-        </nav>
-      </div>
+      <Breadcrumbs items={[{ label: 'Tourism' }]} />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
+      <section className="bg-linear-to-br from-primary-600 to-primary-700 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">

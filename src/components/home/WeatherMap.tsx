@@ -6,10 +6,9 @@ const LeafletMap = lazy(() => import('./LeafletMap'));
 
 export default function WeatherMap() {
   const [mounted, setMounted] = useState(false);
-  const { site, lguName, fullLocation, getHallName } = useSiteConfig();
+  const { site, lguName, fullLocation, labels } = useSiteConfig();
 
   const coords: [number, number] = [site.coordinates.lat, site.coordinates.lng];
-  const hallName = getHallName();
 
   useEffect(() => {
     setMounted(true);
@@ -66,7 +65,7 @@ export default function WeatherMap() {
                       <div className="h-full w-full bg-gray-100 animate-pulse" />
                     }
                   >
-                    <LeafletMap coords={coords} popupText={hallName} />
+                    <LeafletMap coords={coords} popupText={labels.hallName} />
                   </Suspense>
                 )}
               </div>
@@ -74,7 +73,7 @@ export default function WeatherMap() {
                 <i
                   className="bi bi-geo-alt text-primary-600"
                 />{' '}
-                {hallName}, {fullLocation}
+                {labels.hallName}, {fullLocation}
               </p>
             </div>
           </div>

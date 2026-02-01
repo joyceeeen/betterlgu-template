@@ -1,21 +1,11 @@
 import { Link } from 'react-router-dom';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
 export default function GovernmentPage() {
-  const {
-    lguName,
-    labels,
-    officials,
-    subdivisions,
-    getLeaderTitle,
-    getViceLeaderTitle,
-    getLegislativeBody,
-    getLegislativeMembers,
-    getSubdivisionTypePlural,
-    getDeptPrefix,
-    formatPhoneLink,
-  } = useSiteConfig();
+  const { lguName, labels, officials, subdivisions, formatPhoneLink } =
+    useSiteConfig();
 
   usePageMeta({ title: 'Government' });
 
@@ -41,18 +31,7 @@ export default function GovernmentPage() {
 
   return (
     <>
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4">
-        <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">
-            Home
-          </Link>
-          <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">
-            Government
-          </span>
-        </nav>
-      </div>
+      <Breadcrumbs items={[{ label: 'Government' }]} />
 
       {/* Page Header */}
       <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
@@ -91,7 +70,7 @@ export default function GovernmentPage() {
             <div className="bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-200 hover:border-primary-500 hover:shadow-lg">
               <div className="bg-primary-600 text-white p-6 text-center">
                 <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2 uppercase tracking-wide">
-                  {labels.lguTypeLabel} {getLeaderTitle()}
+                  {labels.lguTypeLabel} {labels.leaderTitle}
                 </span>
                 <h3 className="text-xl font-semibold">
                   {leader?.name ? `Hon. ${leader.name}` : 'To be updated'}
@@ -127,7 +106,7 @@ export default function GovernmentPage() {
             <div className="bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-200 hover:border-primary-500 hover:shadow-lg">
               <div className="bg-primary-600 text-white p-6 text-center">
                 <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2 uppercase tracking-wide">
-                  {labels.lguTypeLabel} {getViceLeaderTitle()}
+                  {labels.lguTypeLabel} {labels.viceLeaderTitle}
                 </span>
                 <h3 className="text-xl font-semibold">
                   {viceLeader?.name
@@ -172,10 +151,10 @@ export default function GovernmentPage() {
               <i className="bi bi-people-fill" /> Legislative Branch
             </span>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              {getLegislativeBody()} Members
+              {labels.legislativeBody} Members
             </h2>
             <p className="text-gray-500">
-              {getLegislativeMembers()} serving the people of {lguName}
+              {labels.legislativeMembers} serving the people of {lguName}
             </p>
           </div>
 
@@ -189,7 +168,7 @@ export default function GovernmentPage() {
                   {member.name ? `Hon. ${member.name}` : 'To be updated'}
                 </h4>
                 <span className="inline-block bg-primary-100 text-primary-700 text-xs font-semibold px-3 py-1 rounded-full mb-3">
-                  {getLegislativeMembers().replace('s', '')}
+                  {labels.legislativeMembers.replace(/s$/, '')}
                 </span>
                 {member.committees && (
                   <p className="text-sm text-gray-500">{member.committees}</p>
@@ -252,13 +231,13 @@ export default function GovernmentPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 bg-primary-600 text-white px-5 py-2 rounded-full text-sm font-medium mb-3">
-              <i className="bi bi-building-fill" /> {getDeptPrefix()} Offices
+              <i className="bi bi-building-fill" /> {labels.deptPrefix} Offices
             </span>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
               Department Heads &amp; Key Offices
             </h2>
             <p className="text-gray-500">
-              {getDeptPrefix()} offices providing services to citizens
+              {labels.deptPrefix} offices providing services to citizens
             </p>
           </div>
 
@@ -308,13 +287,13 @@ export default function GovernmentPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 bg-primary-600 text-white px-5 py-2 rounded-full text-sm font-medium mb-3">
-              <i className="bi bi-geo-alt-fill" /> {getSubdivisionTypePlural()}
+              <i className="bi bi-geo-alt-fill" /> {labels.subdivisionTypePlural}
             </span>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              {getSubdivisionTypePlural()} of {lguName}
+              {labels.subdivisionTypePlural} of {lguName}
             </h2>
             <p className="text-gray-500">
-              {subdivisions.count} {getSubdivisionTypePlural()} serving our
+              {subdivisions.count} {labels.subdivisionTypePlural} serving our
               community
             </p>
           </div>

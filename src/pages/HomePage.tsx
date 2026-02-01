@@ -12,17 +12,8 @@ import {
 
 export default function HomePage() {
   const { t } = useLanguage();
-  const {
-    site,
-    lguName,
-    fullLocation,
-    labels,
-    officials,
-    getLeaderTitle,
-    getViceLeaderTitle,
-    getHallName,
-    formatPhoneLink,
-  } = useSiteConfig();
+  const { site, lguName, fullLocation, labels, officials, formatPhoneLink } =
+    useSiteConfig();
 
   usePageMeta({ title: 'Home' });
 
@@ -151,7 +142,7 @@ export default function HomePage() {
             <div className="bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-200 hover:border-primary-500 hover:shadow-md">
               <div className="bg-primary-600 text-white p-6 text-center">
                 <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2 uppercase tracking-wide">
-                  {labels.lguTypeLabel} {getLeaderTitle()}
+                  {labels.lguTypeLabel} {labels.leaderTitle}
                 </span>
                 <h3 className="text-xl font-semibold">
                   {leader?.name ? `Hon. ${leader.name}` : 'To be updated'}
@@ -183,7 +174,7 @@ export default function HomePage() {
             <div className="bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-200 hover:border-primary-500 hover:shadow-md">
               <div className="bg-primary-600 text-white p-6 text-center">
                 <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2 uppercase tracking-wide">
-                  {labels.lguTypeLabel} {getViceLeaderTitle()}
+                  {labels.lguTypeLabel} {labels.viceLeaderTitle}
                 </span>
                 <h3 className="text-xl font-semibold">
                   {viceLeader?.name
@@ -282,7 +273,7 @@ export default function HomePage() {
                   {t('contact-address')}
                 </h3>
                 <p className="text-base font-semibold text-gray-900 mb-1">
-                  {getHallName()}
+                  {labels.hallName}
                 </p>
                 <span className="text-xs text-gray-500">
                   {fullLocation} {site.contact.postalCode}

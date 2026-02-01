@@ -1,4 +1,5 @@
 import { Link, useParams, Navigate } from 'react-router-dom';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { getCategoryContent } from '@/data/categoriesContent';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
@@ -17,22 +18,12 @@ export default function ServiceCategoryPage() {
 
   return (
     <>
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4">
-        <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">
-            Home
-          </Link>
-          <span className="mx-2">/</span>
-          <Link to="/services" className="hover:text-primary-600">
-            Services
-          </Link>
-          <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">
-            {categoryContent.name}
-          </span>
-        </nav>
-      </div>
+      <Breadcrumbs
+        items={[
+          { label: 'Services', href: '/services' },
+          { label: categoryContent.name },
+        ]}
+      />
 
       {/* Page Header */}
       <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">

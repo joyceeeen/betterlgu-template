@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import {
   PopulationTrendsChart,
   PopulationDistributionChart,
@@ -8,12 +8,32 @@ import {
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
+// Trend styling lookup tables
+const TREND_COLORS: Record<string, string> = {
+  up: 'text-green-600',
+  down: 'text-red-600',
+  stable: 'text-gray-500',
+};
+
+const TREND_ICONS: Record<string, string> = {
+  up: 'bi-arrow-up',
+  down: 'bi-arrow-down',
+  stable: 'bi-dash',
+};
+
+function getTrendColor(trendType: string): string {
+  return TREND_COLORS[trendType] || TREND_COLORS.stable;
+}
+
+function getTrendIcon(trendType: string): string {
+  return TREND_ICONS[trendType] || TREND_ICONS.stable;
+}
+
 export default function StatisticsPage() {
   const { statistics, statisticsDetailed, labels, lguName, fullLocation } =
     useSiteConfig();
   usePageMeta({ title: 'Statistics' });
 
-  // Get barangay population data from config
   const allBarangays = statisticsDetailed.barangayPopulation.map((b) => ({
     rank: b.rank,
     name: b.name,
@@ -21,24 +41,11 @@ export default function StatisticsPage() {
     pct: b.percentage,
   }));
   const barangayData = allBarangays.slice(0, 10);
-
-  // Get CMCI pillars from config
   const cmciPillars = statisticsDetailed.cmciPillars;
 
   return (
     <>
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4">
-        <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">
-            Home
-          </Link>
-          <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">
-            Statistics
-          </span>
-        </nav>
-      </div>
+      <Breadcrumbs items={[{ label: 'Statistics' }]} />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
@@ -401,23 +408,9 @@ export default function StatisticsPage() {
                   {pillar.score}
                 </div>
                 <div
-                  className={`text-sm font-medium flex items-center justify-center gap-1 ${
-                    pillar.trendType === 'up'
-                      ? 'text-green-600'
-                      : pillar.trendType === 'down'
-                        ? 'text-red-600'
-                        : 'text-gray-500'
-                  }`}
+                  className={`text-sm font-medium flex items-center justify-center gap-1 ${getTrendColor(pillar.trendType)}`}
                 >
-                  <i
-                    className={`bi ${
-                      pillar.trendType === 'up'
-                        ? 'bi-arrow-up'
-                        : pillar.trendType === 'down'
-                          ? 'bi-arrow-down'
-                          : 'bi-dash'
-                    }`}
-                  />
+                  <i className={`bi ${getTrendIcon(pillar.trendType)}`} />
                   {pillar.trend}
                 </div>
               </div>

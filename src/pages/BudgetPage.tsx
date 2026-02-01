@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import {
   IncomeSourcesChart,
   ExpenditureChart,
@@ -7,57 +7,14 @@ import {
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
+type QuarterKey = 'q1' | 'q2' | 'q3' | 'q4';
+
 export default function BudgetPage() {
-  const [activeQuarter, setActiveQuarter] = useState<'q1' | 'q2' | 'q3' | 'q4'>(
-    'q1',
-  );
+  const [activeQuarter, setActiveQuarter] = useState<QuarterKey>('q1');
   const { lguName, fullLocation, labels, budget } = useSiteConfig();
   usePageMeta({ title: 'Budget & Transparency' });
 
-  // Get current quarter data from config
-  const quarterData = budget.quarters[activeQuarter];
-  const currentData = {
-    totalIncome: quarterData.totalIncome,
-    totalExpense: quarterData.totalExpense,
-    netIncome: quarterData.netIncome,
-    fundBalance: quarterData.fundBalance,
-    income: {
-      local: {
-        amount: quarterData.income.local.amount,
-        pct: quarterData.income.local.percentage,
-        value: quarterData.income.local.value,
-      },
-      external: {
-        amount: quarterData.income.external.amount,
-        pct: quarterData.income.external.percentage,
-        value: quarterData.income.external.value,
-      },
-    },
-    expenditure: {
-      gps: {
-        amount: quarterData.expenditure.gps.amount,
-        pct: quarterData.expenditure.gps.percentage,
-        value: quarterData.expenditure.gps.value,
-      },
-      social: {
-        amount: quarterData.expenditure.social.amount,
-        pct: quarterData.expenditure.social.percentage,
-        value: quarterData.expenditure.social.value,
-      },
-      economic: {
-        amount: quarterData.expenditure.economic.amount,
-        pct: quarterData.expenditure.economic.percentage,
-        value: quarterData.expenditure.economic.value,
-      },
-      debt: {
-        amount: quarterData.expenditure.debt.amount,
-        pct: quarterData.expenditure.debt.percentage,
-        value: quarterData.expenditure.debt.value,
-      },
-    },
-    totalIncomeValue: quarterData.totalIncomeValue,
-    totalExpenseValue: quarterData.totalExpenseValue,
-  };
+  const q = budget.quarters[activeQuarter];
 
   // Load DPWH projects script
   useEffect(() => {
@@ -72,18 +29,7 @@ export default function BudgetPage() {
 
   return (
     <>
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4">
-        <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">
-            Home
-          </Link>
-          <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">
-            Budget &amp; Transparency
-          </span>
-        </nav>
-      </div>
+      <Breadcrumbs items={[{ label: 'Budget & Transparency' }]} />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">
@@ -163,7 +109,7 @@ export default function BudgetPage() {
                 </div>
                 <div>
                   <span className="block text-2xl font-bold text-green-700">
-                    {currentData.totalIncome}
+                    {q.totalIncome}
                   </span>
                   <span className="text-sm text-green-600">Total Income</span>
                 </div>
@@ -176,7 +122,7 @@ export default function BudgetPage() {
                 </div>
                 <div>
                   <span className="block text-2xl font-bold text-red-700">
-                    {currentData.totalExpense}
+                    {q.totalExpense}
                   </span>
                   <span className="text-sm text-red-600">
                     Total Expenditures
@@ -191,7 +137,7 @@ export default function BudgetPage() {
                 </div>
                 <div>
                   <span className="block text-2xl font-bold text-blue-700">
-                    {currentData.netIncome}
+                    {q.netIncome}
                   </span>
                   <span className="text-sm text-blue-600">
                     Net Operating Income
@@ -206,7 +152,7 @@ export default function BudgetPage() {
                 </div>
                 <div>
                   <span className="block text-2xl font-bold text-purple-700">
-                    {currentData.fundBalance}
+                    {q.fundBalance}
                   </span>
                   <span className="text-sm text-purple-600">
                     Fund Balance (End)
@@ -229,9 +175,9 @@ export default function BudgetPage() {
               <div className="p-6">
                 <div className="h-48 mb-4">
                   <IncomeSourcesChart
-                    localValue={currentData.income.local.value}
-                    externalValue={currentData.income.external.value}
-                    totalIncome={currentData.totalIncomeValue}
+                    localValue={q.income.local.value}
+                    externalValue={q.income.external.value}
+                    totalIncome={q.totalIncomeValue}
                   />
                 </div>
                 <div className="space-y-3">
@@ -249,10 +195,10 @@ export default function BudgetPage() {
                     </div>
                     <div className="text-right">
                       <span className="font-semibold text-gray-900">
-                        {currentData.income.local.amount}
+                        {q.income.local.amount}
                       </span>
                       <span className="block text-xs text-gray-500">
-                        {currentData.income.local.pct}
+                        {q.income.local.percentage}
                       </span>
                     </div>
                   </div>
@@ -270,10 +216,10 @@ export default function BudgetPage() {
                     </div>
                     <div className="text-right">
                       <span className="font-semibold text-gray-900">
-                        {currentData.income.external.amount}
+                        {q.income.external.amount}
                       </span>
                       <span className="block text-xs text-gray-500">
-                        {currentData.income.external.pct}
+                        {q.income.external.percentage}
                       </span>
                     </div>
                   </div>
@@ -292,11 +238,11 @@ export default function BudgetPage() {
               <div className="p-6">
                 <div className="h-48 mb-4">
                   <ExpenditureChart
-                    gpsValue={currentData.expenditure.gps.value}
-                    socialValue={currentData.expenditure.social.value}
-                    economicValue={currentData.expenditure.economic.value}
-                    debtValue={currentData.expenditure.debt.value}
-                    totalExpense={currentData.totalExpenseValue}
+                    gpsValue={q.expenditure.gps.value}
+                    socialValue={q.expenditure.social.value}
+                    economicValue={q.expenditure.economic.value}
+                    debtValue={q.expenditure.debt.value}
+                    totalExpense={q.totalExpenseValue}
                   />
                 </div>
                 <div className="space-y-3">
@@ -314,10 +260,10 @@ export default function BudgetPage() {
                     </div>
                     <div className="text-right">
                       <span className="font-semibold text-gray-900">
-                        {currentData.expenditure.gps.amount}
+                        {q.expenditure.gps.amount}
                       </span>
                       <span className="block text-xs text-gray-500">
-                        {currentData.expenditure.gps.pct}
+                        {q.expenditure.gps.percentage}
                       </span>
                     </div>
                   </div>
@@ -335,10 +281,10 @@ export default function BudgetPage() {
                     </div>
                     <div className="text-right">
                       <span className="font-semibold text-gray-900">
-                        {currentData.expenditure.social.amount}
+                        {q.expenditure.social.amount}
                       </span>
                       <span className="block text-xs text-gray-500">
-                        {currentData.expenditure.social.pct}
+                        {q.expenditure.social.percentage}
                       </span>
                     </div>
                   </div>
@@ -356,10 +302,10 @@ export default function BudgetPage() {
                     </div>
                     <div className="text-right">
                       <span className="font-semibold text-gray-900">
-                        {currentData.expenditure.economic.amount}
+                        {q.expenditure.economic.amount}
                       </span>
                       <span className="block text-xs text-gray-500">
-                        {currentData.expenditure.economic.pct}
+                        {q.expenditure.economic.percentage}
                       </span>
                     </div>
                   </div>
@@ -377,10 +323,10 @@ export default function BudgetPage() {
                     </div>
                     <div className="text-right">
                       <span className="font-semibold text-gray-900">
-                        {currentData.expenditure.debt.amount}
+                        {q.expenditure.debt.amount}
                       </span>
                       <span className="block text-xs text-gray-500">
-                        {currentData.expenditure.debt.pct}
+                        {q.expenditure.debt.percentage}
                       </span>
                     </div>
                   </div>

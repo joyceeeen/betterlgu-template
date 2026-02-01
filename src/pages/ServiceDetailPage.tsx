@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { getServiceDetail } from '@/data/serviceDetailsContent';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
@@ -19,26 +20,13 @@ export default function ServiceDetailPage() {
 
   return (
     <>
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4">
-        <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">
-            Home
-          </Link>
-          <span className="mx-2">/</span>
-          <Link to="/services" className="hover:text-primary-600">
-            Services
-          </Link>
-          <span className="mx-2">/</span>
-          <Link to={service.categoryLink} className="hover:text-primary-600">
-            {service.category}
-          </Link>
-          <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">
-            {service.title}
-          </span>
-        </nav>
-      </div>
+      <Breadcrumbs
+        items={[
+          { label: 'Services', href: '/services' },
+          { label: service.category, href: service.categoryLink },
+          { label: service.title },
+        ]}
+      />
 
       {/* Page Header */}
       <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">

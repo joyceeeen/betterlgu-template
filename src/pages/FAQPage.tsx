@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
@@ -16,16 +17,15 @@ function interpolateFAQContent(
 
 export default function FAQPage() {
   const { t } = useLanguage();
-  const { lguName, getSiteTitle, getVolunteerEmail, getHallName, faq } =
+  const { lguName, labels, getSiteTitle, getVolunteerEmail, faq } =
     useSiteConfig();
   const siteTitle = getSiteTitle();
   const volunteerEmail = getVolunteerEmail();
-  const hallName = getHallName();
   usePageMeta({ title: 'FAQ' });
 
   // Template variables for interpolation
   const templateVars: Record<string, string> = {
-    hallName,
+    hallName: labels.hallName,
     lguName,
     siteTitle,
     volunteerEmail,
@@ -45,18 +45,7 @@ export default function FAQPage() {
 
   return (
     <>
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4">
-        <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">
-            Home
-          </Link>
-          <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">
-            FAQ
-          </span>
-        </nav>
-      </div>
+      <Breadcrumbs items={[{ label: 'FAQ' }]} />
 
       {/* Page Header */}
       <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16">

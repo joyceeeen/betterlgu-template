@@ -11,20 +11,23 @@ import { getNavigationConfig } from '@/lib/config';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 
-// Get navigation from JSON config
-const navigationConfig = getNavigationConfig();
-const mainNavigation = navigationConfig.mainNav;
+const mainNavigation = getNavigationConfig().mainNav;
 
-// Define language types locally since we don't have the external file
 const LANGUAGES = {
   en: { nativeName: 'English' },
   fil: { nativeName: 'Filipino' },
   ilo: { nativeName: 'Ilocano' },
-};
+} as const;
 
-type LanguageType = keyof typeof LANGUAGES;
+type LanguageCode = keyof typeof LANGUAGES;
 
-export default function Header() {
+function isActiveRoute(pathname: string, href: string): boolean {
+  if (!href) return false;
+  if (href === '/') return pathname === '/';
+  return pathname.startsWith(href);
+}
+
+export default function Header(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
@@ -33,51 +36,21 @@ export default function Header() {
   const { language, setLanguage, t } = useLanguage();
   const { site, lguName } = useSiteConfig();
 
-  // Normalize path using Next.js pathname logic
-  // pathname in Next.js usually doesn't have trailing slash unless root,
-  // but let's be safe and consistent with the user's snippet logic if needed.
-  // Actually, Next.js pathname is already cleaner.
-
-  const toggleMenu = () => {
+  function toggleMenu(): void {
     setIsOpen(!isOpen);
     if (isOpen) {
       setActiveMenu(null);
     }
-  };
+  }
 
-  const closeMenu = () => {
+  function closeMenu(): void {
     setIsOpen(false);
     setActiveMenu(null);
-  };
+  }
 
-  const toggleSubmenu = (label: string) => {
+  function toggleSubmenu(label: string): void {
     setActiveMenu(activeMenu === label ? null : label);
-  };
-
-  const changeLanguage = (newLanguage: LanguageType) => {
-    setLanguage(newLanguage);
-  };
-
-  // Helper to check if route is active
-  const isActiveRoute = (href: string) => {
-    if (!href) return false;
-    if (href === '/' && pathname === '/') return true;
-    if (href !== '/' && pathname.startsWith(href)) return true;
-    return false;
-  };
-
-  const isActiveChildRoute = (href: string) => {
-    if (!href) return false;
-    return pathname === href;
-  };
-
-  const handleDropdownMouseEnter = (label: string) => {
-    setHoveredDropdown(label);
-  };
-
-  const handleDropdownMouseLeave = () => {
-    setHoveredDropdown(null);
-  };
+  }
 
   return (
     <nav className="bg-white shadow-xs sticky top-0 z-50">
@@ -115,7 +88,7 @@ export default function Header() {
             <div className="hidden md:block">
               <select
                 value={language}
-                onChange={(e) => changeLanguage(e.target.value as LanguageType)}
+                onChange={(e) => setLanguage(e.target.value as LanguageCode)}
                 className="text-xs border border-gray-300 rounded-sm px-2 py-1 bg-white text-gray-700 hover:border-primary-600 focus:outline-hidden focus:ring-1 focus:ring-primary-600 focus:border-primary-600"
               >
                 {Object.entries(LANGUAGES).map(([code, lang]) => (
@@ -151,13 +124,13 @@ export default function Header() {
           {/* Desktop navigation */}
           <div className="hidden lg:flex items-center lg:space-x-4 xl:space-x-8 lg:pr-6 xl:pr-24 lg:leading-10">
             {mainNavigation.map((item) => {
-              const isActive = isActiveRoute(item.href);
+              const isActive = isActiveRoute(pathname, item.href);
               return (
                 <div
                   key={item.label}
                   className="relative group"
-                  onMouseEnter={() => handleDropdownMouseEnter(item.label)}
-                  onMouseLeave={handleDropdownMouseLeave}
+                  onMouseEnter={() => setHoveredDropdown(item.label)}
+                  onMouseLeave={() => setHoveredDropdown(null)}
                 >
                   <Link
                     to={item.href}
@@ -198,7 +171,7 @@ export default function Header() {
                             key={child.label}
                             to={child.href}
                             className={`text-left block px-4 py-2 text-sm ${
-                              isActiveChildRoute(child.href)
+                              pathname === child.href
                                 ? 'bg-primary-500 text-primary-50 hover:bg-primary-500 hover:text-primary-50'
                                 : 'text-gray-700 hover:bg-primary-50 hover:text-primary-600'
                             }`}
@@ -251,7 +224,7 @@ export default function Header() {
       <div className={`lg:hidden ${isOpen ? 'block' : 'hidden'}`}>
         <div className="container mx-auto px-2 pt-2 pb-4 space-y-1 border-t border-gray-200 bg-white">
           {mainNavigation.map((item) => {
-            const isActive = isActiveRoute(item.href);
+            const isActive = isActiveRoute(pathname, item.href);
             return (
               <div key={item.label}>
                 <button
@@ -324,7 +297,7 @@ export default function Header() {
               <GlobeIcon className="h-5 w-5 text-gray-800 mr-2" />
               <select
                 value={language}
-                onChange={(e) => changeLanguage(e.target.value as LanguageType)}
+                onChange={(e) => setLanguage(e.target.value as LanguageCode)}
                 className="text-sm border border-gray-300 rounded-sm px-2 py-1 bg-white text-gray-700 hover:border-primary-600 focus:outline-hidden focus:ring-1 focus:ring-primary-600 focus:border-primary-600"
               >
                 {Object.entries(LANGUAGES).map(([code, lang]) => (
