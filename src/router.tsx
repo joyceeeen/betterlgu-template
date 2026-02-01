@@ -17,6 +17,7 @@ const ResolutionFrameworkPage = lazy(
   () => import('@/pages/ResolutionFrameworkPage'),
 );
 const BudgetPage = lazy(() => import('@/pages/BudgetPage'));
+const TourismPage = lazy(() => import('@/pages/TourismPage'));
 const NewsPage = lazy(() => import('@/pages/NewsPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const FAQPage = lazy(() => import('@/pages/FAQPage'));
@@ -74,6 +75,7 @@ const router = createBrowserRouter([
         element: withSuspense(ResolutionFrameworkPage),
       },
       { path: 'budget', element: withSuspense(BudgetPage) },
+      { path: 'tourism', element: withSuspense(TourismPage) },
       { path: 'news', element: withSuspense(NewsPage) },
       { path: 'contact', element: withSuspense(ContactPage) },
       { path: 'faq', element: withSuspense(FAQPage) },

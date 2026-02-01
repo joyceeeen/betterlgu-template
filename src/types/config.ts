@@ -449,3 +449,40 @@ export interface ResolutionItem {
   status: string;
   fileUrl?: string;
 }
+
+// Tourism Configuration
+export interface TourismConfig {
+  attractions: TourismAttraction[];
+  categories: TourismCategory[];
+  events: TourismEvent[];
+  travelInfo: TravelInfo;
+}
+
+export interface TourismAttraction {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  location: string;
+  image?: string;
+}
+
+export interface TourismCategory {
+  id: string;
+  icon: string;
+  label: string;
+}
+
+export interface TourismEvent {
+  id: string;
+  name: string;
+  date: string;
+  description: string;
+  location: string;
+}
+
+export interface TravelInfo {
+  howToGetThere: string;
+  bestTimeToVisit: string;
+  tips: string[];
+}

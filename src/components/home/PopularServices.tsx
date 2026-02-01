@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useTranslation } from '@/hooks/useTranslation';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ServiceCard {
   href: string;
@@ -50,7 +50,7 @@ const services: ServiceCard[] = [
 ];
 
 export default function PopularServices() {
-  const { t } = useTranslation();
+  const { t } = useLanguage();
 
   return (
     <section className="py-12">

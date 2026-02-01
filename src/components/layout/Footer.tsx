@@ -6,10 +6,10 @@ import {
   SiYoutube,
 } from '@icons-pack/react-simple-icons';
 import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { getNavigationConfig } from '@/lib/config';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // Get footer navigation from JSON config
 const navigationConfig = getNavigationConfig();
@@ -25,7 +25,7 @@ const footerNavigation = {
 };
 
 const Footer: FC = () => {
-  const { t } = useTranslation('common');
+  const { t } = useLanguage();
   const { site, lguName } = useSiteConfig();
   const currentYear = new Date().getFullYear();
 
@@ -136,10 +136,8 @@ const Footer: FC = () => {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              {t(
-                'footer.copyright',
-                `© ${currentYear} Better ${lguName}. MIT | CC BY 1.0 All public information sourced from official government portals.`,
-              )}
+              © {currentYear} {t('footer-copyright')} MIT | CC BY 1.0 All public
+              information sourced from official government portals.
             </p>
             <div className="flex space-x-6">
               {site.social.github && (

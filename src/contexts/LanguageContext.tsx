@@ -25,7 +25,10 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-statistics': 'Statistics',
     'nav-legislative': 'Legislative',
     'nav-transparency': 'Transparency',
+    'nav-tourism': 'Tourism',
     'nav-contact': 'Contact',
+    'nav-budget': 'Budget',
+    'nav-sitemap': 'Sitemap',
 
     // Hero Section - uses template variables
     'hero-welcome': 'Welcome to Better{{lguName}}.org',
@@ -126,6 +129,25 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'faq-still-questions': 'Still have questions?',
     'faq-contact-help':
       "If you didn't find the answer you were looking for, please don't hesitate to contact us.",
+
+    // Legislative
+    'legislative-ordinances': 'Ordinances',
+    'legislative-resolutions': 'Resolutions',
+
+    // Footer
+    'footer-title': 'Better {{lguName}}',
+    'footer-desc':
+      'A service-first information portal for the {{lguType}} of {{municipality}}, {{province}}.',
+    'footer-quick-links': 'Quick Links',
+    'footer-all-services': 'All Services',
+    'footer-officials': 'Officials',
+    'footer-contact-us': 'Contact Us',
+    'footer-faq': 'FAQ',
+    'footer-copyright': 'Better {{lguName}}. All rights reserved.',
+    'footer-resources': 'Resources',
+    'footer-privacy': 'Privacy Policy',
+    'footer-terms': 'Terms of Use',
+    'accessibility-statement': 'Accessibility Statement',
   },
   fil: {
     // Navigation - Filipino
@@ -135,7 +157,10 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-statistics': 'Estadistika',
     'nav-legislative': 'Lehislatura',
     'nav-transparency': 'Transparensiya',
+    'nav-tourism': 'Turismo',
     'nav-contact': 'Makipag-ugnayan',
+    'nav-budget': 'Badyet',
+    'nav-sitemap': 'Mapa ng Site',
 
     // Hero Section
     'hero-welcome': 'Maligayang Pagdating sa Better{{lguName}}.org',
@@ -238,6 +263,25 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'faq-still-questions': 'May tanong pa ba kayo?',
     'faq-contact-help':
       'Kung hindi ninyo nakita ang sagot na hinahanap, huwag mag-atubiling makipag-ugnayan sa amin.',
+
+    // Legislative
+    'legislative-ordinances': 'Mga Ordinansa',
+    'legislative-resolutions': 'Mga Resolusyon',
+
+    // Footer
+    'footer-title': 'Better {{lguName}}',
+    'footer-desc':
+      'Isang portal ng impormasyon na inuuna ang serbisyo para sa {{lguType}} ng {{municipality}}, {{province}}.',
+    'footer-quick-links': 'Mabilis na Links',
+    'footer-all-services': 'Lahat ng Serbisyo',
+    'footer-officials': 'Mga Opisyal',
+    'footer-contact-us': 'Makipag-ugnayan sa Amin',
+    'footer-faq': 'Mga Madalas Itanong',
+    'footer-copyright': 'Better {{lguName}}. Nakalaan ang lahat ng karapatan.',
+    'footer-resources': 'Mga Mapagkukunan',
+    'footer-privacy': 'Patakaran sa Privacy',
+    'footer-terms': 'Mga Tuntunin ng Paggamit',
+    'accessibility-statement': 'Pahayag ng Aksesibilidad',
   },
   ilo: {
     // Navigation - Ilocano
@@ -247,7 +291,10 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'nav-statistics': 'Estadistika',
     'nav-legislative': 'Lehislatura',
     'nav-transparency': 'Transparensiya',
+    'nav-tourism': 'Turismo',
     'nav-contact': 'Kontaken',
+    'nav-budget': 'Badyet',
+    'nav-sitemap': 'Mapa ti Site',
 
     // Hero Section
     'hero-welcome': 'Naragsak nga Isasangbay iti Better{{lguName}}.org',
@@ -349,6 +396,26 @@ const baseTranslations: Record<string, Record<string, string>> = {
     'faq-still-questions': 'Adda pay saludsodyo?',
     'faq-contact-help':
       'No saandayo a nasarakan ti sungbat a sapulenyo, dikay agmuna nga agkontak kadakami.',
+
+    // Legislative
+    'legislative-ordinances': 'Dagiti Ordinansa',
+    'legislative-resolutions': 'Dagiti Resolusion',
+
+    // Footer
+    'footer-title': 'Better {{lguName}}',
+    'footer-desc':
+      'Maysa a portal ti impormasion a mangipangpangulo ti serbisio para iti {{lguType}} ti {{municipality}}, {{province}}.',
+    'footer-quick-links': 'Dagiti Napartak a Links',
+    'footer-all-services': 'Amin a Serbisio',
+    'footer-officials': 'Dagiti Opisial',
+    'footer-contact-us': 'Kontaken Kami',
+    'footer-faq': 'Masansan a Maisaludsod',
+    'footer-copyright':
+      'Better {{lguName}}. Amin a karbengan ket naireserbaan.',
+    'footer-resources': 'Dagiti Resources',
+    'footer-privacy': 'Patakaran ti Privacy',
+    'footer-terms': 'Dagiti Kondision ti Panagusar',
+    'accessibility-statement': 'Pahayag ti Aksesibilidad',
   },
 };
 

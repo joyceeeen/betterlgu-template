@@ -13,6 +13,7 @@ import type {
   FAQConfig,
   BudgetConfig,
   LegislativeConfig,
+  TourismConfig,
 } from '@/types/config';
 import {
   getSiteConfig,
@@ -30,6 +31,7 @@ import {
   getFAQConfig,
   getBudgetConfig,
   getLegislativeConfig,
+  getTourismConfig,
 } from '@/lib/config';
 
 interface SiteConfigContextType {
@@ -45,6 +47,7 @@ interface SiteConfigContextType {
   faq: FAQConfig;
   budget: BudgetConfig;
   legislative: LegislativeConfig;
+  tourism: TourismConfig;
 
   // Derived values
   lguType: LGUType;
@@ -92,6 +95,7 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
     const faq = getFAQConfig();
     const budget = getBudgetConfig();
     const legislative = getLegislativeConfig();
+    const tourism = getTourismConfig();
     const labels = getLGUTypeLabels(site.lguType);
     const lguName = getLGUName(site);
     const fullLocation = getFullLocation(site);
@@ -109,6 +113,7 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
       faq,
       budget,
       legislative,
+      tourism,
 
       // Derived values
       lguType: site.lguType,

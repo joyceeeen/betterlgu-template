@@ -17,6 +17,7 @@ import type {
   FAQConfig,
   BudgetConfig,
   LegislativeConfig,
+  TourismConfig,
 } from '@/types/config';
 
 // Import JSON config files
@@ -35,6 +36,7 @@ import newsConfig from '../../config/news.json';
 import faqConfig from '../../config/faq.json';
 import budgetConfig from '../../config/budget.json';
 import legislativeConfig from '../../config/legislative.json';
+import tourismConfig from '../../config/tourism.json';
 
 // LGU Type Labels mapping
 const MUNICIPALITY_LABELS: LGUTypeLabels = {
@@ -199,6 +201,13 @@ export function getLegislativeConfig(): LegislativeConfig {
 }
 
 /**
+ * Get the tourism config with proper typing
+ */
+export function getTourismConfig(): TourismConfig {
+  return tourismConfig as TourismConfig;
+}
+
+/**
  * Get the complete LGU configuration bundle
  */
 export function getLGUConfig(): LGUConfig {
@@ -291,3 +300,4 @@ export const news = getNewsConfig();
 export const faq = getFAQConfig();
 export const budget = getBudgetConfig();
 export const legislative = getLegislativeConfig();
+export const tourism = getTourismConfig();
