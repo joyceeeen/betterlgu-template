@@ -1,5 +1,5 @@
-import { createContext, useContext, ReactNode, useMemo } from 'react';
-import {
+import { createContext, useContext, type ReactNode, useMemo } from 'react';
+import type {
   LGUType,
   SiteConfig,
   OfficialsConfig,
@@ -60,7 +60,9 @@ interface SiteConfigContextType {
   formatPhoneLink: (_phone: string) => string;
 }
 
-const SiteConfigContext = createContext<SiteConfigContextType | undefined>(undefined);
+const SiteConfigContext = createContext<SiteConfigContextType | undefined>(
+  undefined,
+);
 
 export function SiteConfigProvider({ children }: { children: ReactNode }) {
   const contextValue = useMemo(() => {
@@ -104,7 +106,8 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
 
       // Utility functions
       getSiteTitle: () => configHelpers.getSiteTitle(site),
-      getFullSiteTitle: (pageTitle?: string) => configHelpers.getFullSiteTitle(site, pageTitle),
+      getFullSiteTitle: (pageTitle?: string) =>
+        configHelpers.getFullSiteTitle(site, pageTitle),
       getSiteDescription: () => configHelpers.getSiteDescription(site),
       getVolunteerEmail: () => configHelpers.getVolunteerEmail(site),
       getOpenGraphUrl: () => configHelpers.getOpenGraphUrl(site),

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Language } from '@/types';
+import type { Language } from '@/types';
 import { translations } from '@/data/translations';
 
 const STORAGE_KEY = 'betterlgu-lang';
@@ -28,10 +28,13 @@ export function useTranslation() {
     window.history.replaceState({}, '', url.toString());
   }, []);
 
-  const t = useCallback((key: string, fallback?: string): string => {
-    const langTranslations = translations[language] || translations.en;
-    return langTranslations[key] || translations.en[key] || fallback || key;
-  }, [language]);
+  const t = useCallback(
+    (key: string, fallback?: string): string => {
+      const langTranslations = translations[language] || translations.en;
+      return langTranslations[key] || translations.en[key] || fallback || key;
+    },
+    [language],
+  );
 
   return { t, language, setLanguage };
 }

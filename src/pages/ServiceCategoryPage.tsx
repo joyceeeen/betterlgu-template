@@ -20,11 +20,17 @@ export default function ServiceCategoryPage() {
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4">
         <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">Home</Link>
+          <Link to="/" className="hover:text-primary-600">
+            Home
+          </Link>
           <span className="mx-2">/</span>
-          <Link to="/services" className="hover:text-primary-600">Services</Link>
+          <Link to="/services" className="hover:text-primary-600">
+            Services
+          </Link>
           <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">{categoryContent.name}</span>
+          <span aria-current="page" className="text-gray-900">
+            {categoryContent.name}
+          </span>
         </nav>
       </div>
 
@@ -33,10 +39,15 @@ export default function ServiceCategoryPage() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-              <i className={`bi ${categoryContent.icon}`} /> {categoryContent.badgeText}
+              <i className={`bi ${categoryContent.icon}`} />{' '}
+              {categoryContent.badgeText}
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{categoryContent.name}</h1>
-            <p className="text-lg text-white/90">{categoryContent.description}</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              {categoryContent.name}
+            </h1>
+            <p className="text-lg text-white/90">
+              {categoryContent.description}
+            </p>
           </div>
         </div>
       </section>
@@ -49,12 +60,19 @@ export default function ServiceCategoryPage() {
               const CardContent = (
                 <>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                    <i className={`bi ${service.icon} text-primary-600`} /> {service.title}
+                    <i className={`bi ${service.icon} text-primary-600`} />{' '}
+                    {service.title}
                   </h3>
-                  <p className="text-sm text-gray-500 mb-4">{service.description}</p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    {service.description}
+                  </p>
                   <div className="flex gap-4 text-sm text-gray-600">
-                    <span><strong>Fee:</strong> {service.fee}</span>
-                    <span><strong>Time:</strong> {service.time}</span>
+                    <span>
+                      <strong>Fee:</strong> {service.fee}
+                    </span>
+                    <span>
+                      <strong>Time:</strong> {service.time}
+                    </span>
                   </div>
                 </>
               );
@@ -72,7 +90,10 @@ export default function ServiceCategoryPage() {
               }
 
               return (
-                <div key={service.id} className="p-6 bg-white border border-gray-200 rounded-xl">
+                <div
+                  key={service.id}
+                  className="p-6 bg-white border border-gray-200 rounded-xl"
+                >
                   {CardContent}
                 </div>
               );
@@ -85,7 +106,9 @@ export default function ServiceCategoryPage() {
       {categoryContent.offices.length > 0 && (
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Responsible Offices</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-6">
+              Responsible Offices
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {categoryContent.offices.map((office) => (
                 <Link
@@ -97,8 +120,12 @@ export default function ServiceCategoryPage() {
                     <i className={`bi ${office.icon}`} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900">{office.title}</h3>
-                    <p className="text-sm text-gray-500">{office.description}</p>
+                    <h3 className="font-semibold text-gray-900">
+                      {office.title}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      {office.description}
+                    </p>
                   </div>
                   <i className="bi bi-arrow-right text-gray-400" />
                 </Link>

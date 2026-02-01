@@ -8,30 +8,40 @@ export default function QuickStats() {
     {
       href: '/statistics',
       icon: 'bi-people-fill',
-      value: statistics.population.count > 0 ? statistics.population.count.toLocaleString() : '—',
+      value:
+        statistics.population.count > 0
+          ? statistics.population.count.toLocaleString()
+          : '—',
       label: 'Population',
-      source: statistics.population.source || `${statistics.population.year} Census`
+      source:
+        statistics.population.source || `${statistics.population.year} Census`,
     },
     {
       href: '/government',
       icon: 'bi-geo-alt-fill',
-      value: statistics.subdivisions.count > 0 ? statistics.subdivisions.count.toString() : '—',
+      value:
+        statistics.subdivisions.count > 0
+          ? statistics.subdivisions.count.toString()
+          : '—',
       label: labels.subdivisionTypePlural,
-      source: statistics.subdivisions.source || 'Administrative Units'
+      source: statistics.subdivisions.source || 'Administrative Units',
     },
     {
       href: '/budget',
       icon: 'bi-award-fill',
       value: statistics.incomeClass.class || '—',
       label: labels.lguTypeLabel,
-      source: statistics.incomeClass.source || 'Income Classification'
+      source: statistics.incomeClass.source || 'Income Classification',
     },
     {
       href: '/statistics',
       icon: 'bi-rulers',
-      value: statistics.landArea.value > 0 ? `${statistics.landArea.value} ${statistics.landArea.unit}` : '—',
+      value:
+        statistics.landArea.value > 0
+          ? `${statistics.landArea.value} ${statistics.landArea.unit}`
+          : '—',
       label: 'Land Area',
-      source: statistics.landArea.source || 'Total Area'
+      source: statistics.landArea.source || 'Total Area',
     },
   ];
 
@@ -40,8 +50,13 @@ export default function QuickStats() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-          <h2 className="text-xl font-bold text-gray-900 m-0">{lguName} at a Glance</h2>
-          <Link to="/statistics" className="text-primary-600 font-medium flex items-center gap-1 hover:underline">
+          <h2 className="text-xl font-bold text-gray-900 m-0">
+            {lguName} at a Glance
+          </h2>
+          <Link
+            to="/statistics"
+            className="text-primary-600 font-medium flex items-center gap-1 hover:underline"
+          >
             View Statistics <i className="bi bi-arrow-right" />
           </Link>
         </div>

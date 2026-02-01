@@ -10,8 +10,12 @@ const ServiceDetailPage = lazy(() => import('@/pages/ServiceDetailPage'));
 const GovernmentPage = lazy(() => import('@/pages/GovernmentPage'));
 const StatisticsPage = lazy(() => import('@/pages/StatisticsPage'));
 const LegislativePage = lazy(() => import('@/pages/LegislativePage'));
-const OrdinanceFrameworkPage = lazy(() => import('@/pages/OrdinanceFrameworkPage'));
-const ResolutionFrameworkPage = lazy(() => import('@/pages/ResolutionFrameworkPage'));
+const OrdinanceFrameworkPage = lazy(
+  () => import('@/pages/OrdinanceFrameworkPage'),
+);
+const ResolutionFrameworkPage = lazy(
+  () => import('@/pages/ResolutionFrameworkPage'),
+);
 const BudgetPage = lazy(() => import('@/pages/BudgetPage'));
 const NewsPage = lazy(() => import('@/pages/NewsPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
@@ -50,13 +54,25 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: withSuspense(HomePage) },
       { path: 'services', element: withSuspense(ServicesPage) },
-      { path: 'services/:category', element: withSuspense(ServiceCategoryPage) },
-      { path: 'service-details/:slug', element: withSuspense(ServiceDetailPage) },
+      {
+        path: 'services/:category',
+        element: withSuspense(ServiceCategoryPage),
+      },
+      {
+        path: 'service-details/:slug',
+        element: withSuspense(ServiceDetailPage),
+      },
       { path: 'government', element: withSuspense(GovernmentPage) },
       { path: 'statistics', element: withSuspense(StatisticsPage) },
       { path: 'legislative', element: withSuspense(LegislativePage) },
-      { path: 'legislative/ordinance-framework', element: withSuspense(OrdinanceFrameworkPage) },
-      { path: 'legislative/resolution-framework', element: withSuspense(ResolutionFrameworkPage) },
+      {
+        path: 'legislative/ordinance-framework',
+        element: withSuspense(OrdinanceFrameworkPage),
+      },
+      {
+        path: 'legislative/resolution-framework',
+        element: withSuspense(ResolutionFrameworkPage),
+      },
       { path: 'budget', element: withSuspense(BudgetPage) },
       { path: 'news', element: withSuspense(NewsPage) },
       { path: 'contact', element: withSuspense(ContactPage) },

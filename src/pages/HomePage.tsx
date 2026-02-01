@@ -2,7 +2,13 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
-import { Hero, PopularServices, QuickStats, WeatherMap, History } from '@/components/home';
+import {
+  Hero,
+  PopularServices,
+  QuickStats,
+  WeatherMap,
+  History,
+} from '@/components/home';
 
 export default function HomePage() {
   const { t } = useLanguage();
@@ -22,10 +28,10 @@ export default function HomePage() {
 
   // Get executive officials (mayor/governor and vice)
   const leader = officials.executive.find(
-    (o) => o.position === 'mayor' || o.position === 'governor'
+    (o) => o.position === 'mayor' || o.position === 'governor',
   );
   const viceLeader = officials.executive.find(
-    (o) => o.position === 'vice_mayor' || o.position === 'vice_governor'
+    (o) => o.position === 'vice_mayor' || o.position === 'vice_governor',
   );
 
   return (
@@ -50,13 +56,16 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('section-updates')}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                {t('section-updates')}
+              </h2>
             </div>
             <Link
               to="/news"
               className="text-primary-600 font-medium flex items-center gap-1 hover:underline"
             >
-              <span>{t('btn-view-all')}</span> <i className="bi bi-arrow-right" />
+              <span>{t('btn-view-all')}</span>{' '}
+              <i className="bi bi-arrow-right" />
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -68,7 +77,10 @@ export default function HomePage() {
                 <span className="text-gray-400 text-sm">Coming Soon</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                <Link to="/news" className="hover:text-primary-600 transition-colors">
+                <Link
+                  to="/news"
+                  className="hover:text-primary-600 transition-colors"
+                >
                   Latest Announcements
                 </Link>
               </h3>
@@ -84,12 +96,16 @@ export default function HomePage() {
                 <span className="text-gray-400 text-sm">Coming Soon</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                <Link to="/news" className="hover:text-primary-600 transition-colors">
+                <Link
+                  to="/news"
+                  className="hover:text-primary-600 transition-colors"
+                >
                   Infrastructure Projects
                 </Link>
               </h3>
               <p className="text-gray-500 text-sm">
-                Updates on ongoing and upcoming infrastructure projects in {lguName}.
+                Updates on ongoing and upcoming infrastructure projects in{' '}
+                {lguName}.
               </p>
             </article>
             <article className="bg-white border border-gray-200 rounded-xl p-6 transition-all duration-200 hover:border-primary-500 hover:shadow-md">
@@ -100,7 +116,10 @@ export default function HomePage() {
                 <span className="text-gray-400 text-sm">Coming Soon</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                <Link to="/news" className="hover:text-primary-600 transition-colors">
+                <Link
+                  to="/news"
+                  className="hover:text-primary-600 transition-colors"
+                >
                   Public Advisories
                 </Link>
               </h3>
@@ -116,12 +135,15 @@ export default function HomePage() {
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <h2 className="text-2xl font-bold text-gray-900">{t('section-leadership')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {t('section-leadership')}
+            </h2>
             <Link
               to="/government"
               className="text-primary-600 font-medium flex items-center gap-1 hover:underline"
             >
-              <span>{t('btn-view-officials')}</span> <i className="bi bi-arrow-right" />
+              <span>{t('btn-view-officials')}</span>{' '}
+              <i className="bi bi-arrow-right" />
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -141,7 +163,8 @@ export default function HomePage() {
                     href={`mailto:${leader.email}`}
                     className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
                   >
-                    <i className="bi bi-envelope text-primary-600" /> {leader.email}
+                    <i className="bi bi-envelope text-primary-600" />{' '}
+                    {leader.email}
                   </a>
                 )}
                 {leader?.phone && (
@@ -149,7 +172,8 @@ export default function HomePage() {
                     href={`tel:${formatPhoneLink(leader.phone)}`}
                     className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
                   >
-                    <i className="bi bi-telephone text-primary-600" /> {leader.phone}
+                    <i className="bi bi-telephone text-primary-600" />{' '}
+                    {leader.phone}
                   </a>
                 )}
               </div>
@@ -162,7 +186,9 @@ export default function HomePage() {
                   {labels.lguTypeLabel} {getViceLeaderTitle()}
                 </span>
                 <h3 className="text-xl font-semibold">
-                  {viceLeader?.name ? `Hon. ${viceLeader.name}` : 'To be updated'}
+                  {viceLeader?.name
+                    ? `Hon. ${viceLeader.name}`
+                    : 'To be updated'}
                 </h3>
               </div>
               <div className="p-6 space-y-3">
@@ -171,7 +197,8 @@ export default function HomePage() {
                     href={`mailto:${viceLeader.email}`}
                     className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
                   >
-                    <i className="bi bi-envelope text-primary-600" /> {viceLeader.email}
+                    <i className="bi bi-envelope text-primary-600" />{' '}
+                    {viceLeader.email}
                   </a>
                 )}
                 {viceLeader?.phone && (
@@ -179,7 +206,8 @@ export default function HomePage() {
                     href={`tel:${formatPhoneLink(viceLeader.phone)}`}
                     className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
                   >
-                    <i className="bi bi-telephone text-primary-600" /> {viceLeader.phone}
+                    <i className="bi bi-telephone text-primary-600" />{' '}
+                    {viceLeader.phone}
                   </a>
                 )}
               </div>
@@ -192,7 +220,9 @@ export default function HomePage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <h2 className="text-2xl font-bold text-gray-900">{t('section-contact')}</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {t('section-contact')}
+            </h2>
             <Link
               to="/contact"
               className="text-primary-600 font-medium flex items-center gap-1 hover:underline"
@@ -213,8 +243,12 @@ export default function HomePage() {
                   <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
                     {t('contact-phone')}
                   </h3>
-                  <p className="text-base font-semibold text-gray-900 mb-1">{site.contact.phone}</p>
-                  <span className="text-xs text-gray-500">{t('contact-hours')}</span>
+                  <p className="text-base font-semibold text-gray-900 mb-1">
+                    {site.contact.phone}
+                  </p>
+                  <span className="text-xs text-gray-500">
+                    {t('contact-hours')}
+                  </span>
                 </div>
               </a>
             )}
@@ -230,8 +264,12 @@ export default function HomePage() {
                   <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
                     {t('contact-email')}
                   </h3>
-                  <p className="text-base font-semibold text-gray-900 mb-1">{site.contact.email}</p>
-                  <span className="text-xs text-gray-500">{t('contact-response')}</span>
+                  <p className="text-base font-semibold text-gray-900 mb-1">
+                    {site.contact.email}
+                  </p>
+                  <span className="text-xs text-gray-500">
+                    {t('contact-response')}
+                  </span>
                 </div>
               </a>
             )}
@@ -243,7 +281,9 @@ export default function HomePage() {
                 <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
                   {t('contact-address')}
                 </h3>
-                <p className="text-base font-semibold text-gray-900 mb-1">{getHallName()}</p>
+                <p className="text-base font-semibold text-gray-900 mb-1">
+                  {getHallName()}
+                </p>
                 <span className="text-xs text-gray-500">
                   {fullLocation} {site.contact.postalCode}
                 </span>

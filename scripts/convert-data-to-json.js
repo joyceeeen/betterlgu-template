@@ -31,11 +31,11 @@ function extractArrayFromTS(content, variableName) {
 
   const arrayStr = content.slice(startIdx, endIdx);
   // Convert TS to JSON-compatible format
-  let jsonStr = arrayStr
-    .replace(/'/g, '"')  // Single to double quotes
-    .replace(/(\w+):/g, '"$1":')  // Unquoted keys to quoted
-    .replace(/,(\s*[}\]])/g, '$1')  // Remove trailing commas
-    .replace(/\\\'/g, "'");  // Fix escaped quotes
+  const jsonStr = arrayStr
+    .replace(/'/g, '"') // Single to double quotes
+    .replace(/(\w+):/g, '"$1":') // Unquoted keys to quoted
+    .replace(/,(\s*[}\]])/g, '$1') // Remove trailing commas
+    .replace(/\\\'/g, "'"); // Fix escaped quotes
 
   try {
     return JSON.parse(jsonStr);
@@ -53,86 +53,97 @@ console.log('Converting data files to JSON config...');
 
 // Create categories.json from categoriesContent.ts
 const categoriesJSON = {
-  "$schema": "./schema/categories.schema.json",
-  "categories": [
+  $schema: './schema/categories.schema.json',
+  categories: [
     {
-      "id": "certificates",
-      "name": "Certificates & Vital Records",
-      "icon": "bi-file-earmark-text-fill",
-      "badgeText": "Certificates",
-      "description": "Official documents for birth, death, marriage, and other vital records"
+      id: 'certificates',
+      name: 'Certificates & Vital Records',
+      icon: 'bi-file-earmark-text-fill',
+      badgeText: 'Certificates',
+      description:
+        'Official documents for birth, death, marriage, and other vital records',
     },
     {
-      "id": "business",
-      "name": "Business & Trade",
-      "icon": "bi-shop",
-      "badgeText": "Business",
-      "description": "Business permits, licenses, and trade registration services"
+      id: 'business',
+      name: 'Business & Trade',
+      icon: 'bi-shop',
+      badgeText: 'Business',
+      description:
+        'Business permits, licenses, and trade registration services',
     },
     {
-      "id": "tax-payments",
-      "name": "Taxation & Payments",
-      "icon": "bi-cash-coin",
-      "badgeText": "Taxation",
-      "description": "Property tax, business tax, payments, and tax clearance"
+      id: 'tax-payments',
+      name: 'Taxation & Payments',
+      icon: 'bi-cash-coin',
+      badgeText: 'Taxation',
+      description: 'Property tax, business tax, payments, and tax clearance',
     },
     {
-      "id": "social-services",
-      "name": "Social Services",
-      "icon": "bi-people-fill",
-      "badgeText": "Social Services",
-      "description": "Welfare programs, senior citizen services, PWD benefits, and financial aid"
+      id: 'social-services',
+      name: 'Social Services',
+      icon: 'bi-people-fill',
+      badgeText: 'Social Services',
+      description:
+        'Welfare programs, senior citizen services, PWD benefits, and financial aid',
     },
     {
-      "id": "health",
-      "name": "Health & Wellness",
-      "icon": "bi-heart-pulse-fill",
-      "badgeText": "Health",
-      "description": "Vaccination programs, health certificates, and medical assistance"
+      id: 'health',
+      name: 'Health & Wellness',
+      icon: 'bi-heart-pulse-fill',
+      badgeText: 'Health',
+      description:
+        'Vaccination programs, health certificates, and medical assistance',
     },
     {
-      "id": "agriculture",
-      "name": "Agriculture",
-      "icon": "bi-tree-fill",
-      "badgeText": "Agriculture",
-      "description": "Agricultural loans, crop insurance, fertilizer assistance, and training"
+      id: 'agriculture',
+      name: 'Agriculture',
+      icon: 'bi-tree-fill',
+      badgeText: 'Agriculture',
+      description:
+        'Agricultural loans, crop insurance, fertilizer assistance, and training',
     },
     {
-      "id": "infrastructure",
-      "name": "Infrastructure",
-      "icon": "bi-building-fill-gear",
-      "badgeText": "Infrastructure",
-      "description": "Construction permits, road maintenance requests, and public facilities"
+      id: 'infrastructure',
+      name: 'Infrastructure',
+      icon: 'bi-building-fill-gear',
+      badgeText: 'Infrastructure',
+      description:
+        'Construction permits, road maintenance requests, and public facilities',
     },
     {
-      "id": "education",
-      "name": "Education & Scholarship",
-      "icon": "bi-mortarboard-fill",
-      "badgeText": "Education",
-      "description": "Scholarship programs, student assistance, and educational grants"
+      id: 'education',
+      name: 'Education & Scholarship',
+      icon: 'bi-mortarboard-fill',
+      badgeText: 'Education',
+      description:
+        'Scholarship programs, student assistance, and educational grants',
     },
     {
-      "id": "public-safety",
-      "name": "Public Safety",
-      "icon": "bi-shield-fill-check",
-      "badgeText": "Public Safety",
-      "description": "Emergency services, disaster preparedness, and community safety programs"
+      id: 'public-safety',
+      name: 'Public Safety',
+      icon: 'bi-shield-fill-check',
+      badgeText: 'Public Safety',
+      description:
+        'Emergency services, disaster preparedness, and community safety programs',
     },
     {
-      "id": "environment",
-      "name": "Environment",
-      "icon": "bi-globe-americas",
-      "badgeText": "Environment",
-      "description": "Environmental permits, waste management, and conservation programs"
-    }
-  ]
+      id: 'environment',
+      name: 'Environment',
+      icon: 'bi-globe-americas',
+      badgeText: 'Environment',
+      description:
+        'Environmental permits, waste management, and conservation programs',
+    },
+  ],
 };
 
 writeFileSync(
   join(rootDir, 'config', 'categories.json'),
-  JSON.stringify(categoriesJSON, null, 2)
+  JSON.stringify(categoriesJSON, null, 2),
 );
 console.log('Created config/categories.json');
 
-console.log('Done! Note: service-details.json needs manual review due to complexity.');
+console.log(
+  'Done! Note: service-details.json needs manual review due to complexity.',
+);
 console.log('The services.json was already copied to config/');

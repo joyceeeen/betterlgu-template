@@ -3,7 +3,7 @@ import {
   PopulationTrendsChart,
   PopulationDistributionChart,
   BarangayPopulationChart,
-  KeyIndicatorsTrendChart
+  KeyIndicatorsTrendChart,
 } from '@/components/charts/Charts';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
@@ -42,11 +42,41 @@ export default function StatisticsPage() {
   ];
 
   const cmciPillars = [
-    { icon: 'bi-graph-up-arrow', title: 'Economic Dynamism', score: '0.23', trend: '+12%', trendType: 'up' },
-    { icon: 'bi-building-check', title: 'Government Efficiency', score: '1.17', trend: '-8%', trendType: 'down' },
-    { icon: 'bi-building-gear', title: 'Infrastructure', score: '0.40', trend: '+5%', trendType: 'up' },
-    { icon: 'bi-shield-check', title: 'Resiliency', score: '1.08', trend: 'Stable', trendType: 'stable' },
-    { icon: 'bi-lightbulb', title: 'Innovation', score: '0.68', trend: '+25%', trendType: 'up' },
+    {
+      icon: 'bi-graph-up-arrow',
+      title: 'Economic Dynamism',
+      score: '0.23',
+      trend: '+12%',
+      trendType: 'up',
+    },
+    {
+      icon: 'bi-building-check',
+      title: 'Government Efficiency',
+      score: '1.17',
+      trend: '-8%',
+      trendType: 'down',
+    },
+    {
+      icon: 'bi-building-gear',
+      title: 'Infrastructure',
+      score: '0.40',
+      trend: '+5%',
+      trendType: 'up',
+    },
+    {
+      icon: 'bi-shield-check',
+      title: 'Resiliency',
+      score: '1.08',
+      trend: 'Stable',
+      trendType: 'stable',
+    },
+    {
+      icon: 'bi-lightbulb',
+      title: 'Innovation',
+      score: '0.68',
+      trend: '+25%',
+      trendType: 'up',
+    },
   ];
 
   return (
@@ -54,9 +84,13 @@ export default function StatisticsPage() {
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4">
         <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">Home</Link>
+          <Link to="/" className="hover:text-primary-600">
+            Home
+          </Link>
           <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">Statistics</span>
+          <span aria-current="page" className="text-gray-900">
+            Statistics
+          </span>
         </nav>
       </div>
 
@@ -67,8 +101,12 @@ export default function StatisticsPage() {
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
               <i className="bi bi-bar-chart-fill" /> {labels.lguTypeLabel} Data
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{labels.lguTypeLabel} Statistics</h1>
-            <p className="text-lg text-white/90">Data and statistics about {fullLocation}</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              {labels.lguTypeLabel} Statistics
+            </h1>
+            <p className="text-lg text-white/90">
+              Data and statistics about {fullLocation}
+            </p>
           </div>
         </div>
       </section>
@@ -82,30 +120,46 @@ export default function StatisticsPage() {
                 <i className="bi bi-people-fill" />
               </div>
               <div className="text-3xl font-bold text-gray-900 mb-1">
-                {statistics.population.count > 0 ? statistics.population.count.toLocaleString() : '—'}
+                {statistics.population.count > 0
+                  ? statistics.population.count.toLocaleString()
+                  : '—'}
               </div>
               <div className="text-gray-500 font-medium">Population</div>
-              <div className="text-xs text-gray-400 mt-2">{statistics.population.year} {statistics.population.source}</div>
+              <div className="text-xs text-gray-400 mt-2">
+                {statistics.population.year} {statistics.population.source}
+              </div>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-6 transition-all duration-200 hover:shadow-lg hover:border-primary-500">
               <div className="w-12 h-12 flex items-center justify-center bg-primary-50 text-primary-600 rounded-xl text-2xl mb-4">
                 <i className="bi bi-geo-alt-fill" />
               </div>
               <div className="text-3xl font-bold text-gray-900 mb-1">
-                {statistics.subdivisions.count > 0 ? statistics.subdivisions.count : '—'}
+                {statistics.subdivisions.count > 0
+                  ? statistics.subdivisions.count
+                  : '—'}
               </div>
-              <div className="text-gray-500 font-medium">{labels.subdivisionTypePlural}</div>
-              <div className="text-xs text-gray-400 mt-2">{statistics.subdivisions.source}</div>
+              <div className="text-gray-500 font-medium">
+                {labels.subdivisionTypePlural}
+              </div>
+              <div className="text-xs text-gray-400 mt-2">
+                {statistics.subdivisions.source}
+              </div>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-6 transition-all duration-200 hover:shadow-lg hover:border-primary-500">
               <div className="w-12 h-12 flex items-center justify-center bg-primary-50 text-primary-600 rounded-xl text-2xl mb-4">
                 <i className="bi bi-rulers" />
               </div>
               <div className="text-3xl font-bold text-gray-900 mb-1">
-                {statistics.landArea.value > 0 ? statistics.landArea.value : '—'}
+                {statistics.landArea.value > 0
+                  ? statistics.landArea.value
+                  : '—'}
               </div>
-              <div className="text-gray-500 font-medium">Land Area ({statistics.landArea.unit})</div>
-              <div className="text-xs text-gray-400 mt-2">{statistics.landArea.source}</div>
+              <div className="text-gray-500 font-medium">
+                Land Area ({statistics.landArea.unit})
+              </div>
+              <div className="text-xs text-gray-400 mt-2">
+                {statistics.landArea.source}
+              </div>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-6 transition-all duration-200 hover:shadow-lg hover:border-primary-500">
               <div className="w-12 h-12 flex items-center justify-center bg-primary-50 text-primary-600 rounded-xl text-2xl mb-4">
@@ -115,7 +169,9 @@ export default function StatisticsPage() {
                 {statistics.incomeClass.class || '—'}
               </div>
               <div className="text-gray-500 font-medium">Income Class</div>
-              <div className="text-xs text-gray-400 mt-2">{statistics.incomeClass.source}</div>
+              <div className="text-xs text-gray-400 mt-2">
+                {statistics.incomeClass.source}
+              </div>
             </div>
           </div>
         </div>
@@ -128,8 +184,12 @@ export default function StatisticsPage() {
             <span className="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-3">
               <i className="bi bi-cash-stack" /> Finance
             </span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Municipal Income</h2>
-            <p className="text-gray-500">Financial standing for fiscal year 2023</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Municipal Income
+            </h2>
+            <p className="text-gray-500">
+              Financial standing for fiscal year 2023
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -146,26 +206,40 @@ export default function StatisticsPage() {
                 <i className="bi bi-bank" />
                 <span>IRA Share</span>
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">₱220.77M</div>
-              <div className="text-sm text-gray-500">Internal Revenue Allotment</div>
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                ₱220.77M
+              </div>
+              <div className="text-sm text-gray-500">
+                Internal Revenue Allotment
+              </div>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-6">
               <div className="flex items-center gap-2 mb-4 text-gray-500">
                 <i className="bi bi-pie-chart-fill" />
                 <span>IRA Dependency</span>
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">59.45%</div>
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                59.45%
+              </div>
               <div className="text-sm text-gray-500">National Tax Share</div>
             </div>
           </div>
 
           <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-            <h4 className="font-semibold text-gray-900 mb-4">Income Composition</h4>
+            <h4 className="font-semibold text-gray-900 mb-4">
+              Income Composition
+            </h4>
             <div className="h-6 bg-gray-100 rounded-full overflow-hidden flex">
-              <div className="bg-primary-600 h-full flex items-center justify-center text-white text-xs font-medium" style={{ width: '59.45%' }}>
+              <div
+                className="bg-primary-600 h-full flex items-center justify-center text-white text-xs font-medium"
+                style={{ width: '59.45%' }}
+              >
                 IRA 59.45%
               </div>
-              <div className="bg-green-500 h-full flex items-center justify-center text-white text-xs font-medium" style={{ width: '40.55%' }}>
+              <div
+                className="bg-green-500 h-full flex items-center justify-center text-white text-xs font-medium"
+                style={{ width: '40.55%' }}
+              >
                 Local 40.55%
               </div>
             </div>
@@ -183,7 +257,16 @@ export default function StatisticsPage() {
 
           <p className="text-sm text-gray-500 flex items-center gap-2">
             <i className="bi bi-info-circle" />
-            Source: <a href="https://blgf.gov.ph/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Bureau of Local Government Finance (BLGF)</a> – 2023 SRE Data
+            Source:{' '}
+            <a
+              href="https://blgf.gov.ph/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:underline"
+            >
+              Bureau of Local Government Finance (BLGF)
+            </a>{' '}
+            – 2023 SRE Data
           </p>
         </div>
       </section>
@@ -195,25 +278,33 @@ export default function StatisticsPage() {
             <span className="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-3">
               <i className="bi bi-graph-up" /> Growth
             </span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Population Trends</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Population Trends
+            </h2>
             <p className="text-gray-500">Historical growth from 1990 to 2024</p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 mb-8">
             <div className="text-center p-4 bg-white border border-gray-200 rounded-xl">
               <span className="text-sm text-gray-500">1990</span>
-              <span className="block text-2xl font-bold text-gray-900">38,006</span>
+              <span className="block text-2xl font-bold text-gray-900">
+                38,006
+              </span>
             </div>
             <div className="flex items-center">
               <i className="bi bi-arrow-right text-2xl text-gray-400" />
             </div>
             <div className="text-center p-4 bg-primary-50 border border-primary-200 rounded-xl">
               <span className="text-sm text-primary-600">2024</span>
-              <span className="block text-2xl font-bold text-primary-700">69,296</span>
+              <span className="block text-2xl font-bold text-primary-700">
+                69,296
+              </span>
             </div>
             <div className="text-center p-4 bg-green-50 border border-green-200 rounded-xl">
               <span className="text-sm text-green-600">Growth</span>
-              <span className="block text-2xl font-bold text-green-700">+82.3%</span>
+              <span className="block text-2xl font-bold text-green-700">
+                +82.3%
+              </span>
             </div>
           </div>
 
@@ -223,7 +314,15 @@ export default function StatisticsPage() {
 
           <p className="text-sm text-gray-500 flex items-center gap-2">
             <i className="bi bi-info-circle" />
-            Source: <a href="https://psa.gov.ph/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Philippine Statistics Authority (PSA)</a>
+            Source:{' '}
+            <a
+              href="https://psa.gov.ph/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:underline"
+            >
+              Philippine Statistics Authority (PSA)
+            </a>
           </p>
         </div>
       </section>
@@ -235,7 +334,9 @@ export default function StatisticsPage() {
             <span className="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-3">
               <i className="bi bi-pie-chart-fill" /> Distribution
             </span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Population by Barangay</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Population by Barangay
+            </h2>
             <p className="text-gray-500">2024 Census of Population</p>
           </div>
 
@@ -245,15 +346,27 @@ export default function StatisticsPage() {
             </div>
             <div className="space-y-3">
               {barangayData.map((b) => (
-                <div key={b.rank} className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg">
-                  <span className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold ${b.rank <= 3 ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                <div
+                  key={b.rank}
+                  className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg"
+                >
+                  <span
+                    className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold ${b.rank <= 3 ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-600'}`}
+                  >
                     #{b.rank}
                   </span>
-                  <span className="font-medium text-gray-900 w-32">{b.name}</span>
+                  <span className="font-medium text-gray-900 w-32">
+                    {b.name}
+                  </span>
                   <div className="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-primary-500 rounded-full" style={{ width: `${b.pct}%` }} />
+                    <div
+                      className="h-full bg-primary-500 rounded-full"
+                      style={{ width: `${b.pct}%` }}
+                    />
                   </div>
-                  <span className="text-sm font-semibold text-gray-700 w-16 text-right">{b.pop.toLocaleString()}</span>
+                  <span className="text-sm font-semibold text-gray-700 w-16 text-right">
+                    {b.pop.toLocaleString()}
+                  </span>
                 </div>
               ))}
             </div>
@@ -265,15 +378,25 @@ export default function StatisticsPage() {
             </summary>
             <div className="p-4 border-t border-gray-200 space-y-3">
               {allBarangays.slice(10).map((b) => (
-                <div key={b.rank} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                <div
+                  key={b.rank}
+                  className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+                >
                   <span className="w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold bg-gray-100 text-gray-600">
                     #{b.rank}
                   </span>
-                  <span className="font-medium text-gray-900 w-32">{b.name}</span>
+                  <span className="font-medium text-gray-900 w-32">
+                    {b.name}
+                  </span>
                   <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-primary-400 rounded-full" style={{ width: `${b.pct}%` }} />
+                    <div
+                      className="h-full bg-primary-400 rounded-full"
+                      style={{ width: `${b.pct}%` }}
+                    />
                   </div>
-                  <span className="text-sm font-semibold text-gray-700 w-16 text-right">{b.pop.toLocaleString()}</span>
+                  <span className="text-sm font-semibold text-gray-700 w-16 text-right">
+                    {b.pop.toLocaleString()}
+                  </span>
                 </div>
               ))}
             </div>
@@ -281,7 +404,16 @@ export default function StatisticsPage() {
 
           <p className="text-sm text-gray-500 flex items-center gap-2">
             <i className="bi bi-info-circle" />
-            Source: <a href="https://psa.gov.ph/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Philippine Statistics Authority (PSA)</a> - 2024 Census
+            Source:{' '}
+            <a
+              href="https://psa.gov.ph/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:underline"
+            >
+              Philippine Statistics Authority (PSA)
+            </a>{' '}
+            - 2024 Census
           </p>
         </div>
       </section>
@@ -293,26 +425,47 @@ export default function StatisticsPage() {
             <span className="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-3">
               <i className="bi bi-trophy-fill" /> Competitiveness
             </span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">{lguName} Competitive Index</h2>
-            <p className="text-gray-500">Cities and Municipalities Competitiveness Index (CMCI) Performance</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              {lguName} Competitive Index
+            </h2>
+            <p className="text-gray-500">
+              Cities and Municipalities Competitiveness Index (CMCI) Performance
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             {cmciPillars.map((pillar, index) => (
-              <div key={index} className="bg-white border border-gray-200 rounded-xl p-6 text-center">
+              <div
+                key={index}
+                className="bg-white border border-gray-200 rounded-xl p-6 text-center"
+              >
                 <div className="w-12 h-12 flex items-center justify-center bg-primary-50 text-primary-600 rounded-xl text-xl mx-auto mb-3">
                   <i className={`bi ${pillar.icon}`} />
                 </div>
-                <h4 className="text-sm font-medium text-gray-700 mb-2">{pillar.title}</h4>
-                <div className="text-2xl font-bold text-gray-900 mb-1">{pillar.score}</div>
-                <div className={`text-sm font-medium flex items-center justify-center gap-1 ${
-                  pillar.trendType === 'up' ? 'text-green-600' :
-                  pillar.trendType === 'down' ? 'text-red-600' : 'text-gray-500'
-                }`}>
-                  <i className={`bi ${
-                    pillar.trendType === 'up' ? 'bi-arrow-up' :
-                    pillar.trendType === 'down' ? 'bi-arrow-down' : 'bi-dash'
-                  }`} />
+                <h4 className="text-sm font-medium text-gray-700 mb-2">
+                  {pillar.title}
+                </h4>
+                <div className="text-2xl font-bold text-gray-900 mb-1">
+                  {pillar.score}
+                </div>
+                <div
+                  className={`text-sm font-medium flex items-center justify-center gap-1 ${
+                    pillar.trendType === 'up'
+                      ? 'text-green-600'
+                      : pillar.trendType === 'down'
+                        ? 'text-red-600'
+                        : 'text-gray-500'
+                  }`}
+                >
+                  <i
+                    className={`bi ${
+                      pillar.trendType === 'up'
+                        ? 'bi-arrow-up'
+                        : pillar.trendType === 'down'
+                          ? 'bi-arrow-down'
+                          : 'bi-dash'
+                    }`}
+                  />
                   {pillar.trend}
                 </div>
               </div>
@@ -321,14 +474,23 @@ export default function StatisticsPage() {
 
           <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
             <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <i className="bi bi-bar-chart-line" /> Key Indicators Trend (2016-2024)
+              <i className="bi bi-bar-chart-line" /> Key Indicators Trend
+              (2016-2024)
             </h4>
             <KeyIndicatorsTrendChart />
           </div>
 
           <p className="text-sm text-gray-500 flex items-center gap-2">
             <i className="bi bi-info-circle" />
-            Source: <a href="https://cmci.dti.gov.ph/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">DTI Cities and Municipalities Competitiveness Index (CMCI)</a>
+            Source:{' '}
+            <a
+              href="https://cmci.dti.gov.ph/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:underline"
+            >
+              DTI Cities and Municipalities Competitiveness Index (CMCI)
+            </a>
           </p>
         </div>
       </section>
@@ -340,8 +502,12 @@ export default function StatisticsPage() {
             <span className="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-3">
               <i className="bi bi-bar-chart-fill" /> Visual
             </span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Population Bar Chart</h2>
-            <p className="text-gray-500">Comparative view of all 22 barangays</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Population Bar Chart
+            </h2>
+            <p className="text-gray-500">
+              Comparative view of all 22 barangays
+            </p>
           </div>
 
           <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
@@ -350,7 +516,16 @@ export default function StatisticsPage() {
 
           <p className="text-sm text-gray-500 flex items-center gap-2">
             <i className="bi bi-info-circle" />
-            Source: <a href="https://psa.gov.ph/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Philippine Statistics Authority (PSA)</a> - 2024 Census
+            Source:{' '}
+            <a
+              href="https://psa.gov.ph/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:underline"
+            >
+              Philippine Statistics Authority (PSA)
+            </a>{' '}
+            - 2024 Census
           </p>
         </div>
       </section>

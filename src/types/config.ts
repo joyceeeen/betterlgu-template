@@ -66,7 +66,12 @@ export interface ExecutiveOfficial {
 export interface LegislativeOfficial {
   id: string;
   name: string;
-  position: 'sb_member' | 'board_member' | 'liga_president' | 'sk_president' | 'ipmr';
+  position:
+    | 'sb_member'
+    | 'board_member'
+    | 'liga_president'
+    | 'sk_president'
+    | 'ipmr';
   title: string;
   committees?: string;
   email?: string;
@@ -200,21 +205,23 @@ export interface LGUConfig {
 
 // LGU Type Labels - returns proper terminology based on LGU type
 export interface LGUTypeLabels {
-  leaderTitle: string;           // "Mayor" or "Governor"
-  viceLeaderTitle: string;       // "Vice Mayor" or "Vice Governor"
-  legislativeBody: string;       // "Sangguniang Bayan" or "Sangguniang Panlalawigan"
-  legislativeBodyAbbr: string;   // "SB" or "SP"
-  legislativeMembers: string;    // "SB Members" or "Board Members"
-  subdivisionType: string;       // "Barangay" or "Municipality/City"
+  leaderTitle: string; // "Mayor" or "Governor"
+  viceLeaderTitle: string; // "Vice Mayor" or "Vice Governor"
+  legislativeBody: string; // "Sangguniang Bayan" or "Sangguniang Panlalawigan"
+  legislativeBodyAbbr: string; // "SB" or "SP"
+  legislativeMembers: string; // "SB Members" or "Board Members"
+  subdivisionType: string; // "Barangay" or "Municipality/City"
   subdivisionTypePlural: string; // "Barangays" or "Municipalities/Cities"
-  subdivisionLeader: string;     // "Barangay Captain" or "Mayor"
-  deptPrefix: string;            // "Municipal" or "Provincial"
-  hallName: string;              // "Municipal Hall" or "Provincial Capitol"
-  lguTypeLabel: string;          // "Municipality" or "Province"
+  subdivisionLeader: string; // "Barangay Captain" or "Mayor"
+  deptPrefix: string; // "Municipal" or "Provincial"
+  hallName: string; // "Municipal Hall" or "Provincial Capitol"
+  lguTypeLabel: string; // "Municipality" or "Province"
 }
 
 // Helper type for getting LGU name based on type
-export type LGUName<T extends LGUType> = T extends 'municipality' ? string : string;
+export type LGUName<T extends LGUType> = T extends 'municipality'
+  ? string
+  : string;
 
 // Navigation Configuration
 export interface NavigationConfig {

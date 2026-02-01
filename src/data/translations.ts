@@ -1,4 +1,4 @@
-import { Language, TranslationKeys } from '@/types';
+import type { Language, TranslationKeys } from '@/types';
 
 // Core translations - uses {{variable}} syntax for template interpolation
 // Variables: {{lguName}}, {{municipality}}, {{province}}, {{domain}}, {{lguType}}, {{leaderTitle}}, {{hallName}}
@@ -17,7 +17,8 @@ export const translations: Record<Language, TranslationKeys> = {
 
     // Hero Section - uses template variables
     'hero-welcome': 'Welcome to Better{{lguName}}.org',
-    'hero-subtitle': 'Access government services, information, and resources for the people of {{municipality}}, {{province}}.',
+    'hero-subtitle':
+      'Access government services, information, and resources for the people of {{municipality}}, {{province}}.',
 
     // Popular Services
     'section-popular': 'Popular Services',
@@ -46,7 +47,8 @@ export const translations: Record<Language, TranslationKeys> = {
 
     // Footer - uses template variables
     'footer-title': 'Better {{lguName}}',
-    'footer-desc': 'A service-first information portal for the {{lguType}} of {{municipality}}, {{province}}.',
+    'footer-desc':
+      'A service-first information portal for the {{lguType}} of {{municipality}}, {{province}}.',
     'footer-quick-links': 'Quick Links',
     'footer-all-services': 'All Services',
     'footer-officials': 'Officials',
@@ -74,12 +76,14 @@ export const translations: Record<Language, TranslationKeys> = {
 
     // Hero Section
     'hero-welcome': 'Maligayang Pagdating sa Better{{lguName}}.org',
-    'hero-subtitle': 'I-access ang mga serbisyo ng pamahalaan, impormasyon, at mga mapagkukunan para sa mga mamamayan ng {{municipality}}, {{province}}.',
+    'hero-subtitle':
+      'I-access ang mga serbisyo ng pamahalaan, impormasyon, at mga mapagkukunan para sa mga mamamayan ng {{municipality}}, {{province}}.',
 
     // Popular Services
     'section-popular': 'Mga Sikat na Serbisyo',
     'service-certificates': 'Mga Sertipiko',
-    'service-certificates-desc': 'Sertipiko ng kapanganakan, kasal, at kamatayan',
+    'service-certificates-desc':
+      'Sertipiko ng kapanganakan, kasal, at kamatayan',
     'service-business': 'Mga Permit sa Negosyo',
     'service-business-desc': 'Bagong permit at pag-renew',
     'service-tax': 'Pagbabayad ng Buwis',
@@ -103,7 +107,8 @@ export const translations: Record<Language, TranslationKeys> = {
 
     // Footer
     'footer-title': 'Better {{lguName}}',
-    'footer-desc': 'Isang portal ng impormasyon na inuuna ang serbisyo para sa {{lguType}} ng {{municipality}}, {{province}}.',
+    'footer-desc':
+      'Isang portal ng impormasyon na inuuna ang serbisyo para sa {{lguType}} ng {{municipality}}, {{province}}.',
     'footer-quick-links': 'Mabilis na Links',
     'footer-all-services': 'Lahat ng Serbisyo',
     'footer-officials': 'Mga Opisyal',
@@ -131,7 +136,8 @@ export const translations: Record<Language, TranslationKeys> = {
 
     // Hero Section
     'hero-welcome': 'Naragsak nga Isasangbay iti Better{{lguName}}.org',
-    'hero-subtitle': 'Aksesen dagiti serbisio ti gobierno, impormasion, ken dagiti resources para kadagiti umili ti {{municipality}}, {{province}}.',
+    'hero-subtitle':
+      'Aksesen dagiti serbisio ti gobierno, impormasion, ken dagiti resources para kadagiti umili ti {{municipality}}, {{province}}.',
 
     // Popular Services
     'section-popular': 'Dagiti Popular a Serbisio',
@@ -160,13 +166,15 @@ export const translations: Record<Language, TranslationKeys> = {
 
     // Footer
     'footer-title': 'Better {{lguName}}',
-    'footer-desc': 'Maysa a portal ti impormasion a mangipangpangulo ti serbisio para iti {{lguType}} ti {{municipality}}, {{province}}.',
+    'footer-desc':
+      'Maysa a portal ti impormasion a mangipangpangulo ti serbisio para iti {{lguType}} ti {{municipality}}, {{province}}.',
     'footer-quick-links': 'Dagiti Napartak a Links',
     'footer-all-services': 'Amin a Serbisio',
     'footer-officials': 'Dagiti Opisial',
     'footer-contact-us': 'Kontaken Kami',
     'footer-faq': 'Masansan a Maisaludsod',
-    'footer-copyright': 'Better {{lguName}}. Amin a karbengan ket naireserbaan.',
+    'footer-copyright':
+      'Better {{lguName}}. Amin a karbengan ket naireserbaan.',
     'footer-resources': 'Dagiti Resources',
     'footer-privacy': 'Patakaran ti Privacy',
     'footer-terms': 'Dagiti Kondision ti Panagusar',

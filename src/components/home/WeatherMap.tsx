@@ -20,7 +20,9 @@ export default function WeatherMap() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-xl font-bold text-gray-900 m-0">Weather and Map of {lguName}</h2>
+          <h2 className="text-xl font-bold text-gray-900 m-0">
+            Weather and Map of {lguName}
+          </h2>
         </div>
 
         {/* Grid: Weather + Map */}
@@ -33,8 +35,12 @@ export default function WeatherMap() {
                 <div className="flex items-start gap-4 pb-4">
                   <i className="bi bi-cloud-sun text-5xl text-primary-600 leading-none opacity-90" />
                   <div className="flex-1">
-                    <span className="text-4xl font-bold text-gray-900 leading-none tracking-tight">28°C</span>
-                    <p className="text-[0.9375rem] text-gray-800 font-medium mt-1.5 mb-1">Partly Cloudy</p>
+                    <span className="text-4xl font-bold text-gray-900 leading-none tracking-tight">
+                      28°C
+                    </span>
+                    <p className="text-[0.9375rem] text-gray-800 font-medium mt-1.5 mb-1">
+                      Partly Cloudy
+                    </p>
                     <p className="text-xs text-gray-500 flex items-center gap-1">
                       <i className="bi bi-geo-alt text-primary-600 text-[0.6875rem]" />
                       {fullLocation}
@@ -55,13 +61,21 @@ export default function WeatherMap() {
                 className="h-[300px] w-full"
               >
                 {mounted && (
-                  <Suspense fallback={<div className="h-full w-full bg-gray-100 animate-pulse" />}>
+                  <Suspense
+                    fallback={
+                      <div className="h-full w-full bg-gray-100 animate-pulse" />
+                    }
+                  >
                     <LeafletMap coords={coords} popupText={hallName} />
                   </Suspense>
                 )}
               </div>
               <p className="text-sm text-gray-500 p-4 m-0 flex items-center gap-1.5">
-                <i className="bi bi-geo-alt text-primary-600" aria-hidden="true" /> {hallName}, {fullLocation}
+                <i
+                  className="bi bi-geo-alt text-primary-600"
+                  aria-hidden="true"
+                />{' '}
+                {hallName}, {fullLocation}
               </p>
             </div>
           </div>

@@ -29,19 +29,31 @@ const RECENT_SEARCHES_KEY = 'betterlgu_recent_searches';
 const MAX_RECENT_SEARCHES = 10;
 
 const CURATED_POPULAR = [
-  'birth certificate', 'business permit', 'cedula', 'real property tax',
-  'senior citizen id', 'pwd id', 'barangay clearance', 'building permit',
-  'marriage certificate', 'death certificate', 'tricycle franchise',
-  'property declaration', 'online payment', 'mswdo', 'slaughterhouse'
+  'birth certificate',
+  'business permit',
+  'cedula',
+  'real property tax',
+  'senior citizen id',
+  'pwd id',
+  'barangay clearance',
+  'building permit',
+  'marriage certificate',
+  'death certificate',
+  'tricycle franchise',
+  'property declaration',
+  'online payment',
+  'mswdo',
+  'slaughterhouse',
 ];
 
 // Tokenize text into searchable words
 function tokenize(text: string): string[] {
   if (!text) return [];
-  return text.toLowerCase()
+  return text
+    .toLowerCase()
     .replace(/[^\w\s]/g, ' ')
     .split(/\s+/)
-    .filter(w => w.length >= 2);
+    .filter((w) => w.length >= 2);
 }
 
 // Levenshtein distance for fuzzy matching
@@ -65,7 +77,7 @@ function levenshteinDistance(a: string, b: string): number {
         matrix[i][j] = Math.min(
           matrix[i - 1][j - 1] + 1,
           matrix[i][j - 1] + 1,
-          matrix[i - 1][j] + 1
+          matrix[i - 1][j] + 1,
         );
       }
     }
@@ -77,16 +89,20 @@ function levenshteinDistance(a: string, b: string): number {
 function isFuzzyMatch(term: string, target: string, threshold = 0.3): boolean {
   if (target.includes(term) || term.includes(target)) return true;
   if (target.startsWith(term) || term.startsWith(target)) return true;
-  
+
   const distance = levenshteinDistance(term, target);
   const maxLen = Math.max(term.length, target.length);
-  const similarity = 1 - (distance / maxLen);
-  
-  return similarity >= (1 - threshold);
+  const similarity = 1 - distance / maxLen;
+
+  return similarity >= 1 - threshold;
 }
 
 // Calculate search score
-function calculateScore(service: Service, searchTerms: string[], originalQuery: string): number {
+function calculateScore(
+  service: Service,
+  searchTerms: string[],
+  originalQuery: string,
+): number {
   let score = 0;
   const titleLower = service.title.toLowerCase();
   const categoryLower = service.category.toLowerCase();
@@ -100,7 +116,7 @@ function calculateScore(service: Service, searchTerms: string[], originalQuery: 
   if (titleLower === queryLower) score += 200;
   else if (titleLower.includes(queryLower)) score += 100;
 
-  searchTerms.forEach(term => {
+  searchTerms.forEach((term) => {
     // Title scoring
     if (titleLower === term) score += 80;
     else if (titleLower.startsWith(term)) score += 60;
@@ -108,7 +124,7 @@ function calculateScore(service: Service, searchTerms: string[], originalQuery: 
     else if (isFuzzyMatch(term, titleLower, 0.25)) score += 20;
 
     // Keyword scoring
-    keywords.forEach(keyword => {
+    keywords.forEach((keyword) => {
       const kw = keyword.toLowerCase();
       if (kw === term) score += 35;
       else if (kw.includes(term)) score += 20;
@@ -152,10 +168,10 @@ function getRecentSearches(): string[] {
 // Add to recent searches
 function addRecentSearch(query: string): void {
   if (typeof window === 'undefined' || !query || query.length < 2) return;
-  
+
   try {
     let recent = getRecentSearches();
-    recent = recent.filter(q => q.toLowerCase() !== query.toLowerCase());
+    recent = recent.filter((q) => q.toLowerCase() !== query.toLowerCase());
     recent.unshift(query);
     recent = recent.slice(0, MAX_RECENT_SEARCHES);
     localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(recent));
@@ -180,7 +196,7 @@ export function useSearch() {
   const [suggestions, setSuggestions] = useState<SearchSuggestions>({
     popular: [],
     recent: [],
-    suggestions: []
+    suggestions: [],
   });
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -188,74 +204,83 @@ export function useSearch() {
   const services = useMemo(() => getServicesConfig().services as Service[], []);
 
   // Search function
-  const search = useCallback((searchQuery: string, category?: string) => {
-    if (!searchQuery || searchQuery.length < 2) {
-      setResults([]);
-      return [];
-    }
-
-    const searchTerms = tokenize(searchQuery);
-    if (searchTerms.length === 0) {
-      setResults([]);
-      return [];
-    }
-
-    const searchResults: SearchResult[] = [];
-
-    services.forEach(service => {
-      // Category filter
-      if (category && service.categoryId !== category && 
-          !service.category.toLowerCase().includes(category.toLowerCase())) {
-        return;
+  const search = useCallback(
+    (searchQuery: string, category?: string) => {
+      if (!searchQuery || searchQuery.length < 2) {
+        setResults([]);
+        return [];
       }
 
-      const score = calculateScore(service, searchTerms, searchQuery);
-      if (score > 0) {
-        searchResults.push({ ...service, score, _query: searchQuery });
+      const searchTerms = tokenize(searchQuery);
+      if (searchTerms.length === 0) {
+        setResults([]);
+        return [];
       }
-    });
 
-    const sorted = searchResults
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 10);
+      const searchResults: SearchResult[] = [];
 
-    setResults(sorted);
-    return sorted;
-  }, [services]);
+      services.forEach((service) => {
+        // Category filter
+        if (
+          category &&
+          service.categoryId !== category &&
+          !service.category.toLowerCase().includes(category.toLowerCase())
+        ) {
+          return;
+        }
+
+        const score = calculateScore(service, searchTerms, searchQuery);
+        if (score > 0) {
+          searchResults.push({ ...service, score, _query: searchQuery });
+        }
+      });
+
+      const sorted = searchResults
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 10);
+
+      setResults(sorted);
+      return sorted;
+    },
+    [services],
+  );
 
   // Get suggestions
-  const getSuggestions = useCallback((searchQuery: string): SearchSuggestions => {
-    if (!searchQuery || searchQuery.length < 1) {
+  const getSuggestions = useCallback(
+    (searchQuery: string): SearchSuggestions => {
+      if (!searchQuery || searchQuery.length < 1) {
+        return {
+          popular: CURATED_POPULAR.slice(0, 4),
+          recent: getRecentSearches().slice(0, 3),
+          suggestions: [],
+        };
+      }
+
+      const queryLower = searchQuery.toLowerCase();
+      const suggestionSet = new Set<string>();
+
+      // Add matching service titles
+      services.forEach((service) => {
+        if (service.title.toLowerCase().includes(queryLower)) {
+          suggestionSet.add(service.title);
+        }
+      });
+
+      // Add fuzzy matches from popular searches
+      CURATED_POPULAR.forEach((term) => {
+        if (term.includes(queryLower) || isFuzzyMatch(queryLower, term, 0.4)) {
+          suggestionSet.add(term);
+        }
+      });
+
       return {
-        popular: CURATED_POPULAR.slice(0, 4),
-        recent: getRecentSearches().slice(0, 3),
-        suggestions: []
+        popular: [],
+        recent: [],
+        suggestions: Array.from(suggestionSet).slice(0, 8),
       };
-    }
-
-    const queryLower = searchQuery.toLowerCase();
-    const suggestionSet = new Set<string>();
-
-    // Add matching service titles
-    services.forEach(service => {
-      if (service.title.toLowerCase().includes(queryLower)) {
-        suggestionSet.add(service.title);
-      }
-    });
-
-    // Add fuzzy matches from popular searches
-    CURATED_POPULAR.forEach(term => {
-      if (term.includes(queryLower) || isFuzzyMatch(queryLower, term, 0.4)) {
-        suggestionSet.add(term);
-      }
-    });
-
-    return {
-      popular: [],
-      recent: [],
-      suggestions: Array.from(suggestionSet).slice(0, 8)
-    };
-  }, [services]);
+    },
+    [services],
+  );
 
   // Update suggestions when query changes
   useEffect(() => {
@@ -264,62 +289,77 @@ export function useSearch() {
   }, [query, getSuggestions]);
 
   // Handle query change
-  const handleQueryChange = useCallback((newQuery: string) => {
-    setQuery(newQuery);
-    setSelectedIndex(-1);
-    
-    if (newQuery.length >= 2) {
-      search(newQuery);
-    } else {
-      setResults([]);
-    }
-  }, [search]);
+  const handleQueryChange = useCallback(
+    (newQuery: string) => {
+      setQuery(newQuery);
+      setSelectedIndex(-1);
+
+      if (newQuery.length >= 2) {
+        search(newQuery);
+      } else {
+        setResults([]);
+      }
+    },
+    [search],
+  );
 
   // Handle search submit
-  const handleSubmit = useCallback((searchQuery?: string) => {
-    const q = searchQuery || query;
-    if (q.length >= 2) {
-      addRecentSearch(q);
-      search(q);
-    }
-  }, [query, search]);
+  const handleSubmit = useCallback(
+    (searchQuery?: string) => {
+      const q = searchQuery || query;
+      if (q.length >= 2) {
+        addRecentSearch(q);
+        search(q);
+      }
+    },
+    [query, search],
+  );
 
   // Handle suggestion click
-  const handleSuggestionClick = useCallback((suggestion: string) => {
-    setQuery(suggestion);
-    search(suggestion);
-    addRecentSearch(suggestion);
-  }, [search]);
+  const handleSuggestionClick = useCallback(
+    (suggestion: string) => {
+      setQuery(suggestion);
+      search(suggestion);
+      addRecentSearch(suggestion);
+    },
+    [search],
+  );
 
   // Handle keyboard navigation
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    const totalItems = results.length + suggestions.suggestions.length + 
-                       suggestions.recent.length + suggestions.popular.length;
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const totalItems =
+        results.length +
+        suggestions.suggestions.length +
+        suggestions.recent.length +
+        suggestions.popular.length;
 
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setSelectedIndex(prev => Math.min(prev + 1, totalItems - 1));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setSelectedIndex(prev => Math.max(prev - 1, -1));
-    } else if (e.key === 'Enter') {
-      if (selectedIndex >= 0) {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
-        // Handle selection based on index
-        if (results.length > 0 && selectedIndex < results.length) {
+        setSelectedIndex((prev) => Math.min(prev + 1, totalItems - 1));
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedIndex((prev) => Math.max(prev - 1, -1));
+      } else if (e.key === 'Enter') {
+        if (selectedIndex >= 0) {
+          e.preventDefault();
+          // Handle selection based on index
+          if (results.length > 0 && selectedIndex < results.length) {
+            addRecentSearch(query);
+            window.location.href = results[selectedIndex].url;
+          }
+        } else if (results.length > 0) {
+          e.preventDefault();
           addRecentSearch(query);
-          window.location.href = results[selectedIndex].url;
+          window.location.href = results[0].url;
         }
-      } else if (results.length > 0) {
-        e.preventDefault();
-        addRecentSearch(query);
-        window.location.href = results[0].url;
+      } else if (e.key === 'Escape') {
+        setIsOpen(false);
+        setSelectedIndex(-1);
       }
-    } else if (e.key === 'Escape') {
-      setIsOpen(false);
-      setSelectedIndex(-1);
-    }
-  }, [results, suggestions, selectedIndex, query]);
+    },
+    [results, suggestions, selectedIndex, query],
+  );
 
   return {
     query,
@@ -335,7 +375,7 @@ export function useSearch() {
     handleSuggestionClick,
     handleKeyDown,
     clearRecentSearches,
-    addRecentSearch
+    addRecentSearch,
   };
 }
 
@@ -344,9 +384,12 @@ export function highlightMatch(text: string, query: string): string {
   if (!query) return text;
   const terms = tokenize(query);
   let result = text;
-  terms.forEach(term => {
+  terms.forEach((term) => {
     if (term.length >= 2) {
-      const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      const regex = new RegExp(
+        `(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
+        'gi',
+      );
       result = result.replace(regex, '<mark>$1</mark>');
     }
   });

@@ -9,9 +9,9 @@ interface SearchAutocompleteProps {
 }
 
 export default function SearchAutocomplete({
-  placeholder = "Search services (e.g., birth certificate, business permit)",
-  className = "",
-  onResultClick
+  placeholder = 'Search services (e.g., birth certificate, business permit)',
+  className = '',
+  onResultClick,
 }: SearchAutocompleteProps) {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +28,7 @@ export default function SearchAutocomplete({
     handleKeyDown,
     handleSuggestionClick,
     clearRecentSearches,
-    addRecentSearch
+    addRecentSearch,
   } = useSearch();
 
   // Close dropdown when clicking outside
@@ -59,12 +59,12 @@ export default function SearchAutocomplete({
     handleSuggestionClick(suggestion);
   };
 
-  const showDropdown = isOpen && (
-    results.length > 0 ||
-    suggestions.suggestions.length > 0 ||
-    suggestions.recent.length > 0 ||
-    suggestions.popular.length > 0
-  );
+  const showDropdown =
+    isOpen &&
+    (results.length > 0 ||
+      suggestions.suggestions.length > 0 ||
+      suggestions.recent.length > 0 ||
+      suggestions.popular.length > 0);
 
   return (
     <div className={`relative w-full flex-1 ${className}`}>
@@ -190,36 +190,44 @@ export default function SearchAutocomplete({
           )}
 
           {/* Autocomplete Suggestions */}
-          {query.length >= 2 && suggestions.suggestions.length > 0 && results.length === 0 && (
-            <div className="border-b border-blue-50 last:border-b-0">
-              <div className="flex justify-between items-center px-4 pt-3 pb-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wide">
-                <span className="flex items-center gap-1.5">
-                  <i className="bi bi-lightbulb text-blue-700"></i>
-                  Did you mean?
-                </span>
+          {query.length >= 2 &&
+            suggestions.suggestions.length > 0 &&
+            results.length === 0 && (
+              <div className="border-b border-blue-50 last:border-b-0">
+                <div className="flex justify-between items-center px-4 pt-3 pb-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wide">
+                  <span className="flex items-center gap-1.5">
+                    <i className="bi bi-lightbulb text-blue-700"></i>
+                    Did you mean?
+                  </span>
+                </div>
+                {suggestions.suggestions.slice(0, 5).map((term, idx) => (
+                  <button
+                    key={`suggestion-${idx}`}
+                    className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === idx ? 'bg-gradient-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
+                    onClick={() => handleSuggestion(term)}
+                    type="button"
+                  >
+                    <i className="bi bi-search text-gray-400 mr-2.5 text-sm"></i>
+                    {term}
+                  </button>
+                ))}
               </div>
-              {suggestions.suggestions.slice(0, 5).map((term, idx) => (
-                <button
-                  key={`suggestion-${idx}`}
-                  className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === idx ? 'bg-gradient-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
-                  onClick={() => handleSuggestion(term)}
-                  type="button"
-                >
-                  <i className="bi bi-search text-gray-400 mr-2.5 text-sm"></i>
-                  {term}
-                </button>
-              ))}
-            </div>
-          )}
+            )}
 
           {/* No Results */}
-          {query.length >= 2 && results.length === 0 && suggestions.suggestions.length === 0 && (
-            <div className="py-8 px-6 text-center text-gray-500">
-              <i className="bi bi-search text-4xl text-blue-200 mb-3 block"></i>
-              <p className="m-0 mb-1.5 font-semibold text-gray-700">No services found</p>
-              <small className="text-gray-400 text-sm">Try different keywords or check spelling</small>
-            </div>
-          )}
+          {query.length >= 2 &&
+            results.length === 0 &&
+            suggestions.suggestions.length === 0 && (
+              <div className="py-8 px-6 text-center text-gray-500">
+                <i className="bi bi-search text-4xl text-blue-200 mb-3 block"></i>
+                <p className="m-0 mb-1.5 font-semibold text-gray-700">
+                  No services found
+                </p>
+                <small className="text-gray-400 text-sm">
+                  Try different keywords or check spelling
+                </small>
+              </div>
+            )}
 
           {/* Search Results */}
           {results.map((result, index) => (
@@ -230,7 +238,11 @@ export default function SearchAutocomplete({
               type="button"
             >
               <div className="font-semibold text-blue-700 mb-1.5 text-[15px] flex items-center gap-2">
-                <span dangerouslySetInnerHTML={{ __html: highlightMatch(result.title, query) }} />
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: highlightMatch(result.title, query),
+                  }}
+                />
                 {result.processingTime?.toLowerCase().includes('same day') && (
                   <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-600 uppercase tracking-wide">
                     Fast
@@ -277,16 +289,24 @@ export default function SearchAutocomplete({
               </span>
               <span className="hidden sm:flex items-center gap-4">
                 <span className="flex items-center gap-1">
-                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 bg-white border border-gray-300 rounded text-[10px] font-semibold text-gray-600 shadow-sm">↑</kbd>
-                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 bg-white border border-gray-300 rounded text-[10px] font-semibold text-gray-600 shadow-sm">↓</kbd>
+                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 bg-white border border-gray-300 rounded text-[10px] font-semibold text-gray-600 shadow-sm">
+                    ↑
+                  </kbd>
+                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 bg-white border border-gray-300 rounded text-[10px] font-semibold text-gray-600 shadow-sm">
+                    ↓
+                  </kbd>
                   <span className="ml-1">Navigate</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 bg-white border border-gray-300 rounded text-[10px] font-semibold text-gray-600 shadow-sm">Enter</kbd>
+                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 bg-white border border-gray-300 rounded text-[10px] font-semibold text-gray-600 shadow-sm">
+                    Enter
+                  </kbd>
                   <span className="ml-1">Select</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 bg-white border border-gray-300 rounded text-[10px] font-semibold text-gray-600 shadow-sm">Esc</kbd>
+                  <kbd className="inline-flex items-center justify-center min-w-[20px] h-5 px-1 bg-white border border-gray-300 rounded text-[10px] font-semibold text-gray-600 shadow-sm">
+                    Esc
+                  </kbd>
                   <span className="ml-1">Close</span>
                 </span>
               </span>

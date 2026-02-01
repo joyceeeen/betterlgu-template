@@ -22,13 +22,21 @@ export default function ServiceDetailPage() {
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4">
         <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">Home</Link>
+          <Link to="/" className="hover:text-primary-600">
+            Home
+          </Link>
           <span className="mx-2">/</span>
-          <Link to="/services" className="hover:text-primary-600">Services</Link>
+          <Link to="/services" className="hover:text-primary-600">
+            Services
+          </Link>
           <span className="mx-2">/</span>
-          <Link to={service.categoryLink} className="hover:text-primary-600">{service.category}</Link>
+          <Link to={service.categoryLink} className="hover:text-primary-600">
+            {service.category}
+          </Link>
           <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">{service.title}</span>
+          <span aria-current="page" className="text-gray-900">
+            {service.title}
+          </span>
         </nav>
       </div>
 
@@ -39,7 +47,9 @@ export default function ServiceDetailPage() {
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
               <i className={`bi ${service.badgeIcon}`} /> {service.badgeText}
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{service.fullTitle}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              {service.fullTitle}
+            </h1>
             <p className="text-lg text-white/90">{service.description}</p>
           </div>
         </div>
@@ -50,9 +60,16 @@ export default function ServiceDetailPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {service.quickStats.map((stat, idx) => (
-              <div key={idx} className="bg-white border border-gray-200 rounded-xl p-4 text-center">
-                <i className={`bi ${stat.icon} text-2xl text-primary-600 mb-2 block`} />
-                <h4 className="text-xs text-gray-500 uppercase tracking-wide mb-1">{stat.label}</h4>
+              <div
+                key={idx}
+                className="bg-white border border-gray-200 rounded-xl p-4 text-center"
+              >
+                <i
+                  className={`bi ${stat.icon} text-2xl text-primary-600 mb-2 block`}
+                />
+                <h4 className="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                  {stat.label}
+                </h4>
                 <p className="font-semibold text-gray-900">{stat.value}</p>
               </div>
             ))}
@@ -65,9 +82,12 @@ export default function ServiceDetailPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <h2 className="text-xl font-bold text-gray-900 flex items-center justify-center gap-2">
-              <i className="bi bi-list-ol text-primary-600" /> Step-by-Step Process
+              <i className="bi bi-list-ol text-primary-600" /> Step-by-Step
+              Process
             </h2>
-            <p className="text-gray-500">Follow these steps to complete this service</p>
+            <p className="text-gray-500">
+              Follow these steps to complete this service
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {service.processSteps.map((step, idx) => (
@@ -75,10 +95,14 @@ export default function ServiceDetailPage() {
                 key={idx}
                 className={`relative bg-white border rounded-xl p-6 ${step.isFinal ? 'border-green-300 bg-green-50' : 'border-gray-200'}`}
               >
-                <span className={`absolute -top-3 -left-3 w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold ${step.isFinal ? 'bg-green-600 text-white' : 'bg-primary-600 text-white'}`}>
+                <span
+                  className={`absolute -top-3 -left-3 w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold ${step.isFinal ? 'bg-green-600 text-white' : 'bg-primary-600 text-white'}`}
+                >
                   {idx + 1}
                 </span>
-                <h4 className="font-semibold text-gray-900 mb-2">{step.title}</h4>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  {step.title}
+                </h4>
                 <p className="text-sm text-gray-500">{step.description}</p>
               </div>
             ))}
@@ -94,17 +118,26 @@ export default function ServiceDetailPage() {
               {/* Requirements */}
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="bi bi-clipboard-check text-primary-600" /> Requirements
+                  <i className="bi bi-clipboard-check text-primary-600" />{' '}
+                  Requirements
                 </h2>
                 {service.requirements.map((req, idx) => (
-                  <div key={idx} className="bg-white border border-gray-200 rounded-xl p-4 mb-4">
+                  <div
+                    key={idx}
+                    className="bg-white border border-gray-200 rounded-xl p-4 mb-4"
+                  >
                     <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                      <i className={`bi ${req.icon} text-primary-600`} /> {req.title}
+                      <i className={`bi ${req.icon} text-primary-600`} />{' '}
+                      {req.title}
                     </h4>
                     <ul className="space-y-2">
                       {req.items.map((item, itemIdx) => (
-                        <li key={itemIdx} className="flex items-start gap-2 text-sm text-gray-600">
-                          <i className="bi bi-check-circle-fill text-primary-600 mt-0.5" /> {item}
+                        <li
+                          key={itemIdx}
+                          className="flex items-start gap-2 text-sm text-gray-600"
+                        >
+                          <i className="bi bi-check-circle-fill text-primary-600 mt-0.5" />{' '}
+                          {item}
                         </li>
                       ))}
                     </ul>
@@ -116,18 +149,26 @@ export default function ServiceDetailPage() {
               {service.faqs.length > 0 && (
                 <div>
                   <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <i className="bi bi-question-circle text-primary-600" /> Frequently Asked Questions
+                    <i className="bi bi-question-circle text-primary-600" />{' '}
+                    Frequently Asked Questions
                   </h2>
                   <div className="space-y-2">
                     {service.faqs.map((faq, idx) => (
-                      <div key={idx} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                      <div
+                        key={idx}
+                        className="bg-white border border-gray-200 rounded-xl overflow-hidden"
+                      >
                         <button
                           type="button"
                           className="w-full p-4 text-left font-medium text-gray-900 flex items-center justify-between hover:bg-gray-50"
-                          onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                          onClick={() =>
+                            setOpenFaq(openFaq === idx ? null : idx)
+                          }
                         >
                           <span>{faq.question}</span>
-                          <i className={`bi bi-chevron-down transition-transform ${openFaq === idx ? 'rotate-180' : ''}`} />
+                          <i
+                            className={`bi bi-chevron-down transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}
+                          />
                         </button>
                         {openFaq === idx && (
                           <div className="px-4 pb-4 text-sm text-gray-600">
@@ -145,10 +186,15 @@ export default function ServiceDetailPage() {
             <div className="space-y-4">
               <div className="bg-white border border-gray-200 rounded-xl p-6">
                 <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="bi bi-building text-primary-600" /> Office Information
+                  <i className="bi bi-building text-primary-600" /> Office
+                  Information
                 </h4>
-                <p className="font-medium text-gray-900">{service.office.name}</p>
-                <p className="text-sm text-gray-600 mt-2">{service.office.location}</p>
+                <p className="font-medium text-gray-900">
+                  {service.office.name}
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  {service.office.location}
+                </p>
                 <p className="text-sm text-gray-600 mt-1 flex items-center gap-2">
                   <i className="bi bi-telephone" /> {service.office.phone}
                 </p>
@@ -160,12 +206,16 @@ export default function ServiceDetailPage() {
               {service.relatedServices.length > 0 && (
                 <div className="bg-white border border-gray-200 rounded-xl p-6">
                   <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                    <i className="bi bi-link-45deg text-primary-600" /> Related Services
+                    <i className="bi bi-link-45deg text-primary-600" /> Related
+                    Services
                   </h4>
                   <ul className="space-y-2">
                     {service.relatedServices.map((related, idx) => (
                       <li key={idx}>
-                        <Link to={related.link} className="text-primary-600 hover:underline text-sm">
+                        <Link
+                          to={related.link}
+                          className="text-primary-600 hover:underline text-sm"
+                        >
                           {related.title}
                         </Link>
                       </li>
@@ -176,9 +226,12 @@ export default function ServiceDetailPage() {
 
               <div className="bg-white border border-gray-200 rounded-xl p-6">
                 <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="bi bi-info-circle text-primary-600" /> Need Help?
+                  <i className="bi bi-info-circle text-primary-600" /> Need
+                  Help?
                 </h4>
-                <p className="text-sm text-gray-600 mb-4">Contact us for assistance with this service.</p>
+                <p className="text-sm text-gray-600 mb-4">
+                  Contact us for assistance with this service.
+                </p>
                 <Link
                   to="/contact"
                   className="block w-full text-center bg-primary-600 text-white py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"

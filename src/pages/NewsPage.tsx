@@ -24,7 +24,8 @@ export default function NewsPage() {
       date: 'Nov 15, 2025',
       badge: 'Project',
       badgeColor: 'bg-green-100 text-green-700',
-      description: 'The renovated wing of the Public Market is now open to vendors and the public. The new wing features improved ventilation, modern stalls, and better sanitation facilities.',
+      description:
+        'The renovated wing of the Public Market is now open to vendors and the public. The new wing features improved ventilation, modern stalls, and better sanitation facilities.',
     },
     {
       id: 3,
@@ -32,7 +33,8 @@ export default function NewsPage() {
       date: 'Nov 10, 2025',
       badge: 'Advisory',
       badgeColor: 'bg-yellow-100 text-yellow-700',
-      description: 'Maintenance scheduled for Dec 1, 8:00 AM - 5:00 PM. Affected areas include the main road and surrounding residential areas. Please prepare accordingly.',
+      description:
+        'Maintenance scheduled for Dec 1, 8:00 AM - 5:00 PM. Affected areas include the main road and surrounding residential areas. Please prepare accordingly.',
     },
     {
       id: 4,
@@ -48,7 +50,8 @@ export default function NewsPage() {
       date: 'Oct 28, 2025',
       badge: 'Project',
       badgeColor: 'bg-green-100 text-green-700',
-      description: 'The road improvement project along the national highway has been completed. The project includes road widening, drainage improvement, and installation of street lights.',
+      description:
+        'The road improvement project along the national highway has been completed. The project includes road widening, drainage improvement, and installation of street lights.',
     },
   ];
 
@@ -57,9 +60,13 @@ export default function NewsPage() {
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4">
         <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">{t('nav-home')}</Link>
+          <Link to="/" className="hover:text-primary-600">
+            {t('nav-home')}
+          </Link>
           <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">News &amp; Announcements</span>
+          <span aria-current="page" className="text-gray-900">
+            News &amp; Announcements
+          </span>
         </nav>
       </div>
 
@@ -70,8 +77,13 @@ export default function NewsPage() {
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
               <i className="bi bi-newspaper" /> News
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">News &amp; Announcements</h1>
-            <p className="text-lg text-white/90">Stay updated with the latest news and announcements from the {labels.lguTypeLabel} of {lguName}</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              News &amp; Announcements
+            </h1>
+            <p className="text-lg text-white/90">
+              Stay updated with the latest news and announcements from the{' '}
+              {labels.lguTypeLabel} of {lguName}
+            </p>
           </div>
         </div>
       </section>
@@ -81,16 +93,30 @@ export default function NewsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto space-y-6">
             {newsItems.map((item) => (
-              <article key={item.id} className="bg-white border border-gray-200 rounded-xl p-6 transition-all duration-200 hover:border-primary-500 hover:shadow-lg">
+              <article
+                key={item.id}
+                className="bg-white border border-gray-200 rounded-xl p-6 transition-all duration-200 hover:border-primary-500 hover:shadow-lg"
+              >
                 <div className="flex items-center gap-3 mb-4">
-                  <span className={`text-xs font-semibold px-3 py-1 rounded-full ${item.badgeColor}`}>{item.badge}</span>
+                  <span
+                    className={`text-xs font-semibold px-3 py-1 rounded-full ${item.badgeColor}`}
+                  >
+                    {item.badge}
+                  </span>
                   <span className="text-gray-400 text-sm flex items-center gap-1">
                     <i className="bi bi-calendar3" /> {item.date}
                   </span>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h2>
-                <p className="text-gray-600 mb-4 leading-relaxed">{item.description}</p>
-                <Link to={`/news/${item.id}`} className="text-primary-600 font-medium flex items-center gap-1 hover:gap-2 transition-all">
+                <h2 className="text-xl font-bold text-gray-900 mb-3">
+                  {item.title}
+                </h2>
+                <p className="text-gray-600 mb-4 leading-relaxed">
+                  {item.description}
+                </p>
+                <Link
+                  to={`/news/${item.id}`}
+                  className="text-primary-600 font-medium flex items-center gap-1 hover:gap-2 transition-all"
+                >
                   Read More <i className="bi bi-arrow-right" />
                 </Link>
               </article>

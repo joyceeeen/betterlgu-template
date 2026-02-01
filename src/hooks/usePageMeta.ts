@@ -15,7 +15,9 @@ export function usePageMeta({ title, description }: PageMetaOptions = {}) {
   useEffect(() => {
     // Set document title
     const siteTitle = getSiteTitle();
-    document.title = title ? `${title} | ${siteTitle}` : `${siteTitle} | Official Portal`;
+    document.title = title
+      ? `${title} | ${siteTitle}`
+      : `${siteTitle} | Official Portal`;
 
     // Set meta description
     const desc = description || getSiteDescription();

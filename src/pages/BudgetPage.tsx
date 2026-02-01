@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { IncomeSourcesChart, ExpenditureChart } from '@/components/charts/Charts';
+import {
+  IncomeSourcesChart,
+  ExpenditureChart,
+} from '@/components/charts/Charts';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
@@ -13,16 +16,16 @@ const budgetData = {
     fundBalance: '₱0.00 M',
     income: {
       local: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      external: { amount: '₱0.00 M', pct: '0%', value: 0 }
+      external: { amount: '₱0.00 M', pct: '0%', value: 0 },
     },
     expenditure: {
       gps: { amount: '₱0.00 M', pct: '0%', value: 0 },
       social: { amount: '₱0.00 M', pct: '0%', value: 0 },
       economic: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      debt: { amount: '₱0.00 M', pct: '0%', value: 0 }
+      debt: { amount: '₱0.00 M', pct: '0%', value: 0 },
     },
     totalIncomeValue: 0,
-    totalExpenseValue: 0
+    totalExpenseValue: 0,
   },
   q2: {
     totalIncome: '₱0.00 M',
@@ -31,17 +34,17 @@ const budgetData = {
     fundBalance: '₱0.00 M',
     income: {
       local: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      external: { amount: '₱0.00 M', pct: '0%', value: 0 }
+      external: { amount: '₱0.00 M', pct: '0%', value: 0 },
     },
     expenditure: {
       gps: { amount: '₱0.00 M', pct: '0%', value: 0 },
       social: { amount: '₱0.00 M', pct: '0%', value: 0 },
       economic: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      debt: { amount: '₱0.00 M', pct: '0%', value: 0 }
+      debt: { amount: '₱0.00 M', pct: '0%', value: 0 },
     },
     totalIncomeValue: 0,
-    totalExpenseValue: 0
-  }
+    totalExpenseValue: 0,
+  },
 };
 
 export default function BudgetPage() {
@@ -66,9 +69,13 @@ export default function BudgetPage() {
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4">
         <nav className="py-4 text-sm text-gray-500" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-primary-600">Home</Link>
+          <Link to="/" className="hover:text-primary-600">
+            Home
+          </Link>
           <span className="mx-2">/</span>
-          <span aria-current="page" className="text-gray-900">Budget &amp; Transparency</span>
+          <span aria-current="page" className="text-gray-900">
+            Budget &amp; Transparency
+          </span>
         </nav>
       </div>
 
@@ -79,8 +86,13 @@ export default function BudgetPage() {
             <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
               <i className="bi bi-shield-check" /> Financial Transparency
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Budget &amp; Financial Transparency</h1>
-            <p className="text-lg text-white/90">Tracking {labels.lguTypeLabel.toLowerCase()} finances and projects for accountability</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Budget &amp; Financial Transparency
+            </h1>
+            <p className="text-lg text-white/90">
+              Tracking {labels.lguTypeLabel.toLowerCase()} finances and projects
+              for accountability
+            </p>
           </div>
         </div>
       </section>
@@ -93,8 +105,12 @@ export default function BudgetPage() {
               <span className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-2">
                 <i className="bi bi-graph-up-arrow" /> Financial Report
               </span>
-              <h2 className="text-2xl font-bold text-gray-900">Statement of Receipts &amp; Expenditures</h2>
-              <p className="text-gray-500">FY 2025 quarterly financial performance</p>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Statement of Receipts &amp; Expenditures
+              </h2>
+              <p className="text-gray-500">
+                FY 2025 quarterly financial performance
+              </p>
             </div>
             <div className="flex gap-2">
               <button
@@ -102,14 +118,16 @@ export default function BudgetPage() {
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${activeQuarter === 'q1' ? 'bg-primary-600 text-white' : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'}`}
                 onClick={() => setActiveQuarter('q1')}
               >
-                <span className="font-bold">Q1</span> <span className="text-sm opacity-75">Jan - Mar</span>
+                <span className="font-bold">Q1</span>{' '}
+                <span className="text-sm opacity-75">Jan - Mar</span>
               </button>
               <button
                 type="button"
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${activeQuarter === 'q2' ? 'bg-primary-600 text-white' : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'}`}
                 onClick={() => setActiveQuarter('q2')}
               >
-                <span className="font-bold">Q2</span> <span className="text-sm opacity-75">Apr - Jun</span>
+                <span className="font-bold">Q2</span>{' '}
+                <span className="text-sm opacity-75">Apr - Jun</span>
               </button>
             </div>
           </div>
@@ -122,7 +140,9 @@ export default function BudgetPage() {
                   <i className="bi bi-arrow-down-circle text-xl" />
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold text-green-700">{currentData.totalIncome}</span>
+                  <span className="block text-2xl font-bold text-green-700">
+                    {currentData.totalIncome}
+                  </span>
                   <span className="text-sm text-green-600">Total Income</span>
                 </div>
               </div>
@@ -133,8 +153,12 @@ export default function BudgetPage() {
                   <i className="bi bi-arrow-up-circle text-xl" />
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold text-red-700">{currentData.totalExpense}</span>
-                  <span className="text-sm text-red-600">Total Expenditures</span>
+                  <span className="block text-2xl font-bold text-red-700">
+                    {currentData.totalExpense}
+                  </span>
+                  <span className="text-sm text-red-600">
+                    Total Expenditures
+                  </span>
                 </div>
               </div>
             </div>
@@ -144,8 +168,12 @@ export default function BudgetPage() {
                   <i className="bi bi-plus-slash-minus text-xl" />
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold text-blue-700">{currentData.netIncome}</span>
-                  <span className="text-sm text-blue-600">Net Operating Income</span>
+                  <span className="block text-2xl font-bold text-blue-700">
+                    {currentData.netIncome}
+                  </span>
+                  <span className="text-sm text-blue-600">
+                    Net Operating Income
+                  </span>
                 </div>
               </div>
             </div>
@@ -155,8 +183,12 @@ export default function BudgetPage() {
                   <i className="bi bi-wallet2 text-xl" />
                 </div>
                 <div>
-                  <span className="block text-2xl font-bold text-purple-700">{currentData.fundBalance}</span>
-                  <span className="text-sm text-purple-600">Fund Balance (End)</span>
+                  <span className="block text-2xl font-bold text-purple-700">
+                    {currentData.fundBalance}
+                  </span>
+                  <span className="text-sm text-purple-600">
+                    Fund Balance (End)
+                  </span>
                 </div>
               </div>
             </div>
@@ -168,7 +200,8 @@ export default function BudgetPage() {
             <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
               <div className="p-6 border-b border-gray-200 bg-gray-50">
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                  <i className="bi bi-pie-chart text-primary-600" /> Income Sources
+                  <i className="bi bi-pie-chart text-primary-600" /> Income
+                  Sources
                 </h3>
               </div>
               <div className="p-6">
@@ -184,26 +217,42 @@ export default function BudgetPage() {
                     <div className="flex items-center gap-3">
                       <span className="w-3 h-3 bg-green-500 rounded-full" />
                       <div>
-                        <span className="font-medium text-gray-900">Local Sources</span>
-                        <span className="block text-xs text-gray-500">Tax & Non-Tax Revenue</span>
+                        <span className="font-medium text-gray-900">
+                          Local Sources
+                        </span>
+                        <span className="block text-xs text-gray-500">
+                          Tax & Non-Tax Revenue
+                        </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="font-semibold text-gray-900">{currentData.income.local.amount}</span>
-                      <span className="block text-xs text-gray-500">{currentData.income.local.pct}</span>
+                      <span className="font-semibold text-gray-900">
+                        {currentData.income.local.amount}
+                      </span>
+                      <span className="block text-xs text-gray-500">
+                        {currentData.income.local.pct}
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <span className="w-3 h-3 bg-blue-500 rounded-full" />
                       <div>
-                        <span className="font-medium text-gray-900">External Sources</span>
-                        <span className="block text-xs text-gray-500">National Tax Allotment</span>
+                        <span className="font-medium text-gray-900">
+                          External Sources
+                        </span>
+                        <span className="block text-xs text-gray-500">
+                          National Tax Allotment
+                        </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="font-semibold text-gray-900">{currentData.income.external.amount}</span>
-                      <span className="block text-xs text-gray-500">{currentData.income.external.pct}</span>
+                      <span className="font-semibold text-gray-900">
+                        {currentData.income.external.amount}
+                      </span>
+                      <span className="block text-xs text-gray-500">
+                        {currentData.income.external.pct}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -214,7 +263,8 @@ export default function BudgetPage() {
             <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
               <div className="p-6 border-b border-gray-200 bg-gray-50">
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                  <i className="bi bi-bar-chart text-primary-600" /> Expenditure Allocation
+                  <i className="bi bi-bar-chart text-primary-600" /> Expenditure
+                  Allocation
                 </h3>
               </div>
               <div className="p-6">
@@ -232,52 +282,84 @@ export default function BudgetPage() {
                     <div className="flex items-center gap-3">
                       <span className="w-3 h-3 bg-indigo-500 rounded-full" />
                       <div>
-                        <span className="font-medium text-gray-900">General Public Services</span>
-                        <span className="block text-xs text-gray-500">Administration & Operations</span>
+                        <span className="font-medium text-gray-900">
+                          General Public Services
+                        </span>
+                        <span className="block text-xs text-gray-500">
+                          Administration & Operations
+                        </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="font-semibold text-gray-900">{currentData.expenditure.gps.amount}</span>
-                      <span className="block text-xs text-gray-500">{currentData.expenditure.gps.pct}</span>
+                      <span className="font-semibold text-gray-900">
+                        {currentData.expenditure.gps.amount}
+                      </span>
+                      <span className="block text-xs text-gray-500">
+                        {currentData.expenditure.gps.pct}
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <span className="w-3 h-3 bg-orange-500 rounded-full" />
                       <div>
-                        <span className="font-medium text-gray-900">Social Services</span>
-                        <span className="block text-xs text-gray-500">Health, Education, Welfare</span>
+                        <span className="font-medium text-gray-900">
+                          Social Services
+                        </span>
+                        <span className="block text-xs text-gray-500">
+                          Health, Education, Welfare
+                        </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="font-semibold text-gray-900">{currentData.expenditure.social.amount}</span>
-                      <span className="block text-xs text-gray-500">{currentData.expenditure.social.pct}</span>
+                      <span className="font-semibold text-gray-900">
+                        {currentData.expenditure.social.amount}
+                      </span>
+                      <span className="block text-xs text-gray-500">
+                        {currentData.expenditure.social.pct}
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <span className="w-3 h-3 bg-yellow-500 rounded-full" />
                       <div>
-                        <span className="font-medium text-gray-900">Economic Services</span>
-                        <span className="block text-xs text-gray-500">Infrastructure & Development</span>
+                        <span className="font-medium text-gray-900">
+                          Economic Services
+                        </span>
+                        <span className="block text-xs text-gray-500">
+                          Infrastructure & Development
+                        </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="font-semibold text-gray-900">{currentData.expenditure.economic.amount}</span>
-                      <span className="block text-xs text-gray-500">{currentData.expenditure.economic.pct}</span>
+                      <span className="font-semibold text-gray-900">
+                        {currentData.expenditure.economic.amount}
+                      </span>
+                      <span className="block text-xs text-gray-500">
+                        {currentData.expenditure.economic.pct}
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <span className="w-3 h-3 bg-gray-500 rounded-full" />
                       <div>
-                        <span className="font-medium text-gray-900">Debt Service</span>
-                        <span className="block text-xs text-gray-500">Interest & Charges</span>
+                        <span className="font-medium text-gray-900">
+                          Debt Service
+                        </span>
+                        <span className="block text-xs text-gray-500">
+                          Interest & Charges
+                        </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="font-semibold text-gray-900">{currentData.expenditure.debt.amount}</span>
-                      <span className="block text-xs text-gray-500">{currentData.expenditure.debt.pct}</span>
+                      <span className="font-semibold text-gray-900">
+                        {currentData.expenditure.debt.amount}
+                      </span>
+                      <span className="block text-xs text-gray-500">
+                        {currentData.expenditure.debt.pct}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -287,7 +369,16 @@ export default function BudgetPage() {
 
           <p className="text-sm text-gray-500 flex items-center gap-2">
             <i className="bi bi-info-circle" />
-            Source: <a href="https://blgf.gov.ph/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Bureau of Local Government Finance (BLGF)</a> — Update with your LGU's actual financial data
+            Source:{' '}
+            <a
+              href="https://blgf.gov.ph/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:underline"
+            >
+              Bureau of Local Government Finance (BLGF)
+            </a>{' '}
+            — Update with your LGU's actual financial data
           </p>
         </div>
       </section>
@@ -299,41 +390,62 @@ export default function BudgetPage() {
             <span className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-2">
               <i className="bi bi-building-gear" /> Public Works
             </span>
-            <h2 className="text-2xl font-bold text-gray-900">Infrastructure Investments</h2>
-            <p className="text-gray-500">Major development projects serving the community</p>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Infrastructure Investments
+            </h2>
+            <p className="text-gray-500">
+              Major development projects serving the community
+            </p>
           </div>
 
           {/* Sample Project */}
           <div className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-6">
             <div className="p-6 border-b border-gray-200">
               <div className="flex flex-wrap gap-2 mb-3">
-                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">2024</span>
+                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+                  2024
+                </span>
                 <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                   <i className="bi bi-water" /> Flood Control
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Sample Flood Control Project</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-1">
+                Sample Flood Control Project
+              </h3>
               <p className="text-sm text-gray-500 flex items-center gap-1">
                 <i className="bi bi-geo-alt" /> {fullLocation}
               </p>
             </div>
             <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide">Type of Work</span>
-                <span className="block font-medium text-gray-900">Construction of Flood Mitigation Structure</span>
+                <span className="text-xs text-gray-500 uppercase tracking-wide">
+                  Type of Work
+                </span>
+                <span className="block font-medium text-gray-900">
+                  Construction of Flood Mitigation Structure
+                </span>
               </div>
               <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide">Contractor</span>
-                <span className="block font-medium text-gray-900">Sample Contractor Inc.</span>
+                <span className="text-xs text-gray-500 uppercase tracking-wide">
+                  Contractor
+                </span>
+                <span className="block font-medium text-gray-900">
+                  Sample Contractor Inc.
+                </span>
               </div>
               <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide">Contract Cost</span>
-                <span className="block font-bold text-primary-600 text-lg">₱0.00</span>
+                <span className="text-xs text-gray-500 uppercase tracking-wide">
+                  Contract Cost
+                </span>
+                <span className="block font-bold text-primary-600 text-lg">
+                  ₱0.00
+                </span>
               </div>
             </div>
             <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
               <span className="text-sm text-gray-500 flex items-center gap-1">
-                <i className="bi bi-info-circle" /> Replace with actual project data
+                <i className="bi bi-info-circle" /> Replace with actual project
+                data
               </span>
             </div>
           </div>
@@ -347,17 +459,34 @@ export default function BudgetPage() {
             <span className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-2">
               <i className="bi bi-building" /> National Government Projects
             </span>
-            <h2 className="text-2xl font-bold text-gray-900">DPWH Infrastructure Projects in {lguName}</h2>
-            <p className="text-gray-500">Implementing Agency: District Engineering Office</p>
+            <h2 className="text-2xl font-bold text-gray-900">
+              DPWH Infrastructure Projects in {lguName}
+            </h2>
+            <p className="text-gray-500">
+              Implementing Agency: District Engineering Office
+            </p>
           </div>
 
-          <div id="dpwh-projects-container" className="bg-gray-50 border border-gray-200 rounded-xl p-8">
-            <p className="text-gray-500 text-center">Configure DPWH projects data in public/data/dpwh-projects.json</p>
+          <div
+            id="dpwh-projects-container"
+            className="bg-gray-50 border border-gray-200 rounded-xl p-8"
+          >
+            <p className="text-gray-500 text-center">
+              Configure DPWH projects data in public/data/dpwh-projects.json
+            </p>
           </div>
 
           <p className="text-sm text-gray-500 flex items-center gap-2 mt-4">
             <i className="bi bi-info-circle" />
-            Source: <a href="https://transparency.dpwh.gov.ph/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">DPWH Transparency Portal</a>
+            Source:{' '}
+            <a
+              href="https://transparency.dpwh.gov.ph/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:underline"
+            >
+              DPWH Transparency Portal
+            </a>
           </p>
         </div>
       </section>

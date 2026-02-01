@@ -14,7 +14,8 @@ export default function History() {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-xl font-bold text-gray-900 m-0 flex items-center gap-2">
-            <i className="bi bi-book text-primary-600" aria-hidden="true" /> Brief History of {lguName}
+            <i className="bi bi-book text-primary-600" aria-hidden="true" />{' '}
+            Brief History of {lguName}
           </h2>
         </div>
 
@@ -34,7 +35,9 @@ export default function History() {
                 <span className="inline-block bg-primary-100 text-primary-700 text-sm font-semibold px-3 py-1 rounded-full mb-3">
                   {item.year}
                 </span>
-                <p className="text-gray-700 m-0 leading-relaxed">{item.description}</p>
+                <p className="text-gray-700 m-0 leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             </div>
           ))}

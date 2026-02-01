@@ -1,4 +1,4 @@
-import {
+import type {
   LGUType,
   SiteConfig,
   OfficialsConfig,
@@ -185,7 +185,9 @@ export const configHelpers = {
    */
   getFullSiteTitle: (site: SiteConfig, pageTitle?: string): string => {
     const siteTitle = configHelpers.getSiteTitle(site);
-    return pageTitle ? `${pageTitle} | ${siteTitle}` : `${siteTitle} | Official Portal`;
+    return pageTitle
+      ? `${pageTitle} | ${siteTitle}`
+      : `${siteTitle} | Official Portal`;
   },
 
   /**
