@@ -3,57 +3,32 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
+// Badge color mapping
+const badgeColorMap: Record<string, string> = {
+  blue: 'bg-blue-100 text-blue-700',
+  green: 'bg-green-100 text-green-700',
+  yellow: 'bg-yellow-100 text-yellow-700',
+  red: 'bg-red-100 text-red-700',
+  purple: 'bg-purple-100 text-purple-700',
+};
+
 export default function NewsPage() {
   const { t } = useLanguage();
-  const { lguName, labels } = useSiteConfig();
+  const { lguName, labels, news } = useSiteConfig();
   usePageMeta({ title: 'News & Announcements' });
 
-  // Sample news items - in production, these would come from a CMS or config file
-  const newsItems = [
-    {
-      id: 1,
-      title: 'Business Permit Renewal 2025',
-      date: 'Nov 28, 2025',
-      badge: 'Announcement',
-      badgeColor: 'bg-blue-100 text-blue-700',
-      description: `Deadline for business permit renewal is set for January 20, 2025. Early renewal is encouraged to avoid long queues and delays. The ${labels.deptPrefix} Business Permits and Licensing Office (BPLO) will be open from 8:00 AM to 5:00 PM on weekdays.`,
-    },
-    {
-      id: 2,
-      title: 'New Public Market Wing Opens',
-      date: 'Nov 15, 2025',
-      badge: 'Project',
-      badgeColor: 'bg-green-100 text-green-700',
-      description:
-        'The renovated wing of the Public Market is now open to vendors and the public. The new wing features improved ventilation, modern stalls, and better sanitation facilities.',
-    },
-    {
-      id: 3,
-      title: 'Scheduled Power Interruption',
-      date: 'Nov 10, 2025',
-      badge: 'Advisory',
-      badgeColor: 'bg-yellow-100 text-yellow-700',
-      description:
-        'Maintenance scheduled for Dec 1, 8:00 AM - 5:00 PM. Affected areas include the main road and surrounding residential areas. Please prepare accordingly.',
-    },
-    {
-      id: 4,
-      title: 'Free Medical Mission',
-      date: 'Nov 5, 2025',
-      badge: 'Event',
-      badgeColor: 'bg-blue-100 text-blue-700',
-      description: `The ${labels.deptPrefix} Health Office in partnership with the Department of Health will conduct a free medical mission at the ${labels.deptPrefix} Gymnasium on November 15, 2025.`,
-    },
-    {
-      id: 5,
-      title: 'Road Improvement Project Completed',
-      date: 'Oct 28, 2025',
-      badge: 'Project',
-      badgeColor: 'bg-green-100 text-green-700',
-      description:
-        'The road improvement project along the national highway has been completed. The project includes road widening, drainage improvement, and installation of street lights.',
-    },
-  ];
+  // Map news articles from config with template variable interpolation
+  const newsItems = news.articles.map((article) => ({
+    id: article.id,
+    title: article.title,
+    date: article.date,
+    badge: article.badge,
+    badgeColor: badgeColorMap[article.badgeColor] || badgeColorMap.blue,
+    description: article.description
+      .replace(/\{\{deptPrefix\}\}/g, labels.deptPrefix)
+      .replace(/\{\{lguName\}\}/g, lguName),
+    slug: article.slug,
+  }));
 
   return (
     <>
@@ -114,7 +89,7 @@ export default function NewsPage() {
                   {item.description}
                 </p>
                 <Link
-                  to={`/news/${item.id}`}
+                  to={`/news/${item.slug}`}
                   className="text-primary-600 font-medium flex items-center gap-1 hover:gap-2 transition-all"
                 >
                   Read More <i className="bi bi-arrow-right" />

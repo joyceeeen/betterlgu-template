@@ -8,6 +8,11 @@ import type {
   HistoryConfig,
   StatisticsConfig,
   LGUTypeLabels,
+  StatisticsDetailedConfig,
+  NewsConfig,
+  FAQConfig,
+  BudgetConfig,
+  LegislativeConfig,
 } from '@/types/config';
 import {
   getSiteConfig,
@@ -20,6 +25,11 @@ import {
   getLGUName,
   getFullLocation,
   configHelpers,
+  getStatisticsDetailedConfig,
+  getNewsConfig,
+  getFAQConfig,
+  getBudgetConfig,
+  getLegislativeConfig,
 } from '@/lib/config';
 
 interface SiteConfigContextType {
@@ -30,6 +40,11 @@ interface SiteConfigContextType {
   hotlines: HotlinesConfig;
   history: HistoryConfig;
   statistics: StatisticsConfig;
+  statisticsDetailed: StatisticsDetailedConfig;
+  news: NewsConfig;
+  faq: FAQConfig;
+  budget: BudgetConfig;
+  legislative: LegislativeConfig;
 
   // Derived values
   lguType: LGUType;
@@ -72,6 +87,11 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
     const hotlines = getHotlinesConfig();
     const history = getHistoryConfig();
     const statistics = getStatisticsConfig();
+    const statisticsDetailed = getStatisticsDetailedConfig();
+    const news = getNewsConfig();
+    const faq = getFAQConfig();
+    const budget = getBudgetConfig();
+    const legislative = getLegislativeConfig();
     const labels = getLGUTypeLabels(site.lguType);
     const lguName = getLGUName(site);
     const fullLocation = getFullLocation(site);
@@ -84,6 +104,11 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
       hotlines,
       history,
       statistics,
+      statisticsDetailed,
+      news,
+      faq,
+      budget,
+      legislative,
 
       // Derived values
       lguType: site.lguType,

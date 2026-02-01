@@ -2,51 +2,17 @@ import { Link } from 'react-router-dom';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
-const ordinanceCategories = [
-  { icon: 'bi-cash-coin', label: 'Revenue & Taxation' },
-  { icon: 'bi-shop', label: 'Business & Trade' },
-  { icon: 'bi-shield-check', label: 'Public Safety' },
-  { icon: 'bi-tree', label: 'Environment' },
-  { icon: 'bi-signpost-2', label: 'Traffic & Transportation' },
-  { icon: 'bi-building', label: 'Zoning & Land Use' },
-];
-
-// Sample ordinances - replace with actual data from your LGU
-const sampleOrdinances = [
-  {
-    no: '2025-05',
-    title:
-      'An Ordinance Creating the Film Development Council, Providing for Its Powers and Functions',
-    date: 'April 21, 2025',
-  },
-  {
-    no: '2025-04',
-    title:
-      'An Ordinance Prohibiting the Entry of Contraband Items in Public Facilities',
-    date: 'April 21, 2025',
-  },
-  {
-    no: '2025-03',
-    title:
-      'An Ordinance Creating the Municipal Housing Board, Defining its Powers and Functions',
-    date: 'March 3, 2025',
-  },
-  {
-    no: '2025-02',
-    title:
-      'An Ordinance Requiring All Households to Comply with Zero Open Defecation (ZOD)',
-    date: 'February 25, 2025',
-  },
-  {
-    no: '2025-01',
-    title: 'An Ordinance Revising the Gender and Development Code',
-    date: 'February 25, 2025',
-  },
-];
-
 export default function OrdinanceFrameworkPage() {
-  const { lguName, labels } = useSiteConfig();
+  const { lguName, labels, legislative } = useSiteConfig();
   usePageMeta({ title: 'Ordinance Framework' });
+
+  // Get ordinance categories and items from config
+  const ordinanceCategories = legislative.ordinances.categories;
+  const sampleOrdinances = legislative.ordinances.items.map((ord) => ({
+    no: ord.number,
+    title: ord.title,
+    date: ord.date,
+  }));
 
   return (
     <>
@@ -128,7 +94,7 @@ export default function OrdinanceFrameworkPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
             {ordinanceCategories.map((cat) => (
               <div
-                key={cat.label}
+                key={cat.id}
                 className="flex items-center gap-2 p-4 bg-white border border-gray-200 rounded-xl text-center justify-center"
               >
                 <i className={`bi ${cat.icon} text-primary-600`} />{' '}

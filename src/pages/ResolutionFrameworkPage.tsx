@@ -2,69 +2,17 @@ import { Link } from 'react-router-dom';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
-const resolutionTypes = [
-  { icon: 'bi-award', label: 'Commendation' },
-  { icon: 'bi-envelope-paper', label: 'Request/Appeal' },
-  { icon: 'bi-hand-thumbs-up', label: 'Support/Endorsement' },
-  { icon: 'bi-exclamation-circle', label: 'Condolence' },
-  { icon: 'bi-clipboard-check', label: 'Authorization' },
-];
-
-// Sample resolutions - replace with actual data from your LGU
-const sampleResolutions = [
-  {
-    no: '2025-205',
-    title:
-      'A Resolution Authorizing the Local Chief Executive to Enter into a Memorandum of Agreement with DOLE for Youth Employment Program',
-    date: 'April 21, 2025',
-  },
-  {
-    no: '2025-204',
-    title:
-      'A Resolution Approving the Municipal and Barangay Council for the Protection of Children Work and Financial Plan',
-    date: 'April 21, 2025',
-  },
-  {
-    no: '2025-203',
-    title:
-      'A Resolution Authorizing the Local Chief Executive to Enter Into Contract for Road Network Improvement',
-    date: 'April 7, 2025',
-  },
-  {
-    no: '2025-202',
-    title:
-      'A Resolution Authorizing Procurement of Agricultural Equipment for Distribution to Local Farmers',
-    date: 'April 7, 2025',
-  },
-  {
-    no: '2025-201',
-    title:
-      'A Resolution Expressing Full Support to the Implementation of Enhanced Community Learning Centers',
-    date: 'March 24, 2025',
-  },
-  {
-    no: '2025-200',
-    title:
-      'A Resolution Commending the Philippine National Police for Exemplary Performance',
-    date: 'March 24, 2025',
-  },
-  {
-    no: '2025-199',
-    title:
-      'A Resolution Requesting DPWH to Expedite Road Rehabilitation Projects',
-    date: 'March 10, 2025',
-  },
-  {
-    no: '2025-198',
-    title:
-      'A Resolution Approving the Annual Budget for the SK Federation for Fiscal Year 2025',
-    date: 'March 10, 2025',
-  },
-];
-
 export default function ResolutionFrameworkPage() {
-  const { lguName, labels } = useSiteConfig();
+  const { lguName, labels, legislative } = useSiteConfig();
   usePageMeta({ title: 'Resolution Framework' });
+
+  // Get resolution types and items from config
+  const resolutionTypes = legislative.resolutions.types;
+  const sampleResolutions = legislative.resolutions.items.map((res) => ({
+    no: res.number,
+    title: res.title,
+    date: res.date,
+  }));
 
   return (
     <>
@@ -143,7 +91,7 @@ export default function ResolutionFrameworkPage() {
           <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
             {resolutionTypes.map((type) => (
               <div
-                key={type.label}
+                key={type.id}
                 className="flex items-center gap-2 px-5 py-3 bg-white border border-gray-200 rounded-full"
               >
                 <i className={`bi ${type.icon} text-primary-600`} />{' '}

@@ -279,3 +279,173 @@ export interface Service {
   office: string;
   url: string;
 }
+
+// Statistics Detailed Configuration (charts, barangay data)
+export interface StatisticsDetailedConfig {
+  barangayPopulation: BarangayPopulation[];
+  cmciPillars: CMCIPillar[];
+  financialData: FinancialData;
+  populationGrowth: PopulationGrowth;
+}
+
+export interface BarangayPopulation {
+  rank: number;
+  name: string;
+  population: number;
+  percentage: number;
+}
+
+export interface CMCIPillar {
+  id: string;
+  icon: string;
+  title: string;
+  score: string;
+  trend: string;
+  trendType: 'up' | 'down' | 'stable';
+}
+
+export interface FinancialData {
+  annualIncome: string;
+  annualIncomeDetailed: string;
+  iraShare: string;
+  iraDependency: string;
+  localSourcesPercentage: string;
+  source: string;
+  sourceUrl: string;
+  year: number;
+}
+
+export interface PopulationGrowth {
+  year1990: number;
+  year2024: number;
+  growthRate: string;
+}
+
+// News Configuration
+export interface NewsConfig {
+  articles: NewsArticle[];
+}
+
+export interface NewsArticle {
+  id: number;
+  title: string;
+  date: string;
+  badge: string;
+  badgeColor: 'blue' | 'green' | 'yellow' | 'red' | 'purple';
+  description: string;
+  slug: string;
+  content?: string;
+}
+
+// FAQ Configuration
+export interface FAQConfig {
+  categories: FAQCategory[];
+}
+
+export interface FAQCategory {
+  id: string;
+  icon: string;
+  titleKey: string;
+  titleFallback: string;
+  items: FAQItem[];
+}
+
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+// Budget Configuration
+export interface BudgetConfig {
+  fiscalYear: number;
+  quarters: {
+    q1: QuarterlyBudget;
+    q2: QuarterlyBudget;
+    q3: QuarterlyBudget;
+    q4: QuarterlyBudget;
+  };
+  infrastructureProjects: InfrastructureProject[];
+}
+
+export interface QuarterlyBudget {
+  totalIncome: string;
+  totalExpense: string;
+  netIncome: string;
+  fundBalance: string;
+  totalIncomeValue: number;
+  totalExpenseValue: number;
+  income: {
+    local: BudgetItem;
+    external: BudgetItem;
+  };
+  expenditure: {
+    gps: BudgetItem;
+    social: BudgetItem;
+    economic: BudgetItem;
+    debt: BudgetItem;
+  };
+}
+
+export interface BudgetItem {
+  amount: string;
+  percentage: string;
+  value: number;
+}
+
+export interface InfrastructureProject {
+  id: string;
+  year: number;
+  title: string;
+  type: string;
+  typeIcon: string;
+  typeColor: string;
+  location: string;
+  typeOfWork: string;
+  contractor: string;
+  contractCost: string;
+}
+
+// Legislative Configuration
+export interface LegislativeConfig {
+  ordinances: {
+    categories: OrdinanceCategory[];
+    items: OrdinanceItem[];
+  };
+  resolutions: {
+    types: ResolutionType[];
+    items: ResolutionItem[];
+  };
+}
+
+export interface OrdinanceCategory {
+  id: string;
+  icon: string;
+  label: string;
+}
+
+export interface OrdinanceItem {
+  id: string;
+  number: string;
+  title: string;
+  date: string;
+  category: string;
+  status: string;
+  fileUrl?: string;
+}
+
+export interface ResolutionType {
+  id: string;
+  icon: string;
+  label: string;
+}
+
+export interface ResolutionItem {
+  id: string;
+  number: string;
+  title: string;
+  date: string;
+  type: string;
+  status: string;
+  fileUrl?: string;
+}

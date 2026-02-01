@@ -12,6 +12,11 @@ import type {
   NavigationConfig,
   CategoriesConfig,
   ServicesConfig,
+  StatisticsDetailedConfig,
+  NewsConfig,
+  FAQConfig,
+  BudgetConfig,
+  LegislativeConfig,
 } from '@/types/config';
 
 // Import JSON config files
@@ -25,6 +30,11 @@ import translationsConfig from '../../config/translations.json';
 import navigationConfig from '../../config/navigation.json';
 import categoriesConfig from '../../config/categories.json';
 import servicesConfig from '../../config/services.json';
+import statisticsDetailedConfig from '../../config/statistics-detailed.json';
+import newsConfig from '../../config/news.json';
+import faqConfig from '../../config/faq.json';
+import budgetConfig from '../../config/budget.json';
+import legislativeConfig from '../../config/legislative.json';
 
 // LGU Type Labels mapping
 const MUNICIPALITY_LABELS: LGUTypeLabels = {
@@ -154,6 +164,41 @@ export function getServicesConfig(): ServicesConfig {
 }
 
 /**
+ * Get the detailed statistics config with proper typing
+ */
+export function getStatisticsDetailedConfig(): StatisticsDetailedConfig {
+  return statisticsDetailedConfig as StatisticsDetailedConfig;
+}
+
+/**
+ * Get the news config with proper typing
+ */
+export function getNewsConfig(): NewsConfig {
+  return newsConfig as NewsConfig;
+}
+
+/**
+ * Get the FAQ config with proper typing
+ */
+export function getFAQConfig(): FAQConfig {
+  return faqConfig as FAQConfig;
+}
+
+/**
+ * Get the budget config with proper typing
+ */
+export function getBudgetConfig(): BudgetConfig {
+  return budgetConfig as BudgetConfig;
+}
+
+/**
+ * Get the legislative config with proper typing
+ */
+export function getLegislativeConfig(): LegislativeConfig {
+  return legislativeConfig as LegislativeConfig;
+}
+
+/**
  * Get the complete LGU configuration bundle
  */
 export function getLGUConfig(): LGUConfig {
@@ -241,3 +286,8 @@ export const statistics = getStatisticsConfig();
 export const translations = getTranslationOverrides();
 export const labels = getLGUTypeLabels(site.lguType);
 export const lguName = getLGUName(site);
+export const statisticsDetailed = getStatisticsDetailedConfig();
+export const news = getNewsConfig();
+export const faq = getFAQConfig();
+export const budget = getBudgetConfig();
+export const legislative = getLegislativeConfig();

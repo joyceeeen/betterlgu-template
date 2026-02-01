@@ -3,119 +3,45 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
+// Helper to interpolate template variables in FAQ content
+function interpolateFAQContent(
+  content: string,
+  vars: Record<string, string>,
+): string {
+  return Object.entries(vars).reduce(
+    (text, [key, value]) => text.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), value),
+    content,
+  );
+}
+
 export default function FAQPage() {
   const { t } = useLanguage();
-  const { lguName, getSiteTitle, getVolunteerEmail, getHallName } =
+  const { lguName, getSiteTitle, getVolunteerEmail, getHallName, faq } =
     useSiteConfig();
   const siteTitle = getSiteTitle();
   const volunteerEmail = getVolunteerEmail();
   const hallName = getHallName();
   usePageMeta({ title: 'FAQ' });
 
-  const faqCategories = [
-    {
-      icon: 'bi-info-circle-fill',
-      title: t('faq-general') || 'General Questions',
-      items: [
-        {
-          q: `What are the office hours of the ${hallName}?`,
-          a: `The ${hallName} is open Monday to Friday, 8:00 AM to 5:00 PM, with a lunch break from 12:00 PM to 1:00 PM. We are closed on weekends and national/local holidays.`,
-        },
-        {
-          q: 'How can I contact a specific municipal office?',
-          a: 'Visit our <a href="/government">Government Directory</a> page to find contact information for all municipal offices and department heads.',
-        },
-        {
-          q: 'Can I request services online?',
-          a: 'Currently, most services require in-person applications. However, we are working on implementing online services for select transactions. Check individual service pages for updates.',
-        },
-      ],
-    },
-    {
-      icon: 'bi-file-earmark-text-fill',
-      title: t('faq-certificates') || 'Certificates & Documents',
-      items: [
-        {
-          q: 'How long does it take to get a birth certificate?',
-          a: `For birth certificates registered in ${lguName}, it typically takes 15-30 minutes while you wait, provided the record is readily available.`,
-        },
-        {
-          q: 'Can someone else request my certificate for me?',
-          a: 'Yes, but they must bring: an authorization letter signed by you, valid ID of both you and the representative, and a photocopy of your valid ID.',
-        },
-        {
-          q: 'What is the difference between PSA and local civil registrar certificates?',
-          a: 'Both are certified true copies. PSA certificates are the nationally-recognized version required for passport and visa applications. Local civil registrar certificates are accepted for most local transactions and are often processed faster.',
-        },
-      ],
-    },
-    {
-      icon: 'bi-shop',
-      title: t('faq-business') || 'Business & Permits',
-      items: [
-        {
-          q: 'When should I renew my business permit?',
-          a: 'Business permits must be renewed annually, preferably in January. The deadline for penalty-free renewal is typically January 20th of each year.',
-        },
-        {
-          q: `What do I need to start a new business in ${lguName}?`,
-          a: 'To start a new business, you\'ll need: DTI Registration (for sole proprietorship) or SEC Registration (for corporation), Barangay Clearance, Community Tax Certificate (Cedula), Location Sketch/Map, and Contract of Lease (if renting). Visit our <a href="/services/business">Business Permit page</a> for complete details.',
-        },
-      ],
-    },
-    {
-      icon: 'bi-cash-coin',
-      title: t('faq-payments') || 'Payments & Fees',
-      items: [
-        {
-          q: 'What payment methods are accepted?',
-          a: "Currently, we accept cash payments at the Municipal Treasurer's Office. We are working on implementing online payment options for taxes and fees.",
-        },
-        {
-          q: 'How can I pay my real property tax?',
-          a: `Visit the Municipal Treasurer's Office at the ${hallName} with your Tax Declaration or latest Official Receipt. Payment is in cash. Property taxes are due quarterly, but you may pay annually to avail of discounts.`,
-        },
-      ],
-    },
-    {
-      icon: 'bi-people-fill',
-      title: t('faq-social') || 'Social Services',
-      items: [
-        {
-          q: 'How do I apply for a Senior Citizen ID?',
-          a: 'Go to the Municipal Social Welfare and Development Office (MSWDO) with: Birth Certificate or any valid ID showing your age (60 and above), 1x1 ID photo, and Barangay Residence Certificate. The ID is issued for free.',
-        },
-        {
-          q: 'What benefits do senior citizens receive?',
-          a: 'Senior citizens enjoy 20% discount and VAT exemption on purchases (with a minimum purchase amount per establishment), priority lanes, and access to special programs and medical assistance from the municipality.',
-        },
-      ],
-    },
-    {
-      icon: 'bi-gear-fill',
-      title: t('faq-technical') || 'Technical Questions',
-      items: [
-        {
-          q: 'I found a broken link or error on this website. How do I report it?',
-          a: `Thank you for helping us improve! Please send us message at <a href="mailto:${volunteerEmail}">${volunteerEmail}</a> and write "Website Issue" as the subject. Describe the problem and include the page URL if possible.`,
-        },
-        {
-          q: 'Is this website mobile-friendly?',
-          a: `Yes! Better ${lguName} is fully responsive and optimized for mobile phones, tablets, and desktop computers.`,
-        },
-      ],
-    },
-    {
-      icon: 'bi-person-badge-fill',
-      title: 'About This Project',
-      items: [
-        {
-          q: `Who developed ${siteTitle}?`,
-          a: `This website is based on the <a href="https://github.com/BetterSolano/bettersolano" target="_blank" rel="noopener noreferrer">BetterSolano</a> project, originally developed by <a href="https://ramonloganjr.com/" target="_blank" rel="noopener noreferrer">Ramon Logan Jr.</a> as part of the <a href="https://bettergov.ph" target="_blank" rel="noopener noreferrer">BetterGov.ph</a> civic-tech initiative. The project is open source under MIT | CC BY 1.0 to empower community-driven development.`,
-        },
-      ],
-    },
-  ];
+  // Template variables for interpolation
+  const templateVars: Record<string, string> = {
+    hallName,
+    lguName,
+    siteTitle,
+    volunteerEmail,
+  };
+
+  // Map FAQ categories from config with template variable interpolation
+  const faqCategories = faq.categories.map((category) => ({
+    id: category.id,
+    icon: category.icon,
+    title: t(category.titleKey) || category.titleFallback,
+    items: category.items.map((item) => ({
+      id: item.id,
+      q: interpolateFAQContent(item.question, templateVars),
+      a: interpolateFAQContent(item.answer, templateVars),
+    })),
+  }));
 
   return (
     <>
@@ -156,7 +82,7 @@ export default function FAQPage() {
           <div className="max-w-3xl mx-auto space-y-8">
             {faqCategories.map((category) => (
               <div
-                key={category.icon}
+                key={category.id}
                 className="bg-white border border-gray-200 rounded-2xl overflow-hidden"
               >
                 <div className="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50">
@@ -169,7 +95,7 @@ export default function FAQPage() {
                 </div>
                 <div className="divide-y divide-gray-100">
                   {category.items.map((item) => (
-                    <details key={item.q} className="group">
+                    <details key={item.id} className="group">
                       <summary className="flex items-center justify-between cursor-pointer p-6 text-left font-medium text-gray-900 hover:bg-gray-50 transition-colors">
                         <span>{item.q}</span>
                         <i className="bi bi-chevron-down text-gray-400 transition-transform group-open:rotate-180" />

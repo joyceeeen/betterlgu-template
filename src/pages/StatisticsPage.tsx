@@ -9,75 +9,21 @@ import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
 export default function StatisticsPage() {
-  const { statistics, labels, lguName, fullLocation } = useSiteConfig();
+  const { statistics, statisticsDetailed, labels, lguName, fullLocation } =
+    useSiteConfig();
   usePageMeta({ title: 'Statistics' });
 
-  const barangayData = [
-    { rank: 1, name: 'Roxas', pop: 9088, pct: 100 },
-    { rank: 2, name: 'Quirino', pop: 6572, pct: 72 },
-    { rank: 3, name: 'Osmeña', pop: 6403, pct: 70 },
-    { rank: 4, name: 'Quezon', pop: 5758, pct: 63 },
-    { rank: 5, name: 'Curifang', pop: 4885, pct: 54 },
-    { rank: 6, name: 'Bagahabag', pop: 4731, pct: 52 },
-    { rank: 7, name: 'Uddiawan', pop: 4217, pct: 46 },
-    { rank: 8, name: 'Bascaran', pop: 3845, pct: 42 },
-    { rank: 9, name: 'Aggub', pop: 3101, pct: 34 },
-    { rank: 10, name: 'San Luis', pop: 2668, pct: 29 },
-  ];
+  // Get barangay population data from config
+  const allBarangays = statisticsDetailed.barangayPopulation.map((b) => ({
+    rank: b.rank,
+    name: b.name,
+    pop: b.population,
+    pct: b.percentage,
+  }));
+  const barangayData = allBarangays.slice(0, 10);
 
-  const allBarangays = [
-    ...barangayData,
-    { rank: 11, name: 'Communal', pop: 2586, pct: 28 },
-    { rank: 12, name: 'Lactawan', pop: 2109, pct: 23 },
-    { rank: 13, name: 'San Juan', pop: 1965, pct: 22 },
-    { rank: 14, name: 'Concepcion', pop: 1954, pct: 21 },
-    { rank: 15, name: 'Dadap', pop: 1409, pct: 15 },
-    { rank: 16, name: 'Wacal', pop: 1398, pct: 15 },
-    { rank: 17, name: 'Bangaan', pop: 1284, pct: 14 },
-    { rank: 18, name: 'Tucal', pop: 1244, pct: 14 },
-    { rank: 19, name: 'Bangar', pop: 1146, pct: 13 },
-    { rank: 20, name: 'Pilar D. Galima', pop: 1146, pct: 13 },
-    { rank: 21, name: 'Poblacion North', pop: 970, pct: 11 },
-    { rank: 22, name: 'Poblacion South', pop: 817, pct: 9 },
-  ];
-
-  const cmciPillars = [
-    {
-      icon: 'bi-graph-up-arrow',
-      title: 'Economic Dynamism',
-      score: '0.23',
-      trend: '+12%',
-      trendType: 'up',
-    },
-    {
-      icon: 'bi-building-check',
-      title: 'Government Efficiency',
-      score: '1.17',
-      trend: '-8%',
-      trendType: 'down',
-    },
-    {
-      icon: 'bi-building-gear',
-      title: 'Infrastructure',
-      score: '0.40',
-      trend: '+5%',
-      trendType: 'up',
-    },
-    {
-      icon: 'bi-shield-check',
-      title: 'Resiliency',
-      score: '1.08',
-      trend: 'Stable',
-      trendType: 'stable',
-    },
-    {
-      icon: 'bi-lightbulb',
-      title: 'Innovation',
-      score: '0.68',
-      trend: '+25%',
-      trendType: 'up',
-    },
-  ];
+  // Get CMCI pillars from config
+  const cmciPillars = statisticsDetailed.cmciPillars;
 
   return (
     <>
@@ -198,8 +144,12 @@ export default function StatisticsPage() {
                 <i className="bi bi-graph-up-arrow" />
                 <span>Annual Income</span>
               </div>
-              <div className="text-3xl font-bold mb-1">₱371.33M</div>
-              <div className="text-sm opacity-75">₱371,329,918.71</div>
+              <div className="text-3xl font-bold mb-1">
+                {statisticsDetailed.financialData.annualIncome}
+              </div>
+              <div className="text-sm opacity-75">
+                {statisticsDetailed.financialData.annualIncomeDetailed}
+              </div>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-6">
               <div className="flex items-center gap-2 mb-4 text-gray-500">
@@ -207,7 +157,7 @@ export default function StatisticsPage() {
                 <span>IRA Share</span>
               </div>
               <div className="text-3xl font-bold text-gray-900 mb-1">
-                ₱220.77M
+                {statisticsDetailed.financialData.iraShare}
               </div>
               <div className="text-sm text-gray-500">
                 Internal Revenue Allotment
@@ -219,7 +169,7 @@ export default function StatisticsPage() {
                 <span>IRA Dependency</span>
               </div>
               <div className="text-3xl font-bold text-gray-900 mb-1">
-                59.45%
+                {statisticsDetailed.financialData.iraDependency}
               </div>
               <div className="text-sm text-gray-500">National Tax Share</div>
             </div>
@@ -232,15 +182,17 @@ export default function StatisticsPage() {
             <div className="h-6 bg-gray-100 rounded-full overflow-hidden flex">
               <div
                 className="bg-primary-600 h-full flex items-center justify-center text-white text-xs font-medium"
-                style={{ width: '59.45%' }}
+                style={{ width: statisticsDetailed.financialData.iraDependency }}
               >
-                IRA 59.45%
+                IRA {statisticsDetailed.financialData.iraDependency}
               </div>
               <div
                 className="bg-green-500 h-full flex items-center justify-center text-white text-xs font-medium"
-                style={{ width: '40.55%' }}
+                style={{
+                  width: statisticsDetailed.financialData.localSourcesPercentage,
+                }}
               >
-                Local 40.55%
+                Local {statisticsDetailed.financialData.localSourcesPercentage}
               </div>
             </div>
             <div className="flex gap-6 mt-4">
@@ -259,14 +211,14 @@ export default function StatisticsPage() {
             <i className="bi bi-info-circle" />
             Source:{' '}
             <a
-              href="https://blgf.gov.ph/"
+              href={statisticsDetailed.financialData.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary-600 hover:underline"
             >
-              Bureau of Local Government Finance (BLGF)
+              {statisticsDetailed.financialData.source}
             </a>{' '}
-            – 2023 SRE Data
+            – {statisticsDetailed.financialData.year} SRE Data
           </p>
         </div>
       </section>
@@ -288,7 +240,7 @@ export default function StatisticsPage() {
             <div className="text-center p-4 bg-white border border-gray-200 rounded-xl">
               <span className="text-sm text-gray-500">1990</span>
               <span className="block text-2xl font-bold text-gray-900">
-                38,006
+                {statisticsDetailed.populationGrowth.year1990.toLocaleString()}
               </span>
             </div>
             <div className="flex items-center">
@@ -297,13 +249,13 @@ export default function StatisticsPage() {
             <div className="text-center p-4 bg-primary-50 border border-primary-200 rounded-xl">
               <span className="text-sm text-primary-600">2024</span>
               <span className="block text-2xl font-bold text-primary-700">
-                69,296
+                {statisticsDetailed.populationGrowth.year2024.toLocaleString()}
               </span>
             </div>
             <div className="text-center p-4 bg-green-50 border border-green-200 rounded-xl">
               <span className="text-sm text-green-600">Growth</span>
               <span className="block text-2xl font-bold text-green-700">
-                +82.3%
+                {statisticsDetailed.populationGrowth.growthRate}
               </span>
             </div>
           </div>
@@ -436,7 +388,7 @@ export default function StatisticsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             {cmciPillars.map((pillar) => (
               <div
-                key={pillar.title}
+                key={pillar.id}
                 className="bg-white border border-gray-200 rounded-xl p-6 text-center"
               >
                 <div className="w-12 h-12 flex items-center justify-center bg-primary-50 text-primary-600 rounded-xl text-xl mx-auto mb-3">

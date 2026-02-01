@@ -7,51 +7,57 @@ import {
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
-// Sample budget data for Q1 and Q2 - replace with actual data from your LGU
-const budgetData = {
-  q1: {
-    totalIncome: '₱0.00 M',
-    totalExpense: '₱0.00 M',
-    netIncome: '₱0.00 M',
-    fundBalance: '₱0.00 M',
-    income: {
-      local: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      external: { amount: '₱0.00 M', pct: '0%', value: 0 },
-    },
-    expenditure: {
-      gps: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      social: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      economic: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      debt: { amount: '₱0.00 M', pct: '0%', value: 0 },
-    },
-    totalIncomeValue: 0,
-    totalExpenseValue: 0,
-  },
-  q2: {
-    totalIncome: '₱0.00 M',
-    totalExpense: '₱0.00 M',
-    netIncome: '₱0.00 M',
-    fundBalance: '₱0.00 M',
-    income: {
-      local: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      external: { amount: '₱0.00 M', pct: '0%', value: 0 },
-    },
-    expenditure: {
-      gps: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      social: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      economic: { amount: '₱0.00 M', pct: '0%', value: 0 },
-      debt: { amount: '₱0.00 M', pct: '0%', value: 0 },
-    },
-    totalIncomeValue: 0,
-    totalExpenseValue: 0,
-  },
-};
-
 export default function BudgetPage() {
-  const [activeQuarter, setActiveQuarter] = useState<'q1' | 'q2'>('q1');
-  const currentData = budgetData[activeQuarter];
-  const { lguName, fullLocation, labels } = useSiteConfig();
+  const [activeQuarter, setActiveQuarter] = useState<'q1' | 'q2' | 'q3' | 'q4'>(
+    'q1',
+  );
+  const { lguName, fullLocation, labels, budget } = useSiteConfig();
   usePageMeta({ title: 'Budget & Transparency' });
+
+  // Get current quarter data from config
+  const quarterData = budget.quarters[activeQuarter];
+  const currentData = {
+    totalIncome: quarterData.totalIncome,
+    totalExpense: quarterData.totalExpense,
+    netIncome: quarterData.netIncome,
+    fundBalance: quarterData.fundBalance,
+    income: {
+      local: {
+        amount: quarterData.income.local.amount,
+        pct: quarterData.income.local.percentage,
+        value: quarterData.income.local.value,
+      },
+      external: {
+        amount: quarterData.income.external.amount,
+        pct: quarterData.income.external.percentage,
+        value: quarterData.income.external.value,
+      },
+    },
+    expenditure: {
+      gps: {
+        amount: quarterData.expenditure.gps.amount,
+        pct: quarterData.expenditure.gps.percentage,
+        value: quarterData.expenditure.gps.value,
+      },
+      social: {
+        amount: quarterData.expenditure.social.amount,
+        pct: quarterData.expenditure.social.percentage,
+        value: quarterData.expenditure.social.value,
+      },
+      economic: {
+        amount: quarterData.expenditure.economic.amount,
+        pct: quarterData.expenditure.economic.percentage,
+        value: quarterData.expenditure.economic.value,
+      },
+      debt: {
+        amount: quarterData.expenditure.debt.amount,
+        pct: quarterData.expenditure.debt.percentage,
+        value: quarterData.expenditure.debt.value,
+      },
+    },
+    totalIncomeValue: quarterData.totalIncomeValue,
+    totalExpenseValue: quarterData.totalExpenseValue,
+  };
 
   // Load DPWH projects script
   useEffect(() => {
@@ -109,10 +115,10 @@ export default function BudgetPage() {
                 Statement of Receipts &amp; Expenditures
               </h2>
               <p className="text-gray-500">
-                FY 2025 quarterly financial performance
+                FY {budget.fiscalYear} quarterly financial performance
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               <button
                 type="button"
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${activeQuarter === 'q1' ? 'bg-primary-600 text-white' : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'}`}
@@ -128,6 +134,22 @@ export default function BudgetPage() {
               >
                 <span className="font-bold">Q2</span>{' '}
                 <span className="text-sm opacity-75">Apr - Jun</span>
+              </button>
+              <button
+                type="button"
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${activeQuarter === 'q3' ? 'bg-primary-600 text-white' : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'}`}
+                onClick={() => setActiveQuarter('q3')}
+              >
+                <span className="font-bold">Q3</span>{' '}
+                <span className="text-sm opacity-75">Jul - Sep</span>
+              </button>
+              <button
+                type="button"
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${activeQuarter === 'q4' ? 'bg-primary-600 text-white' : 'bg-white border border-gray-200 text-gray-700 hover:border-primary-500'}`}
+                onClick={() => setActiveQuarter('q4')}
+              >
+                <span className="font-bold">Q4</span>{' '}
+                <span className="text-sm opacity-75">Oct - Dec</span>
               </button>
             </div>
           </div>
@@ -398,57 +420,59 @@ export default function BudgetPage() {
             </p>
           </div>
 
-          {/* Sample Project */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-6">
-            <div className="p-6 border-b border-gray-200">
-              <div className="flex flex-wrap gap-2 mb-3">
-                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
-                  2024
-                </span>
-                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-                  <i className="bi bi-water" /> Flood Control
-                </span>
+          {/* Infrastructure Projects */}
+          {budget.infrastructureProjects.map((project) => (
+            <div
+              key={project.id}
+              className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-6"
+            >
+              <div className="p-6 border-b border-gray-200">
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+                    {project.year}
+                  </span>
+                  <span
+                    className={`bg-${project.typeColor}-100 text-${project.typeColor}-700 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1`}
+                  >
+                    <i className={`bi ${project.typeIcon}`} /> {project.type}
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-1">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-gray-500 flex items-center gap-1">
+                  <i className="bi bi-geo-alt" />{' '}
+                  {project.location.replace('{{fullLocation}}', fullLocation)}
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">
-                Sample Flood Control Project
-              </h3>
-              <p className="text-sm text-gray-500 flex items-center gap-1">
-                <i className="bi bi-geo-alt" /> {fullLocation}
-              </p>
+              <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <span className="text-xs text-gray-500 uppercase tracking-wide">
+                    Type of Work
+                  </span>
+                  <span className="block font-medium text-gray-900">
+                    {project.typeOfWork}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-xs text-gray-500 uppercase tracking-wide">
+                    Contractor
+                  </span>
+                  <span className="block font-medium text-gray-900">
+                    {project.contractor}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-xs text-gray-500 uppercase tracking-wide">
+                    Contract Cost
+                  </span>
+                  <span className="block font-bold text-primary-600 text-lg">
+                    {project.contractCost}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide">
-                  Type of Work
-                </span>
-                <span className="block font-medium text-gray-900">
-                  Construction of Flood Mitigation Structure
-                </span>
-              </div>
-              <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide">
-                  Contractor
-                </span>
-                <span className="block font-medium text-gray-900">
-                  Sample Contractor Inc.
-                </span>
-              </div>
-              <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide">
-                  Contract Cost
-                </span>
-                <span className="block font-bold text-primary-600 text-lg">
-                  ₱0.00
-                </span>
-              </div>
-            </div>
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
-              <span className="text-sm text-gray-500 flex items-center gap-1">
-                <i className="bi bi-info-circle" /> Replace with actual project
-                data
-              </span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
