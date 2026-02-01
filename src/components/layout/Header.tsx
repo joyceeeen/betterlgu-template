@@ -232,6 +232,7 @@ export default function Header() {
           {/* Mobile menu button */}
           <div className="lg:hidden flex items-center">
             <button
+              type="button"
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary-500 hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-primary-500"
             >
@@ -254,6 +255,7 @@ export default function Header() {
             return (
               <div key={item.label}>
                 <button
+                  type="button"
                   onClick={() => toggleSubmenu(item.label)}
                   className={`w-full flex justify-between items-center px-4 py-2 text-base font-medium transition-colors ${
                     isActive

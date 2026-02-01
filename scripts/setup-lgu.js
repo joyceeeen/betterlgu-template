@@ -8,9 +8,9 @@
  * Or: npm run setup-lgu
  */
 
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
+const fs = require('node:fs');
+const path = require('node:path');
+const readline = require('node:readline');
 
 const CONFIG_DIR = path.join(__dirname, '..', 'config');
 
@@ -35,7 +35,7 @@ function question(prompt) {
 async function main() {
   console.log('\n🏛️  BetterGov LGU Setup Wizard\n');
   console.log('This wizard will help you configure the portal for your LGU.\n');
-  console.log('═'.repeat(60) + '\n');
+  console.log(`${'═'.repeat(60)}\n`);
 
   // LGU Type
   console.log('Step 1: LGU Type');
@@ -60,7 +60,7 @@ async function main() {
       ? await question('Municipality name (e.g., Real): ')
       : '';
 
-  const province = await question(`Province name (e.g., Quezon): `);
+  const province = await question('Province name (e.g., Quezon): ');
   const region = await question('Region (e.g., Region IV-A (CALABARZON)): ');
 
   const lguName = lguType === 'municipality' ? municipality : province;
@@ -234,7 +234,7 @@ async function main() {
 
   // Keep existing hotlines.json, history.json, translations.json if they exist
   const templateFiles = ['hotlines.json', 'history.json', 'translations.json'];
-  templateFiles.forEach((file) => {
+  for (const file of templateFiles) {
     const filePath = path.join(CONFIG_DIR, file);
     if (!fs.existsSync(filePath)) {
       let content = {};
@@ -256,7 +256,7 @@ async function main() {
       fs.writeFileSync(filePath, JSON.stringify(content, null, 2));
       console.log(`✓ Created config/${file}`);
     }
-  });
+  }
 
   console.log('\n═'.repeat(60));
   console.log('\n🎉 Setup complete!\n');

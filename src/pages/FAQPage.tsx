@@ -154,9 +154,9 @@ export default function FAQPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto space-y-8">
-            {faqCategories.map((category, catIndex) => (
+            {faqCategories.map((category) => (
               <div
-                key={catIndex}
+                key={category.icon}
                 className="bg-white border border-gray-200 rounded-2xl overflow-hidden"
               >
                 <div className="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50">
@@ -168,14 +168,17 @@ export default function FAQPage() {
                   </h2>
                 </div>
                 <div className="divide-y divide-gray-100">
-                  {category.items.map((item, itemIndex) => (
-                    <details key={itemIndex} className="group">
+                  {category.items.map((item) => (
+                    <details key={item.q} className="group">
                       <summary className="flex items-center justify-between cursor-pointer p-6 text-left font-medium text-gray-900 hover:bg-gray-50 transition-colors">
                         <span>{item.q}</span>
                         <i className="bi bi-chevron-down text-gray-400 transition-transform group-open:rotate-180" />
                       </summary>
                       <div className="px-6 pb-6 text-gray-600 leading-relaxed">
-                        <div dangerouslySetInnerHTML={{ __html: item.a }} />
+                        <div
+                          // biome-ignore lint/security/noDangerouslySetInnerHtml: FAQ answers contain safe HTML links
+                          dangerouslySetInnerHTML={{ __html: item.a }}
+                        />
                       </div>
                     </details>
                   ))}

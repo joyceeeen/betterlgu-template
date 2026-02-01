@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
   Filler,
+  type TooltipItem,
 } from 'chart.js';
 import { Line, Doughnut, Bar } from 'react-chartjs-2';
 
@@ -64,8 +65,8 @@ export function PopulationTrendsChart() {
         cornerRadius: 6,
         displayColors: false,
         callbacks: {
-          label: (context: any) =>
-            `Population: ${context.raw.toLocaleString()}`,
+          label: (context: TooltipItem<'line'>) =>
+            `Population: ${(context.raw as number).toLocaleString()}`,
         },
       },
     },
@@ -74,7 +75,7 @@ export function PopulationTrendsChart() {
         beginAtZero: false,
         min: 30000,
         ticks: {
-          callback: (value: any) => `${(value / 1000).toFixed(0)}K`,
+          callback: (value: string | number) => `${(Number(value) / 1000).toFixed(0)}K`,
           font: { size: 11 },
           color: '#666',
         },
@@ -161,13 +162,14 @@ export function PopulationDistributionChart() {
         padding: 10,
         cornerRadius: 6,
         callbacks: {
-          label: (context: any) => {
-            const total = context.dataset.data.reduce(
+          label: (context: TooltipItem<'doughnut'>) => {
+            const total = (context.dataset.data as number[]).reduce(
               (a: number, b: number) => a + b,
               0,
             );
-            const pct = ((context.raw / total) * 100).toFixed(1);
-            return `${context.raw.toLocaleString()} (${pct}%)`;
+            const raw = context.raw as number;
+            const pct = ((raw / total) * 100).toFixed(1);
+            return `${raw.toLocaleString()} (${pct}%)`;
           },
         },
       },
@@ -219,8 +221,8 @@ export function IncomeSourcesChart({
         padding: 8,
         cornerRadius: 5,
         callbacks: {
-          label: (context: any) =>
-            `₱${context.raw.toFixed(2)}M (${((context.raw / totalIncome) * 100).toFixed(1)}%)`,
+          label: (context: TooltipItem<'doughnut'>) =>
+            `₱${(context.raw as number).toFixed(2)}M (${(((context.raw as number) / totalIncome) * 100).toFixed(1)}%)`,
         },
       },
     },
@@ -287,8 +289,8 @@ export function ExpenditureChart({
         padding: 8,
         cornerRadius: 5,
         callbacks: {
-          label: (context: any) =>
-            `₱${context.raw.toFixed(2)}M (${((context.raw / totalExpense) * 100).toFixed(1)}%)`,
+          label: (context: TooltipItem<'doughnut'>) =>
+            `₱${(context.raw as number).toFixed(2)}M (${(((context.raw as number) / totalExpense) * 100).toFixed(1)}%)`,
         },
       },
     },
@@ -359,7 +361,7 @@ export function CMCIRankingsChart() {
         min: 0,
         max: 100,
         ticks: {
-          callback: (value: any) => `#${value}`,
+          callback: (value: string | number) => `#${value}`,
           font: { size: 10 },
           color: '#666',
         },
@@ -555,8 +557,8 @@ export function BarangayPopulationChart() {
         cornerRadius: 5,
         displayColors: false,
         callbacks: {
-          label: (context: any) =>
-            `Population: ${context.raw.toLocaleString()}`,
+          label: (context: TooltipItem<'bar'>) =>
+            `Population: ${(context.raw as number).toLocaleString()}`,
         },
       },
     },
@@ -566,7 +568,7 @@ export function BarangayPopulationChart() {
           color: 'rgba(0, 0, 0, 0.04)',
         },
         ticks: {
-          callback: (value: any) => `${(value / 1000).toFixed(0)}K`,
+          callback: (value: string | number) => `${(Number(value) / 1000).toFixed(0)}K`,
           font: { size: 10 },
           color: '#666',
         },
@@ -618,7 +620,7 @@ export function EconomicSectorsChart() {
         padding: 8,
         cornerRadius: 5,
         callbacks: {
-          label: (context: any) => `${context.raw}%`,
+          label: (context: TooltipItem<'bar'>) => `${context.raw}%`,
         },
       },
     },
@@ -627,7 +629,7 @@ export function EconomicSectorsChart() {
         beginAtZero: true,
         max: 50,
         ticks: {
-          callback: (value: any) => `${value}%`,
+          callback: (value: string | number) => `${value}%`,
           font: { size: 10 },
           color: '#666',
         },

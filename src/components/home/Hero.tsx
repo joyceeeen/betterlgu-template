@@ -47,7 +47,7 @@ export default function Hero() {
             <h2 className="text-base text-gray-800 mb-6 flex items-center gap-2 font-semibold">
               <i className="bi bi-search text-primary-600" /> Find a Service
             </h2>
-            <form className="search-form" role="search" onSubmit={handleSearch}>
+            <form className="search-form" onSubmit={handleSearch}>
               <div className="relative flex gap-2">
                 <input
                   type="search"

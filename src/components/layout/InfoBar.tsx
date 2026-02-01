@@ -52,8 +52,7 @@ export default function InfoBar() {
           >
             <i
               className="bi bi-currency-exchange text-xs text-yellow-400"
-              aria-hidden="true"
-            ></i>
+            />
             <span className="inline-block min-w-[110px] text-left">
               <span className="inline-block text-white">1 USD = ₱ 56.50</span>
             </span>
@@ -66,8 +65,7 @@ export default function InfoBar() {
           >
             <i
               className="bi bi-thermometer-half text-xs text-yellow-400"
-              aria-hidden="true"
-            ></i>
+            />
             <span className="font-normal text-white">{lguName}</span>
             <span className="font-normal text-white">29°C</span>
           </div>
@@ -79,8 +77,7 @@ export default function InfoBar() {
           >
             <i
               className="bi bi-calendar3 text-xs text-yellow-400"
-              aria-hidden="true"
-            ></i>
+            />
             <span className="font-normal text-white">{dateTime.date}</span>
             <span
               className="text-white mx-0.5 text-[0.5rem]"
@@ -90,8 +87,7 @@ export default function InfoBar() {
             </span>
             <i
               className="bi bi-clock text-xs text-yellow-400"
-              aria-hidden="true"
-            ></i>
+            />
             <span className="font-medium text-white">{dateTime.time}</span>
             <span className="font-normal text-white text-[0.625rem] uppercase tracking-wide">
               PHT

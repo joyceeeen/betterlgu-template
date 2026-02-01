@@ -59,9 +59,9 @@ export default function ServiceDetailPage() {
       <section className="py-8 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {service.quickStats.map((stat, idx) => (
+            {service.quickStats.map((stat) => (
               <div
-                key={idx}
+                key={stat.label}
                 className="bg-white border border-gray-200 rounded-xl p-4 text-center"
               >
                 <i
@@ -90,15 +90,15 @@ export default function ServiceDetailPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-            {service.processSteps.map((step, idx) => (
+            {service.processSteps.map((step, stepIndex) => (
               <div
-                key={idx}
+                key={step.title}
                 className={`relative bg-white border rounded-xl p-6 ${step.isFinal ? 'border-green-300 bg-green-50' : 'border-gray-200'}`}
               >
                 <span
                   className={`absolute -top-3 -left-3 w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold ${step.isFinal ? 'bg-green-600 text-white' : 'bg-primary-600 text-white'}`}
                 >
-                  {idx + 1}
+                  {stepIndex + 1}
                 </span>
                 <h4 className="font-semibold text-gray-900 mb-2">
                   {step.title}
@@ -121,9 +121,9 @@ export default function ServiceDetailPage() {
                   <i className="bi bi-clipboard-check text-primary-600" />{' '}
                   Requirements
                 </h2>
-                {service.requirements.map((req, idx) => (
+                {service.requirements.map((req) => (
                   <div
-                    key={idx}
+                    key={req.title}
                     className="bg-white border border-gray-200 rounded-xl p-4 mb-4"
                   >
                     <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
@@ -131,9 +131,9 @@ export default function ServiceDetailPage() {
                       {req.title}
                     </h4>
                     <ul className="space-y-2">
-                      {req.items.map((item, itemIdx) => (
+                      {req.items.map((item) => (
                         <li
-                          key={itemIdx}
+                          key={item}
                           className="flex items-start gap-2 text-sm text-gray-600"
                         >
                           <i className="bi bi-check-circle-fill text-primary-600 mt-0.5" />{' '}
@@ -153,24 +153,24 @@ export default function ServiceDetailPage() {
                     Frequently Asked Questions
                   </h2>
                   <div className="space-y-2">
-                    {service.faqs.map((faq, idx) => (
+                    {service.faqs.map((faq, faqIndex) => (
                       <div
-                        key={idx}
+                        key={faq.question}
                         className="bg-white border border-gray-200 rounded-xl overflow-hidden"
                       >
                         <button
                           type="button"
                           className="w-full p-4 text-left font-medium text-gray-900 flex items-center justify-between hover:bg-gray-50"
                           onClick={() =>
-                            setOpenFaq(openFaq === idx ? null : idx)
+                            setOpenFaq(openFaq === faqIndex ? null : faqIndex)
                           }
                         >
                           <span>{faq.question}</span>
                           <i
-                            className={`bi bi-chevron-down transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}
+                            className={`bi bi-chevron-down transition-transform ${openFaq === faqIndex ? 'rotate-180' : ''}`}
                           />
                         </button>
-                        {openFaq === idx && (
+                        {openFaq === faqIndex && (
                           <div className="px-4 pb-4 text-sm text-gray-600">
                             {faq.answer}
                           </div>
@@ -210,8 +210,8 @@ export default function ServiceDetailPage() {
                     Services
                   </h4>
                   <ul className="space-y-2">
-                    {service.relatedServices.map((related, idx) => (
-                      <li key={idx}>
+                    {service.relatedServices.map((related) => (
+                      <li key={related.title}>
                         <Link
                           to={related.link}
                           className="text-primary-600 hover:underline text-sm"

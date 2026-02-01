@@ -446,7 +446,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
    */
   const t = (key: string, vars?: Record<string, string>): string => {
     const template =
-      translations[language]?.[key] || translations['en']?.[key] || key;
+      translations[language]?.[key] || translations.en?.[key] || key;
     const allVariables = vars
       ? { ...defaultVariables, ...vars }
       : defaultVariables;

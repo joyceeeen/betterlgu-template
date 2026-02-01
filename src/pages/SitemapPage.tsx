@@ -162,9 +162,9 @@ export default function SitemapPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="space-y-8">
-            {sections.map((section, sectionIndex) => (
+            {sections.map((section) => (
               <div
-                key={sectionIndex}
+                key={section.title}
                 className="bg-white border border-gray-200 rounded-2xl overflow-hidden"
               >
                 <div className="flex items-center gap-3 p-6 border-b border-gray-200 bg-gray-50">
@@ -178,10 +178,10 @@ export default function SitemapPage() {
                 <div
                   className={`p-6 grid gap-3 ${section.cols === 4 ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'}`}
                 >
-                  {section.links.map((link, linkIndex) =>
+                  {section.links.map((link) =>
                     'external' in link && link.external ? (
                       <a
-                        key={linkIndex}
+                        key={link.href}
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -192,7 +192,7 @@ export default function SitemapPage() {
                       </a>
                     ) : (
                       <Link
-                        key={linkIndex}
+                        key={link.href}
                         to={link.href}
                         className="flex items-center gap-2 p-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
                       >

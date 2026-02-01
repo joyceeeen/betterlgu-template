@@ -434,9 +434,9 @@ export default function StatisticsPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-            {cmciPillars.map((pillar, index) => (
+            {cmciPillars.map((pillar) => (
               <div
-                key={index}
+                key={pillar.title}
                 className="bg-white border border-gray-200 rounded-xl p-6 text-center"
               >
                 <div className="w-12 h-12 flex items-center justify-center bg-primary-50 text-primary-600 rounded-xl text-xl mx-auto mb-3">

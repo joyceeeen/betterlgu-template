@@ -145,7 +145,6 @@ export default function ServicesPage() {
             <div className="max-w-xl mx-auto">
               <form
                 className="relative"
-                role="search"
                 onSubmit={(e) => e.preventDefault()}
               >
                 <div className="relative flex items-center">

@@ -20,8 +20,7 @@ export default function HotlineBar() {
               <span className="inline-flex items-center gap-1 text-white bg-white/15 px-2.5 py-1 rounded-full whitespace-nowrap">
                 <i
                   className="bi bi-telephone-fill text-xs"
-                  aria-hidden="true"
-                ></i>
+                />
                 <span>Emergency hotlines coming soon</span>
               </span>
             </div>
@@ -44,8 +43,7 @@ export default function HotlineBar() {
               >
                 <i
                   className={`bi ${hotline.icon} text-xs`}
-                  aria-hidden="true"
-                ></i>
+                />
                 <span>
                   {hotline.name}: {hotline.number}
                 </span>

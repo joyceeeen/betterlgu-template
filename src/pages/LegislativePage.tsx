@@ -302,9 +302,9 @@ export default function LegislativePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {infoCards.map((card, index) => (
+            {infoCards.map((card) => (
               <div
-                key={index}
+                key={card.title}
                 className="bg-white border border-gray-200 rounded-xl p-6 text-center"
               >
                 <div className="w-12 h-12 flex items-center justify-center bg-primary-50 rounded-xl text-primary-600 text-xl mx-auto mb-4">

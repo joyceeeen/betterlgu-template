@@ -116,7 +116,7 @@ function calculateScore(
   if (titleLower === queryLower) score += 200;
   else if (titleLower.includes(queryLower)) score += 100;
 
-  searchTerms.forEach((term) => {
+  for (const term of searchTerms) {
     // Title scoring
     if (titleLower === term) score += 80;
     else if (titleLower.startsWith(term)) score += 60;
@@ -124,12 +124,12 @@ function calculateScore(
     else if (isFuzzyMatch(term, titleLower, 0.25)) score += 20;
 
     // Keyword scoring
-    keywords.forEach((keyword) => {
+    for (const keyword of keywords) {
       const kw = keyword.toLowerCase();
       if (kw === term) score += 35;
       else if (kw.includes(term)) score += 20;
       else if (isFuzzyMatch(term, kw, 0.3)) score += 10;
-    });
+    }
 
     // Category scoring
     if (categoryLower.includes(term)) score += 15;
@@ -144,7 +144,7 @@ function calculateScore(
 
     // Processing time scoring
     if (processingTime.includes(term)) score += 8;
-  });
+  }
 
   // Boost for services with more complete data
   if (service.fee) score += 2;
@@ -219,21 +219,21 @@ export function useSearch() {
 
       const searchResults: SearchResult[] = [];
 
-      services.forEach((service) => {
+      for (const service of services) {
         // Category filter
         if (
           category &&
           service.categoryId !== category &&
           !service.category.toLowerCase().includes(category.toLowerCase())
         ) {
-          return;
+          continue;
         }
 
         const score = calculateScore(service, searchTerms, searchQuery);
         if (score > 0) {
           searchResults.push({ ...service, score, _query: searchQuery });
         }
-      });
+      }
 
       const sorted = searchResults
         .sort((a, b) => b.score - a.score)
@@ -260,18 +260,18 @@ export function useSearch() {
       const suggestionSet = new Set<string>();
 
       // Add matching service titles
-      services.forEach((service) => {
+      for (const service of services) {
         if (service.title.toLowerCase().includes(queryLower)) {
           suggestionSet.add(service.title);
         }
-      });
+      }
 
       // Add fuzzy matches from popular searches
-      CURATED_POPULAR.forEach((term) => {
+      for (const term of CURATED_POPULAR) {
         if (term.includes(queryLower) || isFuzzyMatch(queryLower, term, 0.4)) {
           suggestionSet.add(term);
         }
-      });
+      }
 
       return {
         popular: [],
@@ -384,7 +384,7 @@ export function highlightMatch(text: string, query: string): string {
   if (!query) return text;
   const terms = tokenize(query);
   let result = text;
-  terms.forEach((term) => {
+  for (const term of terms) {
     if (term.length >= 2) {
       const regex = new RegExp(
         `(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
@@ -392,6 +392,6 @@ export function highlightMatch(text: string, query: string): string {
       );
       result = result.replace(regex, '<mark>$1</mark>');
     }
-  });
+  }
   return result;
 }

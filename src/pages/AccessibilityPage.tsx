@@ -113,8 +113,8 @@ export default function AccessibilityPage() {
                 {t('access-features') || 'Accessibility Features'}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {features.map((feature, index) => (
-                  <div key={index} className="text-center p-4">
+                {features.map((feature) => (
+                  <div key={feature.icon} className="text-center p-4">
                     <i
                       className={`bi ${feature.icon} text-3xl text-primary-600 mb-3 block`}
                     />

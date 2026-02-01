@@ -14,7 +14,7 @@ export default function History() {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-xl font-bold text-gray-900 m-0 flex items-center gap-2">
-            <i className="bi bi-book text-primary-600" aria-hidden="true" />{' '}
+            <i className="bi bi-book text-primary-600" />{' '}
             Brief History of {lguName}
           </h2>
         </div>

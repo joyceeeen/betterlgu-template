@@ -83,7 +83,7 @@ const Footer: FC = () => {
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
-                  href={link.href!}
+                  href={link.href}
                   className="text-gray-400 hover:text-white transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"

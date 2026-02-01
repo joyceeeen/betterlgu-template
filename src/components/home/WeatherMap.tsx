@@ -73,7 +73,6 @@ export default function WeatherMap() {
               <p className="text-sm text-gray-500 p-4 m-0 flex items-center gap-1.5">
                 <i
                   className="bi bi-geo-alt text-primary-600"
-                  aria-hidden="true"
                 />{' '}
                 {hallName}, {fullLocation}
               </p>

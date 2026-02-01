@@ -138,7 +138,7 @@ export default function SearchAutocomplete({
             <div className="border-b border-blue-50 last:border-b-0">
               <div className="flex justify-between items-center px-4 pt-3 pb-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wide">
                 <span className="flex items-center gap-1.5">
-                  <i className="bi bi-clock-history text-blue-700"></i>
+                  <i className="bi bi-clock-history text-blue-700" />
                   Recent Searches
                 </span>
                 <button
@@ -154,12 +154,12 @@ export default function SearchAutocomplete({
               </div>
               {suggestions.recent.map((term, idx) => (
                 <button
-                  key={`recent-${idx}`}
+                  key={`recent-${term}`}
                   className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === idx ? 'bg-gradient-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
                   onClick={() => handleSuggestion(term)}
                   type="button"
                 >
-                  <i className="bi bi-arrow-counterclockwise text-gray-400 mr-2.5 text-sm"></i>
+                  <i className="bi bi-arrow-counterclockwise text-gray-400 mr-2.5 text-sm" />
                   {term}
                 </button>
               ))}
@@ -171,18 +171,18 @@ export default function SearchAutocomplete({
             <div className="border-b border-blue-50 last:border-b-0">
               <div className="flex justify-between items-center px-4 pt-3 pb-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wide">
                 <span className="flex items-center gap-1.5">
-                  <i className="bi bi-fire text-blue-700"></i>
+                  <i className="bi bi-fire text-blue-700" />
                   Popular Searches
                 </span>
               </div>
               {suggestions.popular.map((term, idx) => (
                 <button
-                  key={`popular-${idx}`}
+                  key={`popular-${term}`}
                   className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === suggestions.recent.length + idx ? 'bg-gradient-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
                   onClick={() => handleSuggestion(term)}
                   type="button"
                 >
-                  <i className="bi bi-search text-gray-400 mr-2.5 text-sm"></i>
+                  <i className="bi bi-search text-gray-400 mr-2.5 text-sm" />
                   {term}
                 </button>
               ))}
@@ -196,18 +196,18 @@ export default function SearchAutocomplete({
               <div className="border-b border-blue-50 last:border-b-0">
                 <div className="flex justify-between items-center px-4 pt-3 pb-2 text-[11px] font-semibold text-gray-500 uppercase tracking-wide">
                   <span className="flex items-center gap-1.5">
-                    <i className="bi bi-lightbulb text-blue-700"></i>
+                    <i className="bi bi-lightbulb text-blue-700" />
                     Did you mean?
                   </span>
                 </div>
                 {suggestions.suggestions.slice(0, 5).map((term, idx) => (
                   <button
-                    key={`suggestion-${idx}`}
+                    key={`suggestion-${term}`}
                     className={`flex items-center w-full py-3 px-4 text-sm text-gray-700 text-left border-none bg-transparent border-l-[3px] border-l-transparent cursor-pointer transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent hover:border-l-blue-700 hover:text-blue-700 ${selectedIndex === idx ? 'bg-gradient-to-r from-blue-50 to-transparent border-l-blue-700 text-blue-700' : ''}`}
                     onClick={() => handleSuggestion(term)}
                     type="button"
                   >
-                    <i className="bi bi-search text-gray-400 mr-2.5 text-sm"></i>
+                    <i className="bi bi-search text-gray-400 mr-2.5 text-sm" />
                     {term}
                   </button>
                 ))}
@@ -219,7 +219,7 @@ export default function SearchAutocomplete({
             results.length === 0 &&
             suggestions.suggestions.length === 0 && (
               <div className="py-8 px-6 text-center text-gray-500">
-                <i className="bi bi-search text-4xl text-blue-200 mb-3 block"></i>
+                <i className="bi bi-search text-4xl text-blue-200 mb-3 block" />
                 <p className="m-0 mb-1.5 font-semibold text-gray-700">
                   No services found
                 </p>
@@ -239,6 +239,7 @@ export default function SearchAutocomplete({
             >
               <div className="font-semibold text-blue-700 mb-1.5 text-[15px] flex items-center gap-2">
                 <span
+                  // biome-ignore lint/security/noDangerouslySetInnerHtml: Used for search term highlighting
                   dangerouslySetInnerHTML={{
                     __html: highlightMatch(result.title, query),
                   }}
@@ -251,25 +252,25 @@ export default function SearchAutocomplete({
               </div>
               <div className="flex flex-wrap gap-3 text-xs mb-1.5">
                 <span className="inline-flex items-center gap-1 text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
-                  <i className="bi bi-folder text-[11px] opacity-80"></i>
+                  <i className="bi bi-folder text-[11px] opacity-80" />
                   {result.category}
                 </span>
                 {result.fee && (
                   <span className="inline-flex items-center gap-1 text-emerald-600 font-semibold">
-                    <i className="bi bi-cash text-[11px] opacity-80"></i>
+                    <i className="bi bi-cash text-[11px] opacity-80" />
                     {result.fee}
                   </span>
                 )}
                 {result.processingTime && (
                   <span className="inline-flex items-center gap-1 text-blue-600">
-                    <i className="bi bi-clock text-[11px] opacity-80"></i>
+                    <i className="bi bi-clock text-[11px] opacity-80" />
                     {result.processingTime}
                   </span>
                 )}
               </div>
               {result.office && (
                 <div className="text-xs text-gray-500 mb-1 flex items-center">
-                  <i className="bi bi-building mr-1.5 text-[11px] text-blue-700"></i>
+                  <i className="bi bi-building mr-1.5 text-[11px] text-blue-700" />
                   {result.office}
                 </div>
               )}
