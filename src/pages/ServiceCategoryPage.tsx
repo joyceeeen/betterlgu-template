@@ -1,5 +1,5 @@
 import Breadcrumbs from '@/components/Breadcrumbs';
-import SearchAutocomplete from '@/components/SearchAutocomplete';
+import ServicePageHeader from '@/components/ServicePageHeader';
 import { getCategoryContent } from '@/data/categoriesContent';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { Link, Navigate, useParams } from 'react-router-dom';
@@ -26,33 +26,12 @@ export default function ServiceCategoryPage() {
         ]}
       />
 
-      {/* Page Header */}
-      <section className="bg-linear-to-br from-primary-600 to-primary-700 py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-              <i className={`bi ${categoryContent.icon}`} />{' '}
-              {categoryContent.badgeText}
-            </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {categoryContent.name}
-            </h1>
-            <p className="text-lg text-white/90 mb-8">
-              {categoryContent.description}
-            </p>
-            {/* Search Box */}
-            <div className="max-w-xl mx-auto">
-              <div className="relative flex items-center">
-                <i className="bi bi-search absolute left-4 text-gray-400 z-10 pointer-events-none" />
-                <SearchAutocomplete
-                  placeholder="Search services (e.g., birth certificate, business permit)"
-                  className="w-full [&_input]:pl-12 [&_input]:pr-4 [&_input]:py-4 [&_input]:rounded-xl [&_input]:text-base [&_input]:border-0 [&_input]:shadow-lg"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServicePageHeader
+        badgeIcon={categoryContent.icon}
+        badgeText={categoryContent.badgeText}
+        title={categoryContent.name}
+        description={categoryContent.description}
+      />
 
       {/* Services Grid */}
       <section className="py-12">

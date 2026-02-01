@@ -150,6 +150,7 @@ export default function ServicesPage() {
                 <SearchAutocomplete
                   placeholder="Search other services..."
                   className="w-full [&_input]:pl-12 [&_input]:pr-4 [&_input]:py-4 [&_input]:rounded-xl [&_input]:text-base [&_input]:border-0 [&_input]:shadow-lg"
+                  initialQuery={initialQuery}
                 />
               </div>
             </div>

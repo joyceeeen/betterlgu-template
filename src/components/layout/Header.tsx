@@ -1,3 +1,4 @@
+import LanguageSelector from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 import { getNavigationConfig } from '@/lib/config';
@@ -13,14 +14,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 const mainNavigation = getNavigationConfig().mainNav;
 
-const LANGUAGES = {
-  en: { nativeName: 'English' },
-  fil: { nativeName: 'Filipino' },
-  ilo: { nativeName: 'Ilocano' },
-} as const;
-
-type LanguageCode = keyof typeof LANGUAGES;
-
 function isActiveRoute(pathname: string, href: string): boolean {
   if (!href) return false;
   if (href === '/') return pathname === '/';
@@ -33,7 +26,7 @@ export default function Header(): JSX.Element {
   const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
 
   const { pathname } = useLocation();
-  const { language, setLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const { site, lguName } = useSiteConfig();
 
   function toggleMenu(): void {
@@ -86,17 +79,7 @@ export default function Header(): JSX.Element {
               Hotlines
             </Link>
             <div className="hidden md:block">
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value as LanguageCode)}
-                className="text-xs border border-gray-300 rounded-sm px-2 py-1 bg-white text-gray-700 hover:border-primary-600 focus:outline-hidden focus:ring-1 focus:ring-primary-600 focus:border-primary-600"
-              >
-                {Object.entries(LANGUAGES).map(([code, lang]) => (
-                  <option key={code} value={code}>
-                    {lang.nativeName}
-                  </option>
-                ))}
-              </select>
+              <LanguageSelector className="text-xs" />
             </div>
           </div>
         </div>
@@ -295,17 +278,7 @@ export default function Header(): JSX.Element {
           <div className="px-4 py-3 border-t border-gray-200">
             <div className="flex items-center">
               <GlobeIcon className="h-5 w-5 text-gray-800 mr-2" />
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value as LanguageCode)}
-                className="text-sm border border-gray-300 rounded-sm px-2 py-1 bg-white text-gray-700 hover:border-primary-600 focus:outline-hidden focus:ring-1 focus:ring-primary-600 focus:border-primary-600"
-              >
-                {Object.entries(LANGUAGES).map(([code, lang]) => (
-                  <option key={code} value={code}>
-                    {lang.nativeName}
-                  </option>
-                ))}
-              </select>
+              <LanguageSelector className="text-sm" />
             </div>
           </div>
         </div>

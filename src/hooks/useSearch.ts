@@ -1,4 +1,5 @@
 import { getServicesConfig } from '@/lib/config';
+import Fuse, { type IFuseOptions } from 'fuse.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 interface Service {
@@ -46,115 +47,21 @@ const CURATED_POPULAR = [
   'slaughterhouse',
 ];
 
-// Tokenize text into searchable words
-function tokenize(text: string): string[] {
-  if (!text) return [];
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s]/g, ' ')
-    .split(/\s+/)
-    .filter((w) => w.length >= 2);
-}
+// Fuse.js configuration for fuzzy search
+const FUSE_OPTIONS: IFuseOptions<Service> = {
+  keys: [
+    { name: 'title', weight: 0.4 },
+    { name: 'keywords', weight: 0.3 },
+    { name: 'category', weight: 0.1 },
+    { name: 'description', weight: 0.1 },
+    { name: 'office', weight: 0.1 },
+  ],
+  threshold: 0.4,
+  includeScore: true,
+  ignoreLocation: true,
+  minMatchCharLength: 2,
+};
 
-// Levenshtein distance for fuzzy matching
-function levenshteinDistance(a: string, b: string): number {
-  if (a.length === 0) return b.length;
-  if (b.length === 0) return a.length;
-
-  const matrix: number[][] = [];
-  for (let i = 0; i <= b.length; i++) {
-    matrix[i] = [i];
-  }
-  for (let j = 0; j <= a.length; j++) {
-    matrix[0][j] = j;
-  }
-
-  for (let i = 1; i <= b.length; i++) {
-    for (let j = 1; j <= a.length; j++) {
-      if (b.charAt(i - 1) === a.charAt(j - 1)) {
-        matrix[i][j] = matrix[i - 1][j - 1];
-      } else {
-        matrix[i][j] = Math.min(
-          matrix[i - 1][j - 1] + 1,
-          matrix[i][j - 1] + 1,
-          matrix[i - 1][j] + 1,
-        );
-      }
-    }
-  }
-  return matrix[b.length][a.length];
-}
-
-// Check if terms are similar (fuzzy match)
-function isFuzzyMatch(term: string, target: string, threshold = 0.3): boolean {
-  if (target.includes(term) || term.includes(target)) return true;
-  if (target.startsWith(term) || term.startsWith(target)) return true;
-
-  const distance = levenshteinDistance(term, target);
-  const maxLen = Math.max(term.length, target.length);
-  const similarity = 1 - distance / maxLen;
-
-  return similarity >= 1 - threshold;
-}
-
-// Calculate search score
-function calculateScore(
-  service: Service,
-  searchTerms: string[],
-  originalQuery: string,
-): number {
-  let score = 0;
-  const titleLower = service.title.toLowerCase();
-  const categoryLower = service.category.toLowerCase();
-  const descLower = (service.description || '').toLowerCase();
-  const officeLower = (service.office || '').toLowerCase();
-  const processingTime = (service.processingTime || '').toLowerCase();
-  const keywords = service.keywords || [];
-  const queryLower = originalQuery.toLowerCase();
-
-  // Exact full query match in title (highest priority)
-  if (titleLower === queryLower) score += 200;
-  else if (titleLower.includes(queryLower)) score += 100;
-
-  for (const term of searchTerms) {
-    // Title scoring
-    if (titleLower === term) score += 80;
-    else if (titleLower.startsWith(term)) score += 60;
-    else if (titleLower.includes(term)) score += 40;
-    else if (isFuzzyMatch(term, titleLower, 0.25)) score += 20;
-
-    // Keyword scoring
-    for (const keyword of keywords) {
-      const kw = keyword.toLowerCase();
-      if (kw === term) score += 35;
-      else if (kw.includes(term)) score += 20;
-      else if (isFuzzyMatch(term, kw, 0.3)) score += 10;
-    }
-
-    // Category scoring
-    if (categoryLower.includes(term)) score += 15;
-    else if (isFuzzyMatch(term, categoryLower, 0.3)) score += 8;
-
-    // Description scoring
-    if (descLower.includes(term)) score += 10;
-
-    // Office scoring
-    if (officeLower.includes(term)) score += 12;
-    else if (isFuzzyMatch(term, officeLower, 0.3)) score += 6;
-
-    // Processing time scoring
-    if (processingTime.includes(term)) score += 8;
-  }
-
-  // Boost for services with more complete data
-  if (service.fee) score += 2;
-  if (service.processingTime) score += 2;
-  if (service.description) score += 1;
-
-  return score;
-}
-
-// Get recent searches from localStorage
 function getRecentSearches(): string[] {
   if (typeof window === 'undefined') return [];
   try {
@@ -165,8 +72,7 @@ function getRecentSearches(): string[] {
   }
 }
 
-// Add to recent searches
-function addRecentSearch(query: string): void {
+function saveRecentSearch(query: string): void {
   if (typeof window === 'undefined' || !query || query.length < 2) return;
 
   try {
@@ -180,8 +86,7 @@ function addRecentSearch(query: string): void {
   }
 }
 
-// Clear recent searches
-function clearRecentSearches(): void {
+function clearStoredRecentSearches(): void {
   if (typeof window === 'undefined') return;
   try {
     localStorage.removeItem(RECENT_SEARCHES_KEY);
@@ -207,49 +112,55 @@ export function useSearch(initialQuery = '') {
 
   const services = useMemo(() => getServicesConfig().services as Service[], []);
 
-  // Search function
+  // Create Fuse instance for fuzzy search
+  const fuse = useMemo(() => new Fuse(services, FUSE_OPTIONS), [services]);
+
+  // Create Fuse instance for suggestion matching
+  const suggestionFuse = useMemo(
+    () =>
+      new Fuse(
+        [...services.map((s) => s.title), ...CURATED_POPULAR].map((text) => ({
+          text,
+        })),
+        { keys: ['text'], threshold: 0.4, includeScore: true },
+      ),
+    [services],
+  );
+
   const search = useCallback(
-    (searchQuery: string, category?: string) => {
+    (searchQuery: string, categoryFilter?: string): SearchResult[] => {
       if (!searchQuery || searchQuery.length < 2) {
         setResults([]);
         return [];
       }
 
-      const searchTerms = tokenize(searchQuery);
-      if (searchTerms.length === 0) {
-        setResults([]);
-        return [];
+      let fuseResults = fuse.search(searchQuery);
+
+      // Apply category filter
+      if (categoryFilter) {
+        fuseResults = fuseResults.filter((result) => {
+          const service = result.item;
+          return (
+            service.categoryId === categoryFilter ||
+            service.category.toLowerCase().includes(categoryFilter.toLowerCase())
+          );
+        });
       }
 
-      const searchResults: SearchResult[] = [];
+      const searchResults: SearchResult[] = fuseResults
+        .slice(0, 10)
+        .map((result) => ({
+          ...result.item,
+          score: 1 - (result.score ?? 0), // Convert Fuse score (0 = perfect) to higher-is-better
+          _query: searchQuery,
+        }));
 
-      for (const service of services) {
-        // Category filter
-        if (
-          category &&
-          service.categoryId !== category &&
-          !service.category.toLowerCase().includes(category.toLowerCase())
-        ) {
-          continue;
-        }
-
-        const score = calculateScore(service, searchTerms, searchQuery);
-        if (score > 0) {
-          searchResults.push({ ...service, score, _query: searchQuery });
-        }
-      }
-
-      const sorted = searchResults
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 10);
-
-      setResults(sorted);
-      return sorted;
+      setResults(searchResults);
+      return searchResults;
     },
-    [services],
+    [fuse],
   );
 
-  // Get suggestions
   const getSuggestions = useCallback(
     (searchQuery: string): SearchSuggestions => {
       if (!searchQuery || searchQuery.length < 1) {
@@ -260,49 +171,34 @@ export function useSearch(initialQuery = '') {
         };
       }
 
-      const queryLower = searchQuery.toLowerCase();
-      const suggestionSet = new Set<string>();
-
-      // Add matching service titles
-      for (const service of services) {
-        if (service.title.toLowerCase().includes(queryLower)) {
-          suggestionSet.add(service.title);
-        }
-      }
-
-      // Add fuzzy matches from popular searches
-      for (const term of CURATED_POPULAR) {
-        if (term.includes(queryLower) || isFuzzyMatch(queryLower, term, 0.4)) {
-          suggestionSet.add(term);
-        }
-      }
+      const fuseResults = suggestionFuse.search(searchQuery);
+      const uniqueSuggestions = [
+        ...new Set(fuseResults.slice(0, 8).map((r) => r.item.text)),
+      ];
 
       return {
         popular: [],
         recent: [],
-        suggestions: Array.from(suggestionSet).slice(0, 8),
+        suggestions: uniqueSuggestions,
       };
     },
-    [services],
+    [suggestionFuse],
   );
 
   // Update suggestions when query changes
   useEffect(() => {
-    const newSuggestions = getSuggestions(query);
-    setSuggestions(newSuggestions);
+    setSuggestions(getSuggestions(query));
   }, [query, getSuggestions]);
 
-  // Trigger initial search if mounted with a query
+  // Trigger initial search if mounted with a query (mount-only effect)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Intentionally runs only on mount
   useEffect(() => {
     if (initialQuery && initialQuery.length >= 2) {
       search(initialQuery, category);
       setIsOpen(true);
     }
-    // Only run on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Handle query change
   const handleQueryChange = useCallback(
     (newQuery: string) => {
       setQuery(newQuery);
@@ -317,7 +213,6 @@ export function useSearch(initialQuery = '') {
     [search, category],
   );
 
-  // Handle category change
   const handleCategoryChange = useCallback(
     (newCategory: string) => {
       setCategory(newCategory);
@@ -330,29 +225,26 @@ export function useSearch(initialQuery = '') {
     [search, query],
   );
 
-  // Handle search submit
   const handleSubmit = useCallback(
     (searchQuery?: string) => {
       const q = searchQuery || query;
       if (q.length >= 2) {
-        addRecentSearch(q);
+        saveRecentSearch(q);
         search(q);
       }
     },
     [query, search],
   );
 
-  // Handle suggestion click
   const handleSuggestionClick = useCallback(
     (suggestion: string) => {
       setQuery(suggestion);
       search(suggestion);
-      addRecentSearch(suggestion);
+      saveRecentSearch(suggestion);
     },
     [search],
   );
 
-  // Handle keyboard navigation - returns URL to navigate to (if any)
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent): string | null => {
       const totalItems =
@@ -361,41 +253,53 @@ export function useSearch(initialQuery = '') {
         suggestions.recent.length +
         suggestions.popular.length;
 
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        setSelectedIndex((prev) => Math.min(prev + 1, totalItems - 1));
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        setSelectedIndex((prev) => Math.max(prev - 1, -1));
-      } else if (e.key === 'Enter') {
-        if (selectedIndex >= 0) {
+      switch (e.key) {
+        case 'ArrowDown':
           e.preventDefault();
-          // Handle selection based on index
-          if (results.length > 0 && selectedIndex < results.length) {
-            addRecentSearch(query);
-            const url = results[selectedIndex].url;
+          setSelectedIndex((prev) => Math.min(prev + 1, totalItems - 1));
+          break;
+
+        case 'ArrowUp':
+          e.preventDefault();
+          setSelectedIndex((prev) => Math.max(prev - 1, -1));
+          break;
+
+        case 'Enter': {
+          const hasSelection = selectedIndex >= 0;
+          const targetIndex = hasSelection ? selectedIndex : 0;
+
+          if (results.length > 0 && targetIndex < results.length) {
+            e.preventDefault();
+            saveRecentSearch(query);
+            const url = results[targetIndex].url;
             setPendingNavigation(url);
             return url;
           }
-        } else if (results.length > 0) {
-          e.preventDefault();
-          addRecentSearch(query);
-          const url = results[0].url;
-          setPendingNavigation(url);
-          return url;
+          break;
         }
-      } else if (e.key === 'Escape') {
-        setIsOpen(false);
-        setSelectedIndex(-1);
+
+        case 'Escape':
+          setIsOpen(false);
+          setSelectedIndex(-1);
+          break;
       }
+
       return null;
     },
     [results, suggestions, selectedIndex, query],
   );
 
-  // Clear pending navigation after it's been handled
   const clearPendingNavigation = useCallback(() => {
     setPendingNavigation(null);
+  }, []);
+
+  const clearRecentSearches = useCallback(() => {
+    clearStoredRecentSearches();
+    setSuggestions((prev) => ({ ...prev, recent: [] }));
+  }, []);
+
+  const addRecentSearch = useCallback((q: string) => {
+    saveRecentSearch(q);
   }, []);
 
   return {
@@ -420,19 +324,23 @@ export function useSearch(initialQuery = '') {
   };
 }
 
-// Highlight matching text
+// Highlight matching text using Fuse.js-compatible approach
 export function highlightMatch(text: string, query: string): string {
-  if (!query) return text;
-  const terms = tokenize(query);
+  if (!query || query.length < 2) return text;
+
+  const terms = query
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((t) => t.length >= 2);
+
   let result = text;
   for (const term of terms) {
-    if (term.length >= 2) {
-      const regex = new RegExp(
-        `(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
-        'gi',
-      );
-      result = result.replace(regex, '<mark>$1</mark>');
-    }
+    const regex = new RegExp(
+      `(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
+      'gi',
+    );
+    result = result.replace(regex, '<mark>$1</mark>');
   }
+
   return result;
 }
